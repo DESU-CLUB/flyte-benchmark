@@ -1,0 +1,203 @@
+Collecting pluggy
+  Downloading pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+Collecting pytest==8.4.1
+  Downloading pytest-8.4.1-py3-none-any.whl.metadata (7.7 kB)
+Collecting pytest-json-ctrf==0.3.5
+  Downloading pytest_json_ctrf-0.3.5-py3-none-any.whl.metadata (3.3 kB)
+Collecting pochi-verifier
+  Downloading pochi_verifier-0.2.0-py3-none-any.whl.metadata (3.0 kB)
+Collecting iniconfig>=1 (from pytest==8.4.1)
+  Downloading iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting packaging>=20 (from pytest==8.4.1)
+  Downloading packaging-26.2-py3-none-any.whl.metadata (3.5 kB)
+Collecting pygments>=2.7.2 (from pytest==8.4.1)
+  Using cached pygments-2.20.0-py3-none-any.whl.metadata (2.5 kB)
+Downloading pytest-8.4.1-py3-none-any.whl (365 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 365.5/365.5 kB 3.0 MB/s eta 0:00:00
+Downloading pytest_json_ctrf-0.3.5-py3-none-any.whl (6.8 kB)
+Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+Downloading pochi_verifier-0.2.0-py3-none-any.whl (5.9 kB)
+Downloading iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+Downloading packaging-26.2-py3-none-any.whl (100 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.2/100.2 kB 10.2 MB/s eta 0:00:00
+Using cached pygments-2.20.0-py3-none-any.whl (1.2 MB)
+Installing collected packages: pygments, pochi-verifier, pluggy, packaging, iniconfig, pytest, pytest-json-ctrf
+Successfully installed iniconfig-2.3.0 packaging-26.2 pluggy-1.6.0 pochi-verifier-0.2.0 pygments-2.20.0 pytest-8.4.1 pytest-json-ctrf-0.3.5
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5, anyio-4.13.0
+collected 8 items
+
+tests/test_final_state.py FFFFFFFF                                       [100%]
+
+=================================== FAILURES ===================================
+__________________________ test_mapreduce_file_exists __________________________
+
+    def test_mapreduce_file_exists():
+        """mapreduce.py must exist in the project directory."""
+>       assert os.path.isfile(MAPREDUCE_FILE), (
+            f"Expected '{MAPREDUCE_FILE}' to exist, but it was not found."
+        )
+E       AssertionError: Expected '/home/user/flyte_project/mapreduce.py' to exist, but it was not found.
+E       assert False
+E        +  where False = <function isfile at 0xfc4405550220>('/home/user/flyte_project/mapreduce.py')
+E        +    where <function isfile at 0xfc4405550220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:22: AssertionError
+_______________________ test_mapreduce_runs_successfully _______________________
+
+    def test_mapreduce_runs_successfully():
+        """Running mapreduce.py with python3 must exit with returncode 0."""
+        result = subprocess.run(
+            ["python3", MAPREDUCE_FILE],
+            capture_output=True,
+            text=True,
+            timeout=120,
+        )
+>       assert result.returncode == 0, (
+            f"mapreduce.py exited with code {result.returncode}.\n"
+            f"stdout:\n{result.stdout}\n"
+            f"stderr:\n{result.stderr}"
+        )
+E       AssertionError: mapreduce.py exited with code 2.
+E         stdout:
+E         
+E         stderr:
+E         python3: can't open file '/home/user/flyte_project/mapreduce.py': [Errno 2] No such file or directory
+E         
+E       assert 2 == 0
+E        +  where 2 = CompletedProcess(args=['python3', '/home/user/flyte_project/mapreduce.py'], returncode=2, stdout='', stderr="python3: can't open file '/home/user/flyte_project/mapreduce.py': [Errno 2] No such file or directory\n").returncode
+
+tests/test_final_state.py:39: AssertionError
+___________________________ test_output_file_exists ____________________________
+
+    def test_output_file_exists():
+        """wordcount.json must be created after running the pipeline."""
+>       assert os.path.isfile(OUTPUT_FILE), (
+            f"Expected '{OUTPUT_FILE}' to exist, but it was not found."
+        )
+E       AssertionError: Expected '/home/user/flyte_project/wordcount.json' to exist, but it was not found.
+E       assert False
+E        +  where False = <function isfile at 0xfc4405550220>('/home/user/flyte_project/wordcount.json')
+E        +    where <function isfile at 0xfc4405550220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:60: AssertionError
+__________________________ test_total_words_is_eleven __________________________
+
+    def test_total_words_is_eleven():
+        """total_words must equal 11 for the sample input text."""
+>       data = _load_output()
+               ^^^^^^^^^^^^^^
+
+tests/test_final_state.py:67: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _load_output() -> dict:
+>       assert os.path.isfile(OUTPUT_FILE), (
+            f"Expected output file '{OUTPUT_FILE}' to exist after running mapreduce.py."
+        )
+E       AssertionError: Expected output file '/home/user/flyte_project/wordcount.json' to exist after running mapreduce.py.
+E       assert False
+E        +  where False = <function isfile at 0xfc4405550220>('/home/user/flyte_project/wordcount.json')
+E        +    where <function isfile at 0xfc4405550220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:51: AssertionError
+__________________________ test_unique_words_is_nine ___________________________
+
+    def test_unique_words_is_nine():
+        """unique_words must equal 9 for the sample input text."""
+>       data = _load_output()
+               ^^^^^^^^^^^^^^
+
+tests/test_final_state.py:79: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _load_output() -> dict:
+>       assert os.path.isfile(OUTPUT_FILE), (
+            f"Expected output file '{OUTPUT_FILE}' to exist after running mapreduce.py."
+        )
+E       AssertionError: Expected output file '/home/user/flyte_project/wordcount.json' to exist after running mapreduce.py.
+E       assert False
+E        +  where False = <function isfile at 0xfc4405550220>('/home/user/flyte_project/wordcount.json')
+E        +    where <function isfile at 0xfc4405550220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:51: AssertionError
+_________________________ test_frequency_the_is_three __________________________
+
+    def test_frequency_the_is_three():
+        """frequencies['the'] must equal 3."""
+>       data = _load_output()
+               ^^^^^^^^^^^^^^
+
+tests/test_final_state.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _load_output() -> dict:
+>       assert os.path.isfile(OUTPUT_FILE), (
+            f"Expected output file '{OUTPUT_FILE}' to exist after running mapreduce.py."
+        )
+E       AssertionError: Expected output file '/home/user/flyte_project/wordcount.json' to exist after running mapreduce.py.
+E       assert False
+E        +  where False = <function isfile at 0xfc4405550220>('/home/user/flyte_project/wordcount.json')
+E        +    where <function isfile at 0xfc4405550220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:51: AssertionError
+__________________________ test_frequency_fox_is_two ___________________________
+
+    def test_frequency_fox_is_two():
+        """frequencies['fox'] must equal 2."""
+>       data = _load_output()
+               ^^^^^^^^^^^^^^
+
+tests/test_final_state.py:107: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _load_output() -> dict:
+>       assert os.path.isfile(OUTPUT_FILE), (
+            f"Expected output file '{OUTPUT_FILE}' to exist after running mapreduce.py."
+        )
+E       AssertionError: Expected output file '/home/user/flyte_project/wordcount.json' to exist after running mapreduce.py.
+E       assert False
+E        +  where False = <function isfile at 0xfc4405550220>('/home/user/flyte_project/wordcount.json')
+E        +    where <function isfile at 0xfc4405550220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:51: AssertionError
+_________________________ test_frequency_quick_is_one __________________________
+
+    def test_frequency_quick_is_one():
+        """frequencies['quick'] must equal 1."""
+>       data = _load_output()
+               ^^^^^^^^^^^^^^
+
+tests/test_final_state.py:123: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _load_output() -> dict:
+>       assert os.path.isfile(OUTPUT_FILE), (
+            f"Expected output file '{OUTPUT_FILE}' to exist after running mapreduce.py."
+        )
+E       AssertionError: Expected output file '/home/user/flyte_project/wordcount.json' to exist after running mapreduce.py.
+E       assert False
+E        +  where False = <function isfile at 0xfc4405550220>('/home/user/flyte_project/wordcount.json')
+E        +    where <function isfile at 0xfc4405550220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:51: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_mapreduce_file_exists - AssertionError...
+FAILED tests/test_final_state.py::test_mapreduce_runs_successfully - Assertio...
+FAILED tests/test_final_state.py::test_output_file_exists - AssertionError: E...
+FAILED tests/test_final_state.py::test_total_words_is_eleven - AssertionError...
+FAILED tests/test_final_state.py::test_unique_words_is_nine - AssertionError:...
+FAILED tests/test_final_state.py::test_frequency_the_is_three - AssertionErro...
+FAILED tests/test_final_state.py::test_frequency_fox_is_two - AssertionError:...
+FAILED tests/test_final_state.py::test_frequency_quick_is_one - AssertionErro...
+============================== 8 failed in 0.03s ===============================

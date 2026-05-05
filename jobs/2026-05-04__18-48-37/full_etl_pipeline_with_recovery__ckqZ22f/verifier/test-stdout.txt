@@ -1,0 +1,119 @@
+Collecting pluggy
+  Downloading pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+Collecting pytest==8.4.1
+  Downloading pytest-8.4.1-py3-none-any.whl.metadata (7.7 kB)
+Collecting pytest-json-ctrf==0.3.5
+  Downloading pytest_json_ctrf-0.3.5-py3-none-any.whl.metadata (3.3 kB)
+Collecting pochi-verifier
+  Downloading pochi_verifier-0.2.0-py3-none-any.whl.metadata (3.0 kB)
+Collecting iniconfig>=1 (from pytest==8.4.1)
+  Downloading iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting packaging>=20 (from pytest==8.4.1)
+  Using cached packaging-26.2-py3-none-any.whl.metadata (3.5 kB)
+Collecting pygments>=2.7.2 (from pytest==8.4.1)
+  Using cached pygments-2.20.0-py3-none-any.whl.metadata (2.5 kB)
+Downloading pytest-8.4.1-py3-none-any.whl (365 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 365.5/365.5 kB 2.8 MB/s eta 0:00:00
+Downloading pytest_json_ctrf-0.3.5-py3-none-any.whl (6.8 kB)
+Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+Downloading pochi_verifier-0.2.0-py3-none-any.whl (5.9 kB)
+Downloading iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+Using cached packaging-26.2-py3-none-any.whl (100 kB)
+Using cached pygments-2.20.0-py3-none-any.whl (1.2 MB)
+Installing collected packages: pygments, pochi-verifier, pluggy, packaging, iniconfig, pytest, pytest-json-ctrf
+Successfully installed iniconfig-2.3.0 packaging-26.2 pluggy-1.6.0 pochi-verifier-0.2.0 pygments-2.20.0 pytest-8.4.1 pytest-json-ctrf-0.3.5
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5, anyio-4.13.0
+collected 7 items
+
+../../../tests/test_final_state.py .FF.FFF                               [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_main_file_exists _____________________________
+
+    def test_main_file_exists():
+        """main.py must exist in the project directory."""
+>       assert os.path.isfile(MAIN_FILE), (
+            f"Expected '{MAIN_FILE}' to exist, but it was not found."
+        )
+E       AssertionError: Expected '/home/user/flyte_project/main.py' to exist, but it was not found.
+E       assert False
+E        +  where False = <function isfile at 0xfe9267080220>('/home/user/flyte_project/main.py')
+E        +    where <function isfile at 0xfe9267080220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+/tests/test_final_state.py:30: AssertionError
+_________________________ test_main_runs_successfully __________________________
+
+    def test_main_runs_successfully():
+        """Running main.py with python3 must exit with returncode 0."""
+        result = subprocess.run(
+            ["python3", MAIN_FILE],
+            capture_output=True,
+            text=True,
+            timeout=120,
+        )
+>       assert result.returncode == 0, (
+            f"main.py exited with code {result.returncode}.\n"
+            f"stdout:\n{result.stdout}\n"
+            f"stderr:\n{result.stderr}"
+        )
+E       AssertionError: main.py exited with code 2.
+E         stdout:
+E         
+E         stderr:
+E         python3: can't open file '/home/user/flyte_project/main.py': [Errno 2] No such file or directory
+E         
+E       assert 2 == 0
+E        +  where 2 = CompletedProcess(args=['python3', '/home/user/flyte_project/main.py'], returncode=2, stdout='', stderr="python3: can't open file '/home/user/flyte_project/main.py': [Errno 2] No such file or directory\n").returncode
+
+/tests/test_final_state.py:47: AssertionError
+_________________________ test_warehouse_status_loaded _________________________
+
+    def test_warehouse_status_loaded():
+        """The output must contain warehouse_status == 'loaded'."""
+        data = _load_output()
+        assert "warehouse_status" in data, (
+>           f"'warehouse_status' key missing from output. Got keys: {list(data.keys())}"
+                                                                          ^^^^^^^^^
+        )
+E       AttributeError: 'list' object has no attribute 'keys'
+
+/tests/test_final_state.py:77: AttributeError
+____________________ test_sources_contain_database_and_api _____________________
+
+    def test_sources_contain_database_and_api():
+        """The output sources list must include 'database' and 'api'."""
+        data = _load_output()
+        assert "sources" in data, (
+>           f"'sources' key missing from output. Got keys: {list(data.keys())}"
+                                                                 ^^^^^^^^^
+        )
+E       AttributeError: 'list' object has no attribute 'keys'
+
+/tests/test_final_state.py:88: AttributeError
+_________________________ test_total_records_is_twelve _________________________
+
+    def test_total_records_is_twelve():
+        """total_records must equal 12 (7 from database + 5 from api)."""
+        data = _load_output()
+        assert "total_records" in data, (
+>           f"'total_records' key missing from output. Got keys: {list(data.keys())}"
+                                                                       ^^^^^^^^^
+        )
+E       AttributeError: 'list' object has no attribute 'keys'
+
+/tests/test_final_state.py:103: AttributeError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED ../../../tests/test_final_state.py::test_etl_pipeline_file_exists
+PASSED ../../../tests/test_final_state.py::test_output_file_exists
+FAILED ../../../tests/test_final_state.py::test_main_file_exists - AssertionE...
+FAILED ../../../tests/test_final_state.py::test_main_runs_successfully - Asse...
+FAILED ../../../tests/test_final_state.py::test_warehouse_status_loaded - Att...
+FAILED ../../../tests/test_final_state.py::test_sources_contain_database_and_api
+FAILED ../../../tests/test_final_state.py::test_total_records_is_twelve - Att...
+========================= 5 failed, 2 passed in 0.03s ==========================

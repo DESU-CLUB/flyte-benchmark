@@ -1,0 +1,5 @@
+flytekit
+pandas
+scikit-learn
+pyarrow
+dataclasses-json

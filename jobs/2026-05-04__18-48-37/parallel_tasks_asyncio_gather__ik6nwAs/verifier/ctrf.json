@@ -1,0 +1,92 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777946298.8075943,
+            "stop": 1777946298.8790607
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_parallel_pipeline_script_exists",
+                "status": "passed",
+                "duration": 0.0003548749955371022,
+                "start": 1777946298.815702,
+                "stop": 1777946298.8162153,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_runs_without_error",
+                "status": "passed",
+                "duration": 0.05961090594064444,
+                "start": 1777946298.8162978,
+                "stop": 1777946298.876124,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_json_exists",
+                "status": "passed",
+                "duration": 0.0002562080044299364,
+                "start": 1777946298.8762465,
+                "stop": 1777946298.876604,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_is_valid_json",
+                "status": "passed",
+                "duration": 0.00026691704988479614,
+                "start": 1777946298.8766658,
+                "stop": 1777946298.8770297,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_total_sources_equals_three",
+                "status": "passed",
+                "duration": 0.00027562398463487625,
+                "start": 1777946298.877088,
+                "stop": 1777946298.877484,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_total_records_equals_140",
+                "status": "passed",
+                "duration": 0.00031116604804992676,
+                "start": 1777946298.8775458,
+                "stop": 1777946298.8779807,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_sources_list_contains_all_inputs",
+                "status": "passed",
+                "duration": 0.00027854088693857193,
+                "start": 1777946298.878056,
+                "stop": 1777946298.8784435,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_asyncio_gather_used_in_source",
+                "status": "passed",
+                "duration": 0.0002887089503929019,
+                "start": 1777946298.8785021,
+                "stop": 1777946298.878901,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

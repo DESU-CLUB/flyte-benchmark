@@ -1,0 +1,101 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777946750.423379,
+            "stop": 1777946750.5166178
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_image_config_py_exists",
+                "status": "passed",
+                "duration": 0.0002684589708223939,
+                "start": 1777946750.4290955,
+                "stop": 1777946750.4295058,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_image_config_runs_successfully",
+                "status": "passed",
+                "duration": 0.0586238979594782,
+                "start": 1777946750.4295769,
+                "stop": 1777946750.4884565,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_model_config_json_exists",
+                "status": "passed",
+                "duration": 0.0003196250181645155,
+                "start": 1777946750.4885657,
+                "stop": 1777946750.489018,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_model_type_is_logistic_regression",
+                "status": "passed",
+                "duration": 0.0002940830308943987,
+                "start": 1777946750.489092,
+                "stop": 1777946750.4894903,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_n_samples_is_100",
+                "status": "passed",
+                "duration": 0.0002738749608397484,
+                "start": 1777946750.4895434,
+                "stop": 1777946750.48995,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_n_features_is_5",
+                "status": "passed",
+                "duration": 0.00025170890148729086,
+                "start": 1777946750.4900014,
+                "stop": 1777946750.4903498,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_model_env_is_production",
+                "status": "passed",
+                "duration": 0.00025345897302031517,
+                "start": 1777946750.4904,
+                "stop": 1777946750.490762,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_env_image_is_not_none",
+                "status": "passed",
+                "duration": 0.024660825030878186,
+                "start": 1777946750.4908123,
+                "stop": 1777946750.5157025,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_image_has_pandas_and_sklearn_pip_packages",
+                "status": "passed",
+                "duration": 0.0005190409719944,
+                "start": 1777946750.515802,
+                "stop": 1777946750.5164573,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

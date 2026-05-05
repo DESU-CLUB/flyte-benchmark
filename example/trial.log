@@ -1,0 +1,85 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo task_21__6fTEXiw > /logs/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.5": {
+          "name": "kimi-K2.5"
+        },
+        "Qwen/Qwen3-Coder-480B-A35B-Instruct": {
+          "name": "qwen3-coder-480b"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Mastra Calculator Agent
+
+## Background
+Mastra provides a unified ecosystem for building AI agents with tools. In this task, you will create a simple Calculator Tool and attach it to an agent.
+
+## Requirements
+- Initialize a Node.js project in `/home/user/calculator-agent`.
+- Install `@mastra/core`, `zod`, and `tsx`.
+- Create a file `index.ts` that defines a `calculatorTool` using `createTool` from `@mastra/core`.
+- The tool should take an `inputSchema` with `a` (number), `b` (number), and `operation` (string: 'add', 'subtract', 'multiply', 'divide').
+- The `execute` function should perform the calculation and return `{ result: number }`.
+- Create an `Agent` using `@mastra/core/agent` with the `calculatorTool`.
+- Use the model `openai/gpt-4o-mini` (or similar) and instruct it to use the calculator tool to answer math questions.
+- The script should ask the agent "What is 15 multiplied by 7?" using `await agent.generate(...)`.
+- Write the resulting text output to `/home/user/calculator-agent/output.log`.
+
+## Constraints
+- Project path: `/home/user/calculator-agent`
+- Log file: `/home/user/calculator-agent/output.log`
+- You must use `createTool` and `Agent` from Mastra.
+- Set the `OPENAI_API_KEY` environment variable for the agent to work.
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

@@ -1,0 +1,247 @@
+Collecting pluggy
+  Downloading pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+Collecting pytest==8.4.1
+  Downloading pytest-8.4.1-py3-none-any.whl.metadata (7.7 kB)
+Collecting pytest-json-ctrf==0.3.5
+  Downloading pytest_json_ctrf-0.3.5-py3-none-any.whl.metadata (3.3 kB)
+Collecting pochi-verifier
+  Downloading pochi_verifier-0.2.0-py3-none-any.whl.metadata (3.0 kB)
+Collecting iniconfig>=1 (from pytest==8.4.1)
+  Downloading iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting packaging>=20 (from pytest==8.4.1)
+  Downloading packaging-26.2-py3-none-any.whl.metadata (3.5 kB)
+Collecting pygments>=2.7.2 (from pytest==8.4.1)
+  Downloading pygments-2.20.0-py3-none-any.whl.metadata (2.5 kB)
+Downloading pytest-8.4.1-py3-none-any.whl (365 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 365.5/365.5 kB 2.0 MB/s eta 0:00:00
+Downloading pytest_json_ctrf-0.3.5-py3-none-any.whl (6.8 kB)
+Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+Downloading pochi_verifier-0.2.0-py3-none-any.whl (5.9 kB)
+Downloading iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+Downloading packaging-26.2-py3-none-any.whl (100 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.2/100.2 kB 9.4 MB/s eta 0:00:00
+Downloading pygments-2.20.0-py3-none-any.whl (1.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 9.4 MB/s eta 0:00:00
+Installing collected packages: pygments, pochi-verifier, pluggy, packaging, iniconfig, pytest, pytest-json-ctrf
+Successfully installed iniconfig-2.3.0 packaging-26.2 pluggy-1.6.0 pochi-verifier-0.2.0 pygments-2.20.0 pytest-8.4.1 pytest-json-ctrf-0.3.5
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5, anyio-4.13.0
+collected 11 items
+
+../../tests/test_final_state.py .FFFFFFFFF.                              [100%]
+
+=================================== FAILURES ===================================
+________________________ test_script_runs_without_error ________________________
+
+    def test_script_runs_without_error():
+        """Priority 1: Execute the agent's script and assert it exits cleanly."""
+        result = subprocess.run(
+            ["python3", SCRIPT_PATH],
+            capture_output=True,
+            text=True,
+            cwd=PROJECT_DIR,
+        )
+>       assert result.returncode == 0, (
+            f"python3 ml_pipeline.py exited with code {result.returncode}.\n"
+            f"stdout: {result.stdout.strip()}\n"
+            f"stderr: {result.stderr.strip()}"
+        )
+E       AssertionError: python3 ml_pipeline.py exited with code 1.
+E         stdout: Filtered traceback (most recent call last):
+E         TypeError: Cache.__init__() got an unexpected keyword argument 'ttl'
+E         stderr: File "/home/user/flyte_project/ml_pipeline.py", line 20, in <module>
+E             @env.task(cache=flyte.Cache(ttl=datetime.timedelta(hours=1), version="v1"))
+E                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python3', '/home/user/flyte_project/ml_pipeline.py'], returncode=1, stdout="Filtered traceback....timedelta(hours=1), version="v1"))\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n').returncode
+
+/tests/test_final_state.py:54: AssertionError
+________________________ test_experiment_report_exists _________________________
+
+    def test_experiment_report_exists():
+        """Priority 4 (existence gate): experiment_report.json must exist after running the script."""
+>       assert os.path.isfile(REPORT_PATH), (
+            f"Expected /home/user/flyte_project/experiment_report.json to exist after running "
+            "ml_pipeline.py, but it was not found."
+        )
+E       AssertionError: Expected /home/user/flyte_project/experiment_report.json to exist after running ml_pipeline.py, but it was not found.
+E       assert False
+E        +  where False = <function isfile at 0xf47623f30220>('/home/user/flyte_project/experiment_report.json')
+E        +    where <function isfile at 0xf47623f30220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+/tests/test_final_state.py:67: AssertionError
+__________________________ test_report_is_valid_json ___________________________
+
+    def test_report_is_valid_json():
+        """Priority 1 (runtime output): experiment_report.json must be parseable JSON."""
+        try:
+>           data = _load_report()
+                   ^^^^^^^^^^^^^^
+
+/tests/test_final_state.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _load_report() -> dict:
+        """Parse the JSON report file produced by the agent's script."""
+>       with open(REPORT_PATH) as f:
+             ^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/experiment_report.json'
+
+/tests/test_final_state.py:19: FileNotFoundError
+_____________________ test_report_type_is_model_selection ______________________
+
+    def test_report_type_is_model_selection():
+        """Priority 1 (runtime output): report_type must equal 'model_selection'."""
+>       data = _load_report()
+               ^^^^^^^^^^^^^^
+
+/tests/test_final_state.py:93: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _load_report() -> dict:
+        """Parse the JSON report file produced by the agent's script."""
+>       with open(REPORT_PATH) as f:
+             ^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/experiment_report.json'
+
+/tests/test_final_state.py:19: FileNotFoundError
+____________________ test_candidates_evaluated_equals_three ____________________
+
+    def test_candidates_evaluated_equals_three():
+        """Priority 1 (runtime output): candidates_evaluated must be 3 (lr, rf, nn)."""
+>       data = _load_report()
+               ^^^^^^^^^^^^^^
+
+/tests/test_final_state.py:104: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _load_report() -> dict:
+        """Parse the JSON report file produced by the agent's script."""
+>       with open(REPORT_PATH) as f:
+             ^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/experiment_report.json'
+
+/tests/test_final_state.py:19: FileNotFoundError
+_________________________ test_accuracy_in_valid_range _________________________
+
+    def test_accuracy_in_valid_range():
+        """Priority 1 (runtime output): accuracy must be > 0.0 and <= 0.99."""
+>       data = _load_report()
+               ^^^^^^^^^^^^^^
+
+/tests/test_final_state.py:115: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _load_report() -> dict:
+        """Parse the JSON report file produced by the agent's script."""
+>       with open(REPORT_PATH) as f:
+             ^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/experiment_report.json'
+
+/tests/test_final_state.py:19: FileNotFoundError
+_______________________ test_winner_is_valid_model_type ________________________
+
+    def test_winner_is_valid_model_type():
+        """Priority 1 (runtime output): winner must be one of ['lr', 'rf', 'nn']."""
+>       data = _load_report()
+               ^^^^^^^^^^^^^^
+
+/tests/test_final_state.py:133: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _load_report() -> dict:
+        """Parse the JSON report file produced by the agent's script."""
+>       with open(REPORT_PATH) as f:
+             ^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/experiment_report.json'
+
+/tests/test_final_state.py:19: FileNotFoundError
+______________________________ test_winner_is_rf _______________________________
+
+    def test_winner_is_rf():
+        """Priority 1 (runtime output): winner must be 'rf'.
+    
+        Accuracy breakdown:
+          lr: 0.01 * 100 * 0.1 = 0.10
+          rf: 0.1  *  50 * 0.1 = 0.50  ← highest
+          nn: 0.001* 200 * 0.1 = 0.02
+        The select_best_model task must pick 'rf'.
+        """
+>       data = _load_report()
+               ^^^^^^^^^^^^^^
+
+/tests/test_final_state.py:151: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _load_report() -> dict:
+        """Parse the JSON report file produced by the agent's script."""
+>       with open(REPORT_PATH) as f:
+             ^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/experiment_report.json'
+
+/tests/test_final_state.py:19: FileNotFoundError
+_______________________ test_train_model_has_flyte_cache _______________________
+
+    def test_train_model_has_flyte_cache():
+        """Priority 1 (runtime import): train_model.cache must be an instance of flyte.Cache.
+    
+        The @env.task(cache=flyte.Cache(...)) decorator exposes the cache object on
+        the decorated task object so the verifier can confirm it was wired correctly.
+        """
+        import flyte  # already installed in the environment
+    
+>       mod = _load_module()
+              ^^^^^^^^^^^^^^
+
+/tests/test_final_state.py:170: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/tests/test_final_state.py:27: in _load_module
+    spec.loader.exec_module(mod)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap>:488: in _call_with_frames_removed
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import asyncio
+    import datetime
+    import json
+    import flyte
+    
+    # 1. Setup
+    env = flyte.TaskEnvironment("ml-training", resources=flyte.Resources(cpu=4, memory="8Gi"))
+    
+    # 2. Task: generate_dataset
+    @env.task
+    async def generate_dataset(n_samples: int, n_features: int) -> dict:
+        return {
+            "X": [[float(i + j) for j in range(n_features)] for i in range(n_samples)],
+            "y": [i % 2 for i in range(n_samples)],
+            "n_samples": n_samples,
+            "n_features": n_features,
+        }
+    
+    # 3. Task: train_model (with cache)
+>   @env.task(cache=flyte.Cache(ttl=datetime.timedelta(hours=1), version="v1"))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: Cache.__init__() got an unexpected keyword argument 'ttl'
+
+flyte_project/ml_pipeline.py:20: TypeError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED ../../tests/test_final_state.py::test_ml_pipeline_script_exists
+PASSED ../../tests/test_final_state.py::test_asyncio_gather_used_in_source
+FAILED ../../tests/test_final_state.py::test_script_runs_without_error - Asse...
+FAILED ../../tests/test_final_state.py::test_experiment_report_exists - Asser...
+FAILED ../../tests/test_final_state.py::test_report_is_valid_json - FileNotFo...
+FAILED ../../tests/test_final_state.py::test_report_type_is_model_selection
+FAILED ../../tests/test_final_state.py::test_candidates_evaluated_equals_three
+FAILED ../../tests/test_final_state.py::test_accuracy_in_valid_range - FileNo...
+FAILED ../../tests/test_final_state.py::test_winner_is_valid_model_type - Fil...
+FAILED ../../tests/test_final_state.py::test_winner_is_rf - FileNotFoundError...
+FAILED ../../tests/test_final_state.py::test_train_model_has_flyte_cache - Ty...
+========================= 9 failed, 2 passed in 0.12s ==========================

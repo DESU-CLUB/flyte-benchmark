@@ -1,0 +1,137 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 1,
+            "failed": 9,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777946401.793899,
+            "stop": 1777946401.9145412
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_cached_pipeline_script_exists",
+                "status": "passed",
+                "duration": 0.00043583381921052933,
+                "start": 1777946401.8005772,
+                "stop": 1777946401.8011982,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_runs_without_error",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.058064208016730845,
+                "start": 1777946401.8012931,
+                "stop": 1777946401.8655314,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_runs_without_error():\n        \"\"\"Priority 1: Execute the agent's script and assert it exits cleanly.\"\"\"\n        result = subprocess.run(\n            [\"python3\", SCRIPT_PATH],\n            capture_output=True,\n            text=True,\n            cwd=PROJECT_DIR,\n        )\n>       assert result.returncode == 0, (\n            f\"python3 cached_pipeline.py exited with code {result.returncode}.\\n\"\n            f\"stdout: {result.stdout.strip()}\\n\"\n            f\"stderr: {result.stderr.strip()}\"\n        )\nE       AssertionError: python3 cached_pipeline.py exited with code 1.\nE         stdout: Filtered traceback (most recent call last):\nE         TypeError: Cache.__init__() got an unexpected keyword argument 'ttl'\nE         stderr: File \"/home/user/flyte_project/cached_pipeline.py\", line 9, in <module>\nE             @env.task(cache=flyte.Cache(ttl=datetime.timedelta(hours=1), version=\"v1\"))\nE                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['python3', '/home/user/flyte_project/cached_pipeline.py'], returncode=1, stdout=\"Filtered trace....timedelta(hours=1), version=\"v1\"))\\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n').returncode\n\ntests/test_final_state.py:30: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_cache_result_json_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00037058384623378515,
+                "start": 1777946401.8656156,
+                "stop": 1777946401.867451,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_cache_result_json_exists():\n        \"\"\"Priority 4 (existence gate): cache_result.json must exist after running the script.\"\"\"\n>       assert os.path.isfile(OUTPUT_PATH), (\n            f\"Expected /home/user/flyte_project/cache_result.json to exist after running the script, \"\n            \"but it was not found.\"\n        )\nE       AssertionError: Expected /home/user/flyte_project/cache_result.json to exist after running the script, but it was not found.\nE       assert False\nE        +  where False = <function isfile at 0xee3b5f800220>('/home/user/flyte_project/cache_result.json')\nE        +    where <function isfile at 0xee3b5f800220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:39: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_result_is_valid_json_object",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00023508293088525534,
+                "start": 1777946401.8675199,
+                "stop": 1777946401.8692732,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_is_valid_json_object():\n        \"\"\"Priority 1 (runtime output): cache_result.json must be a parseable JSON object.\"\"\"\n        try:\n>           data = _load_result()\n                   ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:54: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _load_result() -> dict:\n        \"\"\"Helper: parse the JSON result file produced by the agent's script.\"\"\"\n>       with open(OUTPUT_PATH) as f:\n             ^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/cache_result.json'\n\ntests/test_final_state.py:47: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_first_result_fibonacci_correct",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00022983294911682606,
+                "start": 1777946401.8693547,
+                "stop": 1777946401.871018,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_first_result_fibonacci_correct():\n        \"\"\"Priority 1 (runtime output): 'first' result must have fibonacci=[0,1,1,2,3,5,8,13,21,34].\"\"\"\n>       data = _load_result()\n               ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:67: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _load_result() -> dict:\n        \"\"\"Helper: parse the JSON result file produced by the agent's script.\"\"\"\n>       with open(OUTPUT_PATH) as f:\n             ^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/cache_result.json'\n\ntests/test_final_state.py:47: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_second_result_fibonacci_correct",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00023028987925499678,
+                "start": 1777946401.871079,
+                "stop": 1777946401.8727438,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_second_result_fibonacci_correct():\n        \"\"\"Priority 1 (runtime output): 'second' result must have fibonacci=[0,1,1,2,3,5,8,13,21,34].\"\"\"\n>       data = _load_result()\n               ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:83: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _load_result() -> dict:\n        \"\"\"Helper: parse the JSON result file produced by the agent's script.\"\"\"\n>       with open(OUTPUT_PATH) as f:\n             ^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/cache_result.json'\n\ntests/test_final_state.py:47: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_first_result_n_is_ten",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00024533295072615147,
+                "start": 1777946401.8728325,
+                "stop": 1777946401.8744535,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_first_result_n_is_ten():\n        \"\"\"Priority 1 (runtime output): 'first' result must have n=10.\"\"\"\n>       data = _load_result()\n               ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:99: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _load_result() -> dict:\n        \"\"\"Helper: parse the JSON result file produced by the agent's script.\"\"\"\n>       with open(OUTPUT_PATH) as f:\n             ^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/cache_result.json'\n\ntests/test_final_state.py:47: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_second_result_n_is_ten",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00024162593763321638,
+                "start": 1777946401.8745155,
+                "stop": 1777946401.8761692,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_second_result_n_is_ten():\n        \"\"\"Priority 1 (runtime output): 'second' result must have n=10.\"\"\"\n>       data = _load_result()\n               ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:108: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _load_result() -> dict:\n        \"\"\"Helper: parse the JSON result file produced by the agent's script.\"\"\"\n>       with open(OUTPUT_PATH) as f:\n             ^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/cache_result.json'\n\ntests/test_final_state.py:47: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_expensive_computation_has_cache_attribute",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.028815396944992244,
+                "start": 1777946401.876232,
+                "stop": 1777946401.9091783,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_expensive_computation_has_cache_attribute():\n        \"\"\"Priority 1 (module inspection): expensive_computation must have a .cache attribute.\"\"\"\n        import flyte\n>       module = _load_module()\n                 ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:126: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_final_state.py:119: in _load_module\n    spec.loader.exec_module(module)\n<frozen importlib._bootstrap_external>:995: in exec_module\n    ???\n<frozen importlib._bootstrap>:488: in _call_with_frames_removed\n    ???\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    import flyte\n    import asyncio\n    import datetime\n    import json\n    import time\n    \n    env = flyte.TaskEnvironment(name=\"cache-env\")\n    \n>   @env.task(cache=flyte.Cache(ttl=datetime.timedelta(hours=1), version=\"v1\"))\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   TypeError: Cache.__init__() got an unexpected keyword argument 'ttl'\n\nhome/user/flyte_project/cached_pipeline.py:9: TypeError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_cache_version_is_v1",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0006402479484677315,
+                "start": 1777946401.9093966,
+                "stop": 1777946401.914338,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_cache_version_is_v1():\n        \"\"\"Priority 1 (module inspection): cache version must be 'v1'.\"\"\"\n>       module = _load_module()\n                 ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:143: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_final_state.py:119: in _load_module\n    spec.loader.exec_module(module)\n<frozen importlib._bootstrap_external>:995: in exec_module\n    ???\n<frozen importlib._bootstrap>:488: in _call_with_frames_removed\n    ???\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    import flyte\n    import asyncio\n    import datetime\n    import json\n    import time\n    \n    env = flyte.TaskEnvironment(name=\"cache-env\")\n    \n>   @env.task(cache=flyte.Cache(ttl=datetime.timedelta(hours=1), version=\"v1\"))\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   TypeError: Cache.__init__() got an unexpected keyword argument 'ttl'\n\nhome/user/flyte_project/cached_pipeline.py:9: TypeError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

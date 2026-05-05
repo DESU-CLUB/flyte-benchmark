@@ -1,0 +1,116 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 0,
+            "failed": 8,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777947432.8433754,
+            "stop": 1777947432.8699267
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_mapreduce_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0003404209855943918,
+                "start": 1777947432.8489263,
+                "stop": 1777947432.8544328,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_mapreduce_file_exists():\n        \"\"\"mapreduce.py must exist in the project directory.\"\"\"\n>       assert os.path.isfile(MAPREDUCE_FILE), (\n            f\"Expected '{MAPREDUCE_FILE}' to exist, but it was not found.\"\n        )\nE       AssertionError: Expected '/home/user/flyte_project/mapreduce.py' to exist, but it was not found.\nE       assert False\nE        +  where False = <function isfile at 0xfc4405550220>('/home/user/flyte_project/mapreduce.py')\nE        +    where <function isfile at 0xfc4405550220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:22: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_mapreduce_runs_successfully",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.005523441010154784,
+                "start": 1777947432.854508,
+                "stop": 1777947432.8611028,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_mapreduce_runs_successfully():\n        \"\"\"Running mapreduce.py with python3 must exit with returncode 0.\"\"\"\n        result = subprocess.run(\n            [\"python3\", MAPREDUCE_FILE],\n            capture_output=True,\n            text=True,\n            timeout=120,\n        )\n>       assert result.returncode == 0, (\n            f\"mapreduce.py exited with code {result.returncode}.\\n\"\n            f\"stdout:\\n{result.stdout}\\n\"\n            f\"stderr:\\n{result.stderr}\"\n        )\nE       AssertionError: mapreduce.py exited with code 2.\nE         stdout:\nE         \nE         stderr:\nE         python3: can't open file '/home/user/flyte_project/mapreduce.py': [Errno 2] No such file or directory\nE         \nE       assert 2 == 0\nE        +  where 2 = CompletedProcess(args=['python3', '/home/user/flyte_project/mapreduce.py'], returncode=2, stdout='', stderr=\"python3: can't open file '/home/user/flyte_project/mapreduce.py': [Errno 2] No such file or directory\\n\").returncode\n\ntests/test_final_state.py:39: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_output_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00025875295978039503,
+                "start": 1777947432.86118,
+                "stop": 1777947432.862591,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_output_file_exists():\n        \"\"\"wordcount.json must be created after running the pipeline.\"\"\"\n>       assert os.path.isfile(OUTPUT_FILE), (\n            f\"Expected '{OUTPUT_FILE}' to exist, but it was not found.\"\n        )\nE       AssertionError: Expected '/home/user/flyte_project/wordcount.json' to exist, but it was not found.\nE       assert False\nE        +  where False = <function isfile at 0xfc4405550220>('/home/user/flyte_project/wordcount.json')\nE        +    where <function isfile at 0xfc4405550220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:60: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_total_words_is_eleven",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00028458808083087206,
+                "start": 1777947432.862656,
+                "stop": 1777947432.8641737,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_total_words_is_eleven():\n        \"\"\"total_words must equal 11 for the sample input text.\"\"\"\n>       data = _load_output()\n               ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:67: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _load_output() -> dict:\n>       assert os.path.isfile(OUTPUT_FILE), (\n            f\"Expected output file '{OUTPUT_FILE}' to exist after running mapreduce.py.\"\n        )\nE       AssertionError: Expected output file '/home/user/flyte_project/wordcount.json' to exist after running mapreduce.py.\nE       assert False\nE        +  where False = <function isfile at 0xfc4405550220>('/home/user/flyte_project/wordcount.json')\nE        +    where <function isfile at 0xfc4405550220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:51: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_unique_words_is_nine",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002352530136704445,
+                "start": 1777947432.8642473,
+                "stop": 1777947432.8656778,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_unique_words_is_nine():\n        \"\"\"unique_words must equal 9 for the sample input text.\"\"\"\n>       data = _load_output()\n               ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:79: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _load_output() -> dict:\n>       assert os.path.isfile(OUTPUT_FILE), (\n            f\"Expected output file '{OUTPUT_FILE}' to exist after running mapreduce.py.\"\n        )\nE       AssertionError: Expected output file '/home/user/flyte_project/wordcount.json' to exist after running mapreduce.py.\nE       assert False\nE        +  where False = <function isfile at 0xfc4405550220>('/home/user/flyte_project/wordcount.json')\nE        +    where <function isfile at 0xfc4405550220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:51: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frequency_the_is_three",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002128359628841281,
+                "start": 1777947432.8657384,
+                "stop": 1777947432.8670688,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_frequency_the_is_three():\n        \"\"\"frequencies['the'] must equal 3.\"\"\"\n>       data = _load_output()\n               ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:91: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _load_output() -> dict:\n>       assert os.path.isfile(OUTPUT_FILE), (\n            f\"Expected output file '{OUTPUT_FILE}' to exist after running mapreduce.py.\"\n        )\nE       AssertionError: Expected output file '/home/user/flyte_project/wordcount.json' to exist after running mapreduce.py.\nE       assert False\nE        +  where False = <function isfile at 0xfc4405550220>('/home/user/flyte_project/wordcount.json')\nE        +    where <function isfile at 0xfc4405550220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:51: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frequency_fox_is_two",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00020012701861560345,
+                "start": 1777947432.8671234,
+                "stop": 1777947432.8684094,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_frequency_fox_is_two():\n        \"\"\"frequencies['fox'] must equal 2.\"\"\"\n>       data = _load_output()\n               ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:107: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _load_output() -> dict:\n>       assert os.path.isfile(OUTPUT_FILE), (\n            f\"Expected output file '{OUTPUT_FILE}' to exist after running mapreduce.py.\"\n        )\nE       AssertionError: Expected output file '/home/user/flyte_project/wordcount.json' to exist after running mapreduce.py.\nE       assert False\nE        +  where False = <function isfile at 0xfc4405550220>('/home/user/flyte_project/wordcount.json')\nE        +    where <function isfile at 0xfc4405550220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:51: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frequency_quick_is_one",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00022608682047575712,
+                "start": 1777947432.8684626,
+                "stop": 1777947432.869816,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_frequency_quick_is_one():\n        \"\"\"frequencies['quick'] must equal 1.\"\"\"\n>       data = _load_output()\n               ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:123: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _load_output() -> dict:\n>       assert os.path.isfile(OUTPUT_FILE), (\n            f\"Expected output file '{OUTPUT_FILE}' to exist after running mapreduce.py.\"\n        )\nE       AssertionError: Expected output file '/home/user/flyte_project/wordcount.json' to exist after running mapreduce.py.\nE       assert False\nE        +  where False = <function isfile at 0xfc4405550220>('/home/user/flyte_project/wordcount.json')\nE        +    where <function isfile at 0xfc4405550220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:51: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

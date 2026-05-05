@@ -1,0 +1,106 @@
+{
+    "id": "1057b059-b66e-46cf-b47c-ff84eaee5df3",
+    "task_name": "task_checkpoint_recovery",
+    "trial_name": "task_checkpoint_recovery__rt3R8iE",
+    "trial_uri": "file:///Users/warrenlow/Documents/projects/pochi-harbor/jobs/2026-05-04__18-48-37/task_checkpoint_recovery__rt3R8iE",
+    "task_id": {
+        "path": "flyte-tasks/task_checkpoint_recovery"
+    },
+    "source": "flyte-tasks",
+    "task_checksum": "2e8d4ddfcba24046b2c9cc7502a12471dbb5a0cc1864d194b292574de4425e23",
+    "config": {
+        "task": {
+            "path": "flyte-tasks/task_checkpoint_recovery",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "flyte-tasks"
+        },
+        "trial_name": "task_checkpoint_recovery__rt3R8iE",
+        "trials_dir": "jobs/2026-05-04__18-48-37",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": null,
+            "import_path": "agents.pochi:Pochi",
+            "model_name": "google/gemini-3-flash",
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {}
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts_json": null,
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "job_id": "f3d126ed-a4a7-40c3-b34f-eae8c996fbaa"
+    },
+    "agent_info": {
+        "name": "pochi",
+        "version": "0.6.8",
+        "model_info": {
+            "name": "gemini-3-flash",
+            "provider": "google"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 13714,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "exception_info": {
+        "exception_type": "NonZeroAgentExitCodeError",
+        "exception_message": "Command failed (exit 1): export PATH=\"$HOME/.pochi/bin:$PATH\"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'\n# Preserving your work\n\nSave a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.\n\n---\n\n# Flyte 2.0 — Task Checkpoint Recovery\n\n## Background\n\nFlyte 2.0 provides `@flyte.trace` as the key primitive for fine-grained, sub-task level checkpointing. By decorating an async function with `@flyte.trace`, Flyte can checkpoint expensive operations so that on failure the pipeline can resume from the last successful checkpoint rather than restarting from scratch.\n\n## Requirements\n\nCreate the file `/home/user/flyte_project/checkpoint_pipeline.py` with the following:\n\n### 1. Setup\n\n- Import `asyncio`, `json`, and `flyte`.\n- Create a `TaskEnvironment` named `\"checkpoint-env\"` (assign it to a variable named `env`).\n\n### 2. Traced function: `fetch_batch`\n\nDefine a `@flyte.trace` decorated async function:\n\n```python\n@flyte.trace\nasync def fetch_batch(batch_id: int) -> dict:\n    return {\"batch_id\": batch_id, \"data\": list(range(batch_id * 10, (batch_id + 1) * 10))}\n```\n\nThis simulates fetching a batch of data. The `@flyte.trace` decorator enables checkpointing so that if the pipeline is interrupted, already-fetched batches do not need to be re-fetched.\n\n### 3. Task: `process_batches`\n\nDefine an async task:\n\n```python\n@env.task\nasync def process_batches(n_batches: int) -> dict:\n    results = await asyncio.gather(*[fetch_batch(i) for i in range(n_batches)])\n    return {\n        \"n_batches\": n_batches,\n        \"total_items\": n_batches * 10,\n        \"batch_ids\": list(range(n_batches)),\n    }\n```\n\n### 4. Task: `run_checkpointed_pipeline`\n\nDefine an async task that calls `process_batches` and adds a `\"checkpointed\": True` flag to the result:\n\n```python\n@env.task\nasync def run_checkpointed_pipeline(n_batches: int) -> dict:\n    result = await process_batches(n_batches)\n    result[\"checkpointed\"] = True\n    return result\n```\n\n### 5. `__main__` block\n\nIn the `if __name__ == \"__main__\":` block:\n\n- Call `asyncio.run(run_checkpointed_pipeline(3))`\n- Write the returned dict as JSON to `/home/user/flyte_project/checkpoint_result.json`\n\n```python\nif __name__ == \"__main__\":\n    result = asyncio.run(run_checkpointed_pipeline(3))\n    with open(\"/home/user/flyte_project/checkpoint_result.json\", \"w\") as f:\n        json.dump(result, f)\n```\n\n## Implementation Guide\n\n1. `@flyte.trace` is the Flyte 2.0 primitive for checkpointing — apply it to `fetch_batch`.\n2. Tasks (`process_batches`, `run_checkpointed_pipeline`) must be `async def` and decorated with `@env.task`.\n3. Use `asyncio.gather` inside `process_batches` to invoke all `fetch_batch` calls concurrently.\n4. Running the script with `python3 /home/user/flyte_project/checkpoint_pipeline.py` must:\n   - Execute without errors\n   - Produce `/home/user/flyte_project/checkpoint_result.json`\n\n## Constraints\n\n- **Project path**: `/home/user/flyte_project`\n- **Script**: `/home/user/flyte_project/checkpoint_pipeline.py`\n- **Result file**: `/home/user/flyte_project/checkpoint_result.json`\n- The `flyte` package is already installed — do **not** reinstall it.\n- Use only the standard library plus `flyte`.\n\nEOF\nstdout: \u001b[37m2026-05-05 02:02:03.898\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37mnative:1\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tPochi\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tpochi v0.6.8\n\u001b[37m2026-05-05 02:02:04.165\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m/$bunfs/root/pochi:519633\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tloadAgents\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tLoaded 6 custom agents (6 valid, 0 invalid)\n\u001b[37m2026-05-05 02:02:04.167\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m/$bunfs/root/pochi:519634\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tloadSkills\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tLoaded 2 skills (2 valid, 0 invalid)\n\u001b[37m2026-05-05 02:02:04.191\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m/$bunfs/root/pochi:444677\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tPochiVendor\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tJWT is expiring or missing, fetching a new one\n\u001b[37m2026-05-05 02:02:05.417\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m/$bunfs/root/pochi:416517\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tMCPHub\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tMCP servers configuration changed via signal:\n\u001b[37m2026-05-05 02:02:05.418\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDE ... [truncated]\nstderr: None",
+        "exception_traceback": "Traceback (most recent call last):\n  File \"/Users/warrenlow/Documents/projects/pochi-harbor/.venv/lib/python3.12/site-packages/harbor/trial/trial.py\", line 538, in run\n    await self._execute_agent()\n  File \"/Users/warrenlow/Documents/projects/pochi-harbor/.venv/lib/python3.12/site-packages/harbor/trial/trial.py\", line 285, in _execute_agent\n    await asyncio.wait_for(\n  File \"/Users/warrenlow/.local/share/uv/python/cpython-3.12.10-macos-aarch64-none/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/Users/warrenlow/Documents/projects/pochi-harbor/.venv/lib/python3.12/site-packages/harbor/agents/installed/base.py\", line 41, in wrapper\n    return await fn(self, instruction, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/warrenlow/Documents/projects/pochi-harbor/agents/pochi.py\", line 214, in run\n    await self.exec_as_agent(\n  File \"/Users/warrenlow/Documents/projects/pochi-harbor/.venv/lib/python3.12/site-packages/harbor/agents/installed/base.py\", line 358, in exec_as_agent\n    return await self._exec(\n           ^^^^^^^^^^^^^^^^^\n  File \"/Users/warrenlow/Documents/projects/pochi-harbor/.venv/lib/python3.12/site-packages/harbor/agents/installed/base.py\", line 321, in _exec\n    raise NonZeroAgentExitCodeError(\nharbor.agents.installed.base.NonZeroAgentExitCodeError: Command failed (exit 1): export PATH=\"$HOME/.pochi/bin:$PATH\"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'\n# Preserving your work\n\nSave a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.\n\n---\n\n# Flyte 2.0 — Task Checkpoint Recovery\n\n## Background\n\nFlyte 2.0 provides `@flyte.trace` as the key primitive for fine-grained, sub-task level checkpointing. By decorating an async function with `@flyte.trace`, Flyte can checkpoint expensive operations so that on failure the pipeline can resume from the last successful checkpoint rather than restarting from scratch.\n\n## Requirements\n\nCreate the file `/home/user/flyte_project/checkpoint_pipeline.py` with the following:\n\n### 1. Setup\n\n- Import `asyncio`, `json`, and `flyte`.\n- Create a `TaskEnvironment` named `\"checkpoint-env\"` (assign it to a variable named `env`).\n\n### 2. Traced function: `fetch_batch`\n\nDefine a `@flyte.trace` decorated async function:\n\n```python\n@flyte.trace\nasync def fetch_batch(batch_id: int) -> dict:\n    return {\"batch_id\": batch_id, \"data\": list(range(batch_id * 10, (batch_id + 1) * 10))}\n```\n\nThis simulates fetching a batch of data. The `@flyte.trace` decorator enables checkpointing so that if the pipeline is interrupted, already-fetched batches do not need to be re-fetched.\n\n### 3. Task: `process_batches`\n\nDefine an async task:\n\n```python\n@env.task\nasync def process_batches(n_batches: int) -> dict:\n    results = await asyncio.gather(*[fetch_batch(i) for i in range(n_batches)])\n    return {\n        \"n_batches\": n_batches,\n        \"total_items\": n_batches * 10,\n        \"batch_ids\": list(range(n_batches)),\n    }\n```\n\n### 4. Task: `run_checkpointed_pipeline`\n\nDefine an async task that calls `process_batches` and adds a `\"checkpointed\": True` flag to the result:\n\n```python\n@env.task\nasync def run_checkpointed_pipeline(n_batches: int) -> dict:\n    result = await process_batches(n_batches)\n    result[\"checkpointed\"] = True\n    return result\n```\n\n### 5. `__main__` block\n\nIn the `if __name__ == \"__main__\":` block:\n\n- Call `asyncio.run(run_checkpointed_pipeline(3))`\n- Write the returned dict as JSON to `/home/user/flyte_project/checkpoint_result.json`\n\n```python\nif __name__ == \"__main__\":\n    result = asyncio.run(run_checkpointed_pipeline(3))\n    with open(\"/home/user/flyte_project/checkpoint_result.json\", \"w\") as f:\n        json.dump(result, f)\n```\n\n## Implementation Guide\n\n1. `@flyte.trace` is the Flyte 2.0 primitive for checkpointing — apply it to `fetch_batch`.\n2. Tasks (`process_batches`, `run_checkpointed_pipeline`) must be `async def` and decorated with `@env.task`.\n3. Use `asyncio.gather` inside `process_batches` to invoke all `fetch_batch` calls concurrently.\n4. Running the script with `python3 /home/user/flyte_project/checkpoint_pipeline.py` must:\n   - Execute without errors\n   - Produce `/home/user/flyte_project/checkpoint_result.json`\n\n## Constraints\n\n- **Project path**: `/home/user/flyte_project`\n- **Script**: `/home/user/flyte_project/checkpoint_pipeline.py`\n- **Result file**: `/home/user/flyte_project/checkpoint_result.json`\n- The `flyte` package is already installed — do **not** reinstall it.\n- Use only the standard library plus `flyte`.\n\nEOF\nstdout: \u001b[37m2026-05-05 02:02:03.898\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37mnative:1\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tPochi\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tpochi v0.6.8\n\u001b[37m2026-05-05 02:02:04.165\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m/$bunfs/root/pochi:519633\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tloadAgents\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tLoaded 6 custom agents (6 valid, 0 invalid)\n\u001b[37m2026-05-05 02:02:04.167\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m/$bunfs/root/pochi:519634\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tloadSkills\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tLoaded 2 skills (2 valid, 0 invalid)\n\u001b[37m2026-05-05 02:02:04.191\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m/$bunfs/root/pochi:444677\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tPochiVendor\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tJWT is expiring or missing, fetching a new one\n\u001b[37m2026-05-05 02:02:05.417\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDEBUG\u001b[22m\u001b[39m\u001b[0m\u001b[0m\t\u001b[37m/$bunfs/root/pochi:416517\u001b[39m\u001b[0m\u001b[0m\u001b[1m\u001b[37m\tMCPHub\u001b[39m\u001b[22m\u001b[0m\u001b[0m\tMCP servers configuration changed via signal:\n\u001b[37m2026-05-05 02:02:05.418\u001b[39m\u001b[0m\u001b[0m\t\u001b[32m\u001b[1mDE ... [truncated]\nstderr: None\n",
+        "occurred_at": "2026-05-04T19:08:04.129396"
+    },
+    "started_at": "2026-05-05T02:01:19.271830Z",
+    "finished_at": "2026-05-05T02:08:17.591703Z",
+    "environment_setup": {
+        "started_at": "2026-05-05T02:01:19.274429Z",
+        "finished_at": "2026-05-05T02:01:21.055672Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-05-05T02:01:21.055716Z",
+        "finished_at": "2026-05-05T02:02:03.286771Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-05-05T02:02:03.286993Z",
+        "finished_at": "2026-05-05T02:08:04.127770Z"
+    },
+    "verifier": {
+        "started_at": "2026-05-05T02:08:04.132439Z",
+        "finished_at": "2026-05-05T02:08:07.134491Z"
+    }
+}

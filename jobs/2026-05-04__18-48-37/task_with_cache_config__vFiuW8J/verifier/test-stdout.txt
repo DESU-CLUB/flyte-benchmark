@@ -1,0 +1,235 @@
+Collecting pluggy
+  Downloading pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+Collecting pytest==8.4.1
+  Downloading pytest-8.4.1-py3-none-any.whl.metadata (7.7 kB)
+Collecting pytest-json-ctrf==0.3.5
+  Downloading pytest_json_ctrf-0.3.5-py3-none-any.whl.metadata (3.3 kB)
+Collecting pochi-verifier
+  Downloading pochi_verifier-0.2.0-py3-none-any.whl.metadata (3.0 kB)
+Collecting iniconfig>=1 (from pytest==8.4.1)
+  Downloading iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting packaging>=20 (from pytest==8.4.1)
+  Downloading packaging-26.2-py3-none-any.whl.metadata (3.5 kB)
+Collecting pygments>=2.7.2 (from pytest==8.4.1)
+  Using cached pygments-2.20.0-py3-none-any.whl.metadata (2.5 kB)
+Downloading pytest-8.4.1-py3-none-any.whl (365 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 365.5/365.5 kB 1.6 MB/s eta 0:00:00
+Downloading pytest_json_ctrf-0.3.5-py3-none-any.whl (6.8 kB)
+Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+Downloading pochi_verifier-0.2.0-py3-none-any.whl (5.9 kB)
+Downloading iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+Downloading packaging-26.2-py3-none-any.whl (100 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.2/100.2 kB 3.0 MB/s eta 0:00:00
+Using cached pygments-2.20.0-py3-none-any.whl (1.2 MB)
+Installing collected packages: pygments, pochi-verifier, pluggy, packaging, iniconfig, pytest, pytest-json-ctrf
+Successfully installed iniconfig-2.3.0 packaging-26.2 pluggy-1.6.0 pochi-verifier-0.2.0 pygments-2.20.0 pytest-8.4.1 pytest-json-ctrf-0.3.5
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5, anyio-4.13.0
+collected 10 items
+
+tests/test_final_state.py .FFFFFFFFF                                     [100%]
+
+=================================== FAILURES ===================================
+________________________ test_script_runs_without_error ________________________
+
+    def test_script_runs_without_error():
+        """Priority 1: Execute the agent's script and assert it exits cleanly."""
+        result = subprocess.run(
+            ["python3", SCRIPT_PATH],
+            capture_output=True,
+            text=True,
+            cwd=PROJECT_DIR,
+        )
+>       assert result.returncode == 0, (
+            f"python3 cached_pipeline.py exited with code {result.returncode}.\n"
+            f"stdout: {result.stdout.strip()}\n"
+            f"stderr: {result.stderr.strip()}"
+        )
+E       AssertionError: python3 cached_pipeline.py exited with code 1.
+E         stdout: Filtered traceback (most recent call last):
+E         TypeError: Cache.__init__() got an unexpected keyword argument 'ttl'
+E         stderr: File "/home/user/flyte_project/cached_pipeline.py", line 9, in <module>
+E             @env.task(cache=flyte.Cache(ttl=datetime.timedelta(hours=1), version="v1"))
+E                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python3', '/home/user/flyte_project/cached_pipeline.py'], returncode=1, stdout="Filtered trace....timedelta(hours=1), version="v1"))\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n').returncode
+
+tests/test_final_state.py:30: AssertionError
+________________________ test_cache_result_json_exists _________________________
+
+    def test_cache_result_json_exists():
+        """Priority 4 (existence gate): cache_result.json must exist after running the script."""
+>       assert os.path.isfile(OUTPUT_PATH), (
+            f"Expected /home/user/flyte_project/cache_result.json to exist after running the script, "
+            "but it was not found."
+        )
+E       AssertionError: Expected /home/user/flyte_project/cache_result.json to exist after running the script, but it was not found.
+E       assert False
+E        +  where False = <function isfile at 0xee3b5f800220>('/home/user/flyte_project/cache_result.json')
+E        +    where <function isfile at 0xee3b5f800220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:39: AssertionError
+_______________________ test_result_is_valid_json_object _______________________
+
+    def test_result_is_valid_json_object():
+        """Priority 1 (runtime output): cache_result.json must be a parseable JSON object."""
+        try:
+>           data = _load_result()
+                   ^^^^^^^^^^^^^^
+
+tests/test_final_state.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _load_result() -> dict:
+        """Helper: parse the JSON result file produced by the agent's script."""
+>       with open(OUTPUT_PATH) as f:
+             ^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/cache_result.json'
+
+tests/test_final_state.py:47: FileNotFoundError
+_____________________ test_first_result_fibonacci_correct ______________________
+
+    def test_first_result_fibonacci_correct():
+        """Priority 1 (runtime output): 'first' result must have fibonacci=[0,1,1,2,3,5,8,13,21,34]."""
+>       data = _load_result()
+               ^^^^^^^^^^^^^^
+
+tests/test_final_state.py:67: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _load_result() -> dict:
+        """Helper: parse the JSON result file produced by the agent's script."""
+>       with open(OUTPUT_PATH) as f:
+             ^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/cache_result.json'
+
+tests/test_final_state.py:47: FileNotFoundError
+_____________________ test_second_result_fibonacci_correct _____________________
+
+    def test_second_result_fibonacci_correct():
+        """Priority 1 (runtime output): 'second' result must have fibonacci=[0,1,1,2,3,5,8,13,21,34]."""
+>       data = _load_result()
+               ^^^^^^^^^^^^^^
+
+tests/test_final_state.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _load_result() -> dict:
+        """Helper: parse the JSON result file produced by the agent's script."""
+>       with open(OUTPUT_PATH) as f:
+             ^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/cache_result.json'
+
+tests/test_final_state.py:47: FileNotFoundError
+__________________________ test_first_result_n_is_ten __________________________
+
+    def test_first_result_n_is_ten():
+        """Priority 1 (runtime output): 'first' result must have n=10."""
+>       data = _load_result()
+               ^^^^^^^^^^^^^^
+
+tests/test_final_state.py:99: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _load_result() -> dict:
+        """Helper: parse the JSON result file produced by the agent's script."""
+>       with open(OUTPUT_PATH) as f:
+             ^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/cache_result.json'
+
+tests/test_final_state.py:47: FileNotFoundError
+_________________________ test_second_result_n_is_ten __________________________
+
+    def test_second_result_n_is_ten():
+        """Priority 1 (runtime output): 'second' result must have n=10."""
+>       data = _load_result()
+               ^^^^^^^^^^^^^^
+
+tests/test_final_state.py:108: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _load_result() -> dict:
+        """Helper: parse the JSON result file produced by the agent's script."""
+>       with open(OUTPUT_PATH) as f:
+             ^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/cache_result.json'
+
+tests/test_final_state.py:47: FileNotFoundError
+________________ test_expensive_computation_has_cache_attribute ________________
+
+    def test_expensive_computation_has_cache_attribute():
+        """Priority 1 (module inspection): expensive_computation must have a .cache attribute."""
+        import flyte
+>       module = _load_module()
+                 ^^^^^^^^^^^^^^
+
+tests/test_final_state.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:119: in _load_module
+    spec.loader.exec_module(module)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap>:488: in _call_with_frames_removed
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import flyte
+    import asyncio
+    import datetime
+    import json
+    import time
+    
+    env = flyte.TaskEnvironment(name="cache-env")
+    
+>   @env.task(cache=flyte.Cache(ttl=datetime.timedelta(hours=1), version="v1"))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: Cache.__init__() got an unexpected keyword argument 'ttl'
+
+home/user/flyte_project/cached_pipeline.py:9: TypeError
+___________________________ test_cache_version_is_v1 ___________________________
+
+    def test_cache_version_is_v1():
+        """Priority 1 (module inspection): cache version must be 'v1'."""
+>       module = _load_module()
+                 ^^^^^^^^^^^^^^
+
+tests/test_final_state.py:143: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:119: in _load_module
+    spec.loader.exec_module(module)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap>:488: in _call_with_frames_removed
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import flyte
+    import asyncio
+    import datetime
+    import json
+    import time
+    
+    env = flyte.TaskEnvironment(name="cache-env")
+    
+>   @env.task(cache=flyte.Cache(ttl=datetime.timedelta(hours=1), version="v1"))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: Cache.__init__() got an unexpected keyword argument 'ttl'
+
+home/user/flyte_project/cached_pipeline.py:9: TypeError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_cached_pipeline_script_exists
+FAILED tests/test_final_state.py::test_script_runs_without_error - AssertionE...
+FAILED tests/test_final_state.py::test_cache_result_json_exists - AssertionEr...
+FAILED tests/test_final_state.py::test_result_is_valid_json_object - FileNotF...
+FAILED tests/test_final_state.py::test_first_result_fibonacci_correct - FileN...
+FAILED tests/test_final_state.py::test_second_result_fibonacci_correct - File...
+FAILED tests/test_final_state.py::test_first_result_n_is_ten - FileNotFoundEr...
+FAILED tests/test_final_state.py::test_second_result_n_is_ten - FileNotFoundE...
+FAILED tests/test_final_state.py::test_expensive_computation_has_cache_attribute
+FAILED tests/test_final_state.py::test_cache_version_is_v1 - TypeError: Cache...
+========================= 9 failed, 1 passed in 0.12s ==========================

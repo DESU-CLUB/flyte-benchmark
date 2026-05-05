@@ -1,0 +1,4 @@
+{
+  "task_name": "distributed_map_reduce_pipeline",
+  "task_description": "# Flyte 2.0 Distributed Map-Reduce Word Counter\n\nImplement a distributed word frequency counter using a Flyte 2.0 map-reduce pattern at `/home/user/flyte_project/mapreduce.py`.\n\n## Requirements\n- Use `flyte.TaskEnvironment` with appropriate resources\n- Implement map-reduce pattern: split text into shards, count words per shard in parallel with `asyncio.gather`, then reduce\n- Count word frequencies in the input text\n- Write results to `/home/user/flyte_project/wordcount.json`\n\n## Constraints\n- Project path: /home/user/flyte_project\n- Log file: /home/user/flyte_project/wordcount.json"
+}

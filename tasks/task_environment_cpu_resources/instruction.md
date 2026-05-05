@@ -1,0 +1,54 @@
+# Flyte 2.0 — TaskEnvironment with CPU Resources
+
+## Overview
+
+You have Flyte 2.0 installed in this environment (`pip install flyte`). Your task is to create a Python script that defines a `TaskEnvironment` with explicit CPU and memory resource constraints and runs a batch-processing task locally.
+
+## Requirements
+
+### 1. Create the project file
+
+Create a Python script at `/home/user/flyte_project/resource_task.py` that does the following:
+
+- Imports `flyte`, `json`, and `asyncio`.
+- Creates a `TaskEnvironment` named `"cpu-env"` with `flyte.Resources(cpu=2, memory="2Gi")`, assigned to a variable called `env`:
+  ```python
+  env = flyte.TaskEnvironment("cpu-env", resources=flyte.Resources(cpu=2, memory="2Gi"))
+  ```
+- Defines a task `process_batch(batch_size: int) -> dict` decorated with `@env.task` that:
+  - Returns a dict with the following keys:
+    - `batch_size`: the input value
+    - `processed`: `batch_size * 2`
+    - `status`: the string `"complete"`
+- In a `if __name__ == "__main__":` block:
+  - Calls `asyncio.run(process_batch(100))` and stores the result.
+  - Prints the result as JSON using `json.dumps`.
+  - Writes the result as JSON to `/home/user/flyte_project/result.json`.
+
+### 2. Run the script
+
+Execute the script:
+
+```bash
+python3 /home/user/flyte_project/resource_task.py
+```
+
+## Key Details
+
+- **Project path**: `/home/user/flyte_project`
+- **Log file**: `/home/user/flyte_project/result.json`
+- The `flyte` package is already installed — do **not** reinstall it.
+- Flyte 2.0 tasks decorated with `@env.task` are `async def` functions; use `asyncio.run()` at the top level.
+- There is **no** `@workflow` decorator in Flyte 2.0 — tasks are standalone async functions.
+- `flyte.Resources(cpu=2, memory="2Gi")` — `cpu` is an `int`, `memory` is a string like `"2Gi"`.
+
+## Expected Behaviour
+
+When the script is run with `batch_size=100`:
+- `processed = 100 * 2 = 200`
+- `status = "complete"`
+
+The file `/home/user/flyte_project/result.json` should contain a valid JSON object such as:
+```json
+{"batch_size": 100, "processed": 200, "status": "complete"}
+```

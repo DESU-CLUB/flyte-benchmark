@@ -1,0 +1,113 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 9,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1777946468.3934433,
+            "stop": 1777946468.5195153
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_modern_workflow_script_exists",
+                "status": "passed",
+                "duration": 0.00034208199940621853,
+                "start": 1777946468.405726,
+                "stop": 1777946468.4062357,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_modern_workflow_runs_without_error",
+                "status": "passed",
+                "duration": 0.10414397704880685,
+                "start": 1777946468.4063177,
+                "stop": 1777946468.5106862,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_migration_result_json_exists",
+                "status": "passed",
+                "duration": 0.00021308392751961946,
+                "start": 1777946468.5108013,
+                "stop": 1777946468.5111203,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_is_valid_json",
+                "status": "passed",
+                "duration": 0.00018787395674735308,
+                "start": 1777946468.5111756,
+                "stop": 1777946468.5114386,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_equals_55",
+                "status": "passed",
+                "duration": 0.00018129195086658,
+                "start": 1777946468.5114894,
+                "stop": 1777946468.5117497,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_input_equals_expected_list",
+                "status": "passed",
+                "duration": 0.00018091709353029728,
+                "start": 1777946468.5117962,
+                "stop": 1777946468.5120432,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_modern_workflow_does_not_import_flytekit",
+                "status": "passed",
+                "duration": 0.00021004199516028166,
+                "start": 1777946468.5121171,
+                "stop": 1777946468.5124185,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_modern_workflow_imports_flyte",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002904590219259262,
+                "start": 1777946468.5124722,
+                "stop": 1777946468.5186293,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_modern_workflow_imports_flyte():\n        \"\"\"Priority 4 (source-text): modern_workflow.py must import the new `flyte` package.\"\"\"\n        with open(MODERN_SCRIPT) as f:\n            source = f.read()\n>       assert \"import flyte\" in source, (\n            \"Did not find 'import flyte' in modern_workflow.py. \"\n            \"The migrated script must use the Flyte 2.0 package: 'import flyte' or 'from flyte import ...'.\"\n        )\nE       AssertionError: Did not find 'import flyte' in modern_workflow.py. The migrated script must use the Flyte 2.0 package: 'import flyte' or 'from flyte import ...'.\nE       assert 'import flyte' in 'import asyncio\\nimport json\\nfrom flyte import TaskEnvironment\\n\\n# Create a TaskEnvironment named \"migrate-env\"\\nenv...\": [1, 2, 3, 4, 5]}, f)\\n    \\n    print(f\"Sum of squares: {result}\")\\n    print(f\"Result written to {output_path}\")\\n'\n\n/tests/test_final_state.py:102: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_modern_workflow_does_not_use_workflow_decorator",
+                "status": "passed",
+                "duration": 0.0002603748580440879,
+                "start": 1777946468.5187,
+                "stop": 1777946468.519061,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_modern_workflow_uses_asyncio_gather",
+                "status": "passed",
+                "duration": 0.00018295901827514172,
+                "start": 1777946468.5191143,
+                "stop": 1777946468.519368,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

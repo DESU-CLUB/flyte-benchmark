@@ -1,0 +1,116 @@
+# Migrate Flyte 1.0 Workflow to Flyte 2.0
+
+## Background
+
+Flyte 2.0 introduces a completely new task model that is **incompatible** with Flyte 1.0. The legacy `flytekit` package (Flyte 1.0) relied on:
+- `@flytekit.workflow` / `@workflow` decorator to define workflow DAGs
+- `flytekit.map_task()` to apply a task over a list of inputs
+- `flytekit.conditional` for branching
+
+All of these are **removed** in Flyte 2.0. The new `flyte` package (Flyte 2.0) uses:
+- `TaskEnvironment("name")` to create a named execution environment
+- `@env.task` to decorate individual async task functions
+- Native `asyncio.gather()` for fan-out parallelism (replaces `map_task`)
+- Plain Python `if/else` for branching (replaces `conditional`)
+
+A pre-existing Flyte 1.0 script is located at `/home/user/flyte_project/legacy_workflow.py`. It reads:
+
+```python
+import flytekit
+from flytekit import task, workflow
+
+@task
+def square(n: int) -> int:
+    return n ** 2
+
+@task
+def total(values: list) -> int:
+    return sum(values)
+
+@workflow
+def compute_sum_of_squares(numbers: list) -> int:
+    squared = flytekit.map_task(square)(n=numbers)
+    return total(values=squared)
+
+if __name__ == "__main__":
+    result = compute_sum_of_squares(numbers=[1, 2, 3, 4, 5])
+    print(f"Sum of squares: {result}")
+```
+
+This code **will not run** under Flyte 2.0 because `@workflow` and `flytekit.map_task` no longer exist.
+
+## Requirements
+
+Create the file `/home/user/flyte_project/modern_workflow.py` that implements the **same logic** (sum of squares of [1,2,3,4,5] = 55) using Flyte 2.0.
+
+### 1. Setup
+
+- Install Flyte 2.0: `pip install flyte`
+- Import `asyncio`, `json`, and `flyte` (NOT `flytekit`)
+- Create a `TaskEnvironment` named `"migrate-env"` (assign it to a variable named `env`)
+
+### 2. Task: `square`
+
+```python
+@env.task
+async def square(n: int) -> int:
+    return n ** 2
+```
+
+### 3. Task: `total`
+
+```python
+@env.task
+async def total(values: list) -> int:
+    return sum(values)
+```
+
+### 4. Task: `compute_sum_of_squares` (replaces `@workflow` + `map_task`)
+
+Define an async task that:
+- Accepts `numbers: list`
+- Uses `asyncio.gather(*[square(n) for n in numbers])` to compute squares in parallel (this replaces `flytekit.map_task`)
+- Calls `total(values=list(squared))` to sum the results
+- Returns the integer total
+
+```python
+@env.task
+async def compute_sum_of_squares(numbers: list) -> int:
+    squared = await asyncio.gather(*[square(n) for n in numbers])
+    return await total(values=list(squared))
+```
+
+### 5. `__main__` block
+
+In the `if __name__ == "__main__":` block:
+- Call `asyncio.run(compute_sum_of_squares([1, 2, 3, 4, 5]))`
+- Write `{"result": <computed_value>, "input": [1, 2, 3, 4, 5]}` as JSON to `/home/user/flyte_project/migration_result.json`
+- The expected result is **55** (1²+2²+3²+4²+5² = 1+4+9+16+25 = 55)
+
+```python
+if __name__ == "__main__":
+    result = asyncio.run(compute_sum_of_squares([1, 2, 3, 4, 5]))
+    with open("/home/user/flyte_project/migration_result.json", "w") as f:
+        json.dump({"result": result, "input": [1, 2, 3, 4, 5]}, f)
+```
+
+## Migration Checklist
+
+| Flyte 1.0 (legacy) | Flyte 2.0 (modern) |
+|---|---|
+| `import flytekit` | `import flyte` |
+| `from flytekit import task, workflow` | `from flyte import TaskEnvironment` |
+| `@task` | `@env.task` (async def) |
+| `@workflow` | `@env.task` (async def, orchestrates other tasks) |
+| `flytekit.map_task(square)(n=numbers)` | `await asyncio.gather(*[square(n) for n in numbers])` |
+| `flytekit.conditional` | Plain Python `if/else` |
+
+## Constraints
+
+- **Project path**: `/home/user/flyte_project`
+- **Output script**: `/home/user/flyte_project/modern_workflow.py`
+- **Log file**: `/home/user/flyte_project/migration_result.json`
+- The `flyte` package is already installed — do **not** reinstall it.
+- Do **not** use `flytekit`, `@workflow`, or `map_task` in the new file.
+- Use only the standard library plus the `flyte` package.
+- The `modern_workflow.py` file must use `asyncio.gather` for fan-out parallelism.
