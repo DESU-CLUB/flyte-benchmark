@@ -2,7 +2,7 @@
 
 This repository contains benchmarks for [Flyte](https://github.com/flyteorg/flyte), a workflow orchestration platform for building production-grade data and ML pipelines.
 
-You can view the evaluation reports at [tabbyml.github.io/flyte-benchmark](https://tabbyml.github.io/flyte-benchmark/).
+You can view the evaluation reports at [desu-club.github.io/flyte-benchmark](https://desu-club.github.io/flyte-benchmark/).
 
 ## Project Structure
 
