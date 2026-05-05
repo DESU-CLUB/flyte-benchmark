@@ -1,5 +1,5 @@
 {
   "title": "Flyte Benchmark",
   "description": "Performance results of AI coding models on Flyte tasks, measuring success rate and execution time with high precision.",
-  "github_repo": "https://github.com/TabbyML/flyte-benchmark"
+  "github_repo": "https://github.com/DESU-CLUB/flyte-benchmark"
 }
