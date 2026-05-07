@@ -1,9 +1,0 @@
-{
-    "total_datasets": 3,
-    "total_rows": 4,
-    "datasets": [
-        "sales",
-        "inventory",
-        "returns"
-    ]
-}
