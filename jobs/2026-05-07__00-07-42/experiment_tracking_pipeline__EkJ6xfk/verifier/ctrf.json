@@ -1,0 +1,125 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 1,
+            "failed": 8,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778138898.0199263,
+            "stop": 1778138898.112329
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_experiment_tracker_script_exists",
+                "status": "passed",
+                "duration": 0.0003043048782274127,
+                "start": 1778138898.025692,
+                "stop": 1778138898.026146,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_runs_without_error",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.030681176926009357,
+                "start": 1778138898.026216,
+                "stop": 1778138898.0636609,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_runs_without_error():\n        \"\"\"Priority 1: Execute the agent's script and assert it exits cleanly.\"\"\"\n        result = subprocess.run(\n            [\"python3\", SCRIPT_PATH],\n            capture_output=True,\n            text=True,\n            cwd=PROJECT_DIR,\n        )\n>       assert result.returncode == 0, (\n            f\"python3 experiment_tracker.py exited with code {result.returncode}.\\n\"\n            f\"stdout: {result.stdout.strip()}\\n\"\n            f\"stderr: {result.stderr.strip()}\"\n        )\nE       AssertionError: python3 experiment_tracker.py exited with code 1.\nE         stdout: \nE         stderr: Traceback (most recent call last):\nE           File \"/home/user/flyte_project/experiment_tracker.py\", line 15, in <module>\nE             from flytekit import task, workflow, Resources, Cache, CacheVersion\nE         ModuleNotFoundError: No module named 'flytekit'\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['python3', '/home/user/flyte_project/experiment_tracker.py'], returncode=1, stdout='', stderr='...m flytekit import task, workflow, Resources, Cache, CacheVersion\\nModuleNotFoundError: No module named \\'flytekit\\'\\n').returncode\n\ntests/test_final_state.py:29: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_experiment_log_json_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0003829339984804392,
+                "start": 1778138898.0637665,
+                "stop": 1778138898.0651865,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_experiment_log_json_exists():\n        \"\"\"Priority 4 (existence gate): experiment_log.json must exist after running the script.\"\"\"\n>       assert os.path.isfile(LOG_PATH), (\n            f\"Expected /home/user/flyte_project/experiment_log.json to exist after running the script, \"\n            \"but it was not found.\"\n        )\nE       AssertionError: Expected /home/user/flyte_project/experiment_log.json to exist after running the script, but it was not found.\nE       assert False\nE        +  where False = <function isfile at 0xec737a6a0220>('/home/user/flyte_project/experiment_log.json')\nE        +    where <function isfile at 0xec737a6a0220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:38: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_experiment_result_json_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00026397104375064373,
+                "start": 1778138898.0652506,
+                "stop": 1778138898.066823,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_experiment_result_json_exists():\n        \"\"\"Priority 4 (existence gate): experiment_result.json must exist after running the script.\"\"\"\n>       assert os.path.isfile(RESULT_PATH), (\n            f\"Expected /home/user/flyte_project/experiment_result.json to exist after running the script, \"\n            \"but it was not found.\"\n        )\nE       AssertionError: Expected /home/user/flyte_project/experiment_result.json to exist after running the script, but it was not found.\nE       assert False\nE        +  where False = <function isfile at 0xec737a6a0220>('/home/user/flyte_project/experiment_result.json')\nE        +    where <function isfile at 0xec737a6a0220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:46: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_result_is_valid_json_object",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00020880205556750298,
+                "start": 1778138898.0668845,
+                "stop": 1778138898.0683968,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_result_is_valid_json_object():\n        \"\"\"Priority 1 (runtime output): experiment_result.json must be parseable JSON.\"\"\"\n        try:\n>           data = _load_result()\n                   ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:61: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _load_result() -> dict:\n        \"\"\"Helper: parse the JSON result file produced by the agent's script.\"\"\"\n>       with open(RESULT_PATH) as f:\n             ^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/experiment_result.json'\n\ntests/test_final_state.py:54: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_experiments_run_equals_three",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00021930201910436153,
+                "start": 1778138898.0684679,
+                "stop": 1778138898.0698762,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_experiments_run_equals_three():\n        \"\"\"Priority 1 (runtime output): experiments_run must be 3 (one per config).\"\"\"\n>       data = _load_result()\n               ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:74: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _load_result() -> dict:\n        \"\"\"Helper: parse the JSON result file produced by the agent's script.\"\"\"\n>       with open(RESULT_PATH) as f:\n             ^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/experiment_result.json'\n\ntests/test_final_state.py:54: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_best_experiment_is_fast_lr",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0001920090289786458,
+                "start": 1778138898.0699348,
+                "stop": 1778138898.0713649,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_best_experiment_is_fast_lr():\n        \"\"\"Priority 1 (runtime output): best_experiment must be 'fast_lr'.\n    \n        fast_lr achieves accuracy = min(0.99, 0.01 * 1000 / 1000) = 0.01, which is the highest\n        among the three configs (baseline=0.001, fast_lr=0.01, high_epochs=0.002).\n        \"\"\"\n>       data = _load_result()\n               ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:89: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _load_result() -> dict:\n        \"\"\"Helper: parse the JSON result file produced by the agent's script.\"\"\"\n>       with open(RESULT_PATH) as f:\n             ^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/experiment_result.json'\n\ntests/test_final_state.py:54: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_best_accuracy_approximately_0_01",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00020042597316205502,
+                "start": 1778138898.0714238,
+                "stop": 1778138898.0728366,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_best_accuracy_approximately_0_01():\n        \"\"\"Priority 1 (runtime output): best_accuracy must be approximately 0.01 (\u00b10.001).\n    \n        fast_lr: accuracy = min(0.99, 0.01 * 1000 / 1000) = 0.01.\n        \"\"\"\n>       data = _load_result()\n               ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:103: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _load_result() -> dict:\n        \"\"\"Helper: parse the JSON result file produced by the agent's script.\"\"\"\n>       with open(RESULT_PATH) as f:\n             ^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/experiment_result.json'\n\ntests/test_final_state.py:54: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_run_experiment_has_cache_attribute",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.03428547491785139,
+                "start": 1778138898.0728948,
+                "stop": 1778138898.1121469,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_run_experiment_has_cache_attribute():\n        \"\"\"Priority 1 (module inspection): run_experiment must have a .cache attribute that is a flyte.Cache instance.\"\"\"\n        import flyte\n>       module = _load_module()\n                 ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:127: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_final_state.py:120: in _load_module\n    spec.loader.exec_module(module)\n<frozen importlib._bootstrap_external>:995: in exec_module\n    ???\n<frozen importlib._bootstrap>:488: in _call_with_frames_removed\n    ???\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    \"\"\"\n    Flyte 2.0 Experiment Tracking Pipeline\n    \n    This module implements a parallel experiment tracking system that runs multiple\n    ML experiments concurrently, caches results, and identifies the best configuration.\n    \"\"\"\n    \n    import asyncio\n    import json\n    import random\n    from datetime import datetime\n    from typing import Dict, List, Tuple, Optional\n    from dataclasses import dataclass, asdict\n    \n>   from flytekit import task, workflow, Resources, Cache, CacheVersion\nE   ModuleNotFoundError: No module named 'flytekit'\n\nhome/user/flyte_project/experiment_tracker.py:15: ModuleNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

@@ -1,0 +1,74 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778136444.1345232,
+            "stop": 1778136444.3271613
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_resource_task_py_exists",
+                "status": "passed",
+                "duration": 0.0004206328885629773,
+                "start": 1778136444.1418004,
+                "stop": 1778136444.142432,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_resource_task_runs_successfully",
+                "status": "passed",
+                "duration": 0.15439294406678528,
+                "start": 1778136444.142528,
+                "stop": 1778136444.2972705,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_json_exists",
+                "status": "passed",
+                "duration": 0.00043342309072613716,
+                "start": 1778136444.297424,
+                "stop": 1778136444.299886,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_json_processed_is_correct",
+                "status": "passed",
+                "duration": 0.0002770590363070369,
+                "start": 1778136444.3000062,
+                "stop": 1778136444.300398,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_json_status_is_complete",
+                "status": "passed",
+                "duration": 0.0002796429907903075,
+                "start": 1778136444.3004632,
+                "stop": 1778136444.3008866,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_env_resources_cpu_and_memory",
+                "status": "passed",
+                "duration": 0.0257078199647367,
+                "start": 1778136444.3009772,
+                "stop": 1778136444.3269422,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

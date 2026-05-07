@@ -1,0 +1,110 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778136509.2680101,
+            "stop": 1778136509.3442862
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_modern_workflow_script_exists",
+                "status": "passed",
+                "duration": 0.00043622800149023533,
+                "start": 1778136509.2741845,
+                "stop": 1778136509.2748265,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_modern_workflow_runs_without_error",
+                "status": "passed",
+                "duration": 0.06258834199979901,
+                "start": 1778136509.2749183,
+                "stop": 1778136509.3378022,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_migration_result_json_exists",
+                "status": "passed",
+                "duration": 0.0005388049175962806,
+                "start": 1778136509.3379297,
+                "stop": 1778136509.3386383,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_is_valid_json",
+                "status": "passed",
+                "duration": 0.0016724989982321858,
+                "start": 1778136509.3387747,
+                "stop": 1778136509.3409133,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_equals_55",
+                "status": "passed",
+                "duration": 0.00037885515484958887,
+                "start": 1778136509.3410134,
+                "stop": 1778136509.341559,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_input_equals_expected_list",
+                "status": "passed",
+                "duration": 0.0003440671134740114,
+                "start": 1778136509.341629,
+                "stop": 1778136509.3421097,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_modern_workflow_does_not_import_flytekit",
+                "status": "passed",
+                "duration": 0.0003226500703021884,
+                "start": 1778136509.3421786,
+                "stop": 1778136509.3426335,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_modern_workflow_imports_flyte",
+                "status": "passed",
+                "duration": 0.0003087350632995367,
+                "start": 1778136509.34271,
+                "stop": 1778136509.3431418,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_modern_workflow_does_not_use_workflow_decorator",
+                "status": "passed",
+                "duration": 0.00029502599500119686,
+                "start": 1778136509.3432026,
+                "stop": 1778136509.343613,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_modern_workflow_uses_asyncio_gather",
+                "status": "passed",
+                "duration": 0.00031669309828430414,
+                "start": 1778136509.3436704,
+                "stop": 1778136509.3440995,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

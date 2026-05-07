@@ -1,0 +1,6 @@
+{"event": "ingestion", "message": "Data ingested successfully", "data": {"rows": 150}, "timestamp": "2026-05-07T05:07:49.204129"}
+{"event": "ingestion", "message": "Data ingested successfully", "data": {"rows": 150}, "timestamp": "2026-05-07T05:08:20.309325"}
+{"event": "validation", "message": "Data validation passed", "data": {"columns": ["sepal length (cm)", "sepal width (cm)", "petal length (cm)", "petal width (cm)", "target"]}, "timestamp": "2026-05-07T05:08:20.354715"}
+{"event": "training", "message": "Model trained: logistic_regression", "data": {"model_type": "logistic_regression", "accuracy": 1.0}, "timestamp": "2026-05-07T05:08:20.455170"}
+{"event": "training", "message": "Model trained: random_forest", "data": {"model_type": "random_forest", "accuracy": 1.0}, "timestamp": "2026-05-07T05:08:20.602439"}
+{"event": "selection", "message": "Best model selected", "data": {"model_type": "logistic_regression", "accuracy": 1.0}, "timestamp": "2026-05-07T05:08:20.608074"}

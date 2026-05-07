@@ -1,0 +1,74 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778137854.9897256,
+            "stop": 1778137855.0737472
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_error_handling_script_exists",
+                "status": "passed",
+                "duration": 0.0003258120268583298,
+                "start": 1778137855.00004,
+                "stop": 1778137855.0005283,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_runs_successfully",
+                "status": "passed",
+                "duration": 0.06959802401252091,
+                "start": 1778137855.0006044,
+                "stop": 1778137855.0705714,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_results_file_exists",
+                "status": "passed",
+                "duration": 0.0003043960314244032,
+                "start": 1778137855.0706937,
+                "stop": 1778137855.071148,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_results_is_valid_json_list_of_two",
+                "status": "passed",
+                "duration": 0.00032897794153541327,
+                "start": 1778137855.0712373,
+                "stop": 1778137855.071703,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_first_result_success",
+                "status": "passed",
+                "duration": 0.0009907259372994304,
+                "start": 1778137855.071961,
+                "stop": 1778137855.0731015,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_second_result_fallback",
+                "status": "passed",
+                "duration": 0.00027856510132551193,
+                "start": 1778137855.0731845,
+                "stop": 1778137855.0735784,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,162 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo multi_env_gpu_cpu_pipeline__DcPMrHK > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Multi-Environment GPU/CPU ML Training Pipeline with Flyte 2.0
+
+## Background
+
+Flyte 2.0 introduces a Python-native task execution model where tasks are defined using `@env.task` decorators on async functions. A key capability is defining **multiple `TaskEnvironment`s** with different compute resources — CPU-only environments for lightweight preprocessing and evaluation, and GPU-enabled environments for heavy model training — all as plain Python code without a separate `@workflow` decorator.
+
+In this task you will implement a complete multi-environment ML training system split across three files: `environments.py` (resource definitions), `pipeline.py` (task implementations), and `main.py` (entry point).
+
+## Requirements
+
+Create the following three files inside `/home/user/flyte_project/`:
+
+### File 1 — `/home/user/flyte_project/environments.py`
+
+Define three `TaskEnvironment` objects:
+
+```python
+import flyte
+
+cpu_env = flyte.TaskEnvironment("cpu-preprocessing", resources=flyte.Resources(cpu=4, memory="8Gi"))
+gpu_env = flyte.TaskEnvironment("gpu-training", resources=flyte.Resources(cpu=8, memory="32Gi"))
+eval_env = flyte.TaskEnvironment("cpu-evaluation", resources=flyte.Resources(cpu=2, memory="4Gi"))
+```
+
+### File 2 — `/home/user/flyte_project/pipeline.py`
+
+Import the three environments from `environments.py` and implement four tasks:
+
+1. **`preprocess(raw_data: list) -> dict`** — decorated with `@cpu_env.task`:
+   - Remove `None` values and convert remaining items to `float`
+   - Return `{"data": cleaned, "n_samples": len(cleaned), "preprocessing_env": "cpu"}`
+
+2. **`train(preprocessed: dict) -> dict`** — decorated with `@gpu_env.task`:
+   - Return:
+     ```python
+     {
+         "model_weights": [0.1 * i for i in range(5)],
+         "n_samples_trained": preprocessed["n_samples"],
+         "training_env": "gpu",
+         "loss": max(0.01, 1.0 / preprocessed["n_samples"])
+     }
+     ```
+
+3. **`evaluate(model: dict, test_data: list) -> dict`** — decorated with `@eval_env.task`:
+   - Return:
+     ```python
+     {
+         "accuracy": min(0.99, model["n_samples_trained"] * 0.05),
+         "loss": model["loss"],
+         "test_samples": len(test_data),
+         "eval_env": "cpu"
+     }
+     ```
+
+4. **`full_pipeline(train_data: list, test_data: list) -> dict`** — decorated with `@cpu_env.task`:
+   - Chain: `preprocess(train_data)` → `train(preprocessed)` → `evaluate(model, test_data)`
+   - Return `{"preprocessing": preprocessed, "model": model, "evaluation": eval_result}`
+
+### File 3 — `/home/user/flyte_project/main.py`
+
+```python
+import asyncio
+import json
+from pipeline import full_pipeline
+
+if __name__ == "__main__":
+    train_data = [1.0, None, 2.0, 3.0, None, 4.0, 5.0]
+    test_data = [0.5, 1.5, 2.5]
+    result = asyncio.run(full_pipeline(train_data, test_data))
+    with open("/home/user/flyte_project/training_result.json", "w") as f:
+        json.dump(result, f, indent=2)
+    print(json.dumps(result, indent=2))
+```
+
+## Implementation Guide
+
+1. Install Flyte 2.0: `pip install flyte`
+2. Create the project directory: `mkdir -p /home/user/flyte_project`
+3. Create `environments.py`, `pipeline.py`, and `main.py` as described above.
+4. Run: `cd /home/user/flyte_project && python3 main.py`
+
+## Expected Behaviour
+
+- `train_data = [1.0, None, 2.0, 3.0, None, 4.0, 5.0]` → after removing `None`: `[1.0, 2.0, 3.0, 4.0, 5.0]` → `n_samples = 5`
+- `loss = max(0.01, 1.0 / 5) = 0.2`
+- `accuracy = min(0.99, 5 * 0.05) = 0.25`
+- The result JSON must contain three top-level keys: `preprocessing`, `model`, `evaluation`
+- `preprocessing.preprocessing_env` == `"cpu"`, `preprocessing.n_samples` == `5`
+- `model.training_env` == `"gpu"`
+- `evaluation.eval_env` == `"cpu"`, `evaluation.accuracy` == `0.25`
+
+## Constraints
+- Project path: `/home/user/flyte_project`
+- Result file: `/home/user/flyte_project/training_result.json`
+- Use `flyte` (Flyte 2.0) — install with `pip install flyte`
+- No `@workflow` decorator — Flyte 2.0 uses `TaskEnvironment` and `@env.task` async functions
+- Environments must be defined in `environments.py` and imported into `pipeline.py`
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

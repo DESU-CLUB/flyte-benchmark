@@ -1,0 +1,92 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778137779.7405136,
+            "stop": 1778137779.8100271
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_fan_out_pipeline_script_exists",
+                "status": "passed",
+                "duration": 0.0005651980172842741,
+                "start": 1778137779.746609,
+                "stop": 1778137779.7474353,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_runs_without_error",
+                "status": "passed",
+                "duration": 0.05902892700396478,
+                "start": 1778137779.7475276,
+                "stop": 1778137779.8068423,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_json_exists",
+                "status": "passed",
+                "duration": 0.0003512169932946563,
+                "start": 1778137779.806962,
+                "stop": 1778137779.807472,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_is_valid_json",
+                "status": "passed",
+                "duration": 0.0003697157371789217,
+                "start": 1778137779.8075428,
+                "stop": 1778137779.808068,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_total_equals_five",
+                "status": "passed",
+                "duration": 0.0002970990026369691,
+                "start": 1778137779.8081417,
+                "stop": 1778137779.8085513,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_sum_of_squares_equals_30",
+                "status": "passed",
+                "duration": 0.00029122293926775455,
+                "start": 1778137779.8086073,
+                "stop": 1778137779.8090155,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_even_count_equals_three",
+                "status": "passed",
+                "duration": 0.0002678509335964918,
+                "start": 1778137779.8090818,
+                "stop": 1778137779.8094478,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_asyncio_gather_used_in_source",
+                "status": "passed",
+                "duration": 0.0002748081460595131,
+                "start": 1778137779.8094976,
+                "stop": 1778137779.80988,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

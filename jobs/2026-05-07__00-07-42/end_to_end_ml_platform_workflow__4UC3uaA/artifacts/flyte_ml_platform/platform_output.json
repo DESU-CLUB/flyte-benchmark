@@ -1,0 +1,122 @@
+[
+  {
+    "stage": "data_ingestion",
+    "status": "completed",
+    "n_samples": 1000,
+    "n_features": 20,
+    "train_size": 800,
+    "test_size": 200,
+    "train_path": "/home/user/flyte_project/train_data.csv",
+    "test_path": "/home/user/flyte_project/test_data.csv",
+    "timestamp": "2026-05-07T07:25:47.422419"
+  },
+  {
+    "stage": "data_validation",
+    "status": "completed",
+    "is_valid": true,
+    "issues": [],
+    "statistics": {
+      "train_samples": 800,
+      "test_samples": 200,
+      "train_features": 20,
+      "train_missing_ratio": 0.0,
+      "test_missing_ratio": 0.0,
+      "target_distribution": {
+        "1": 411,
+        "0": 389
+      }
+    },
+    "timestamp": "2026-05-07T07:25:47.425882"
+  },
+  {
+    "stage": "model_training",
+    "status": "completed",
+    "model_name": "random_forest",
+    "model_type": "random_forest",
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1_score": 1.0,
+    "training_time": 0.07231354713439941,
+    "model_path": "/home/user/flyte_project/random_forest_model.pkl",
+    "timestamp": "2026-05-07T07:25:47.516277"
+  },
+  {
+    "stage": "model_training",
+    "status": "completed",
+    "model_name": "gradient_boosting",
+    "model_type": "gradient_boosting",
+    "accuracy": 0.99625,
+    "precision": 0.9962771739130435,
+    "recall": 0.99625,
+    "f1_score": 0.996249560117302,
+    "training_time": 0.21297812461853027,
+    "model_path": "/home/user/flyte_project/gradient_boosting_model.pkl",
+    "timestamp": "2026-05-07T07:25:47.736035"
+  },
+  {
+    "stage": "model_training",
+    "status": "completed",
+    "model_name": "logistic_regression",
+    "model_type": "logistic_regression",
+    "accuracy": 0.83125,
+    "precision": 0.8313597903278239,
+    "recall": 0.83125,
+    "f1_score": 0.8312724222344152,
+    "training_time": 0.017483949661254883,
+    "model_path": "/home/user/flyte_project/logistic_regression_model.pkl",
+    "timestamp": "2026-05-07T07:25:47.764017"
+  },
+  {
+    "stage": "model_evaluation",
+    "status": "completed",
+    "model_name": "random_forest",
+    "test_accuracy": 0.87,
+    "test_precision": 0.8712238325281804,
+    "test_recall": 0.87,
+    "test_f1_score": 0.8702626262626262,
+    "timestamp": "2026-05-07T07:25:47.786124"
+  },
+  {
+    "stage": "model_evaluation",
+    "status": "completed",
+    "model_name": "gradient_boosting",
+    "test_accuracy": 0.885,
+    "test_precision": 0.8893644279851867,
+    "test_recall": 0.885,
+    "test_f1_score": 0.8853903205531113,
+    "timestamp": "2026-05-07T07:25:47.794185"
+  },
+  {
+    "stage": "model_evaluation",
+    "status": "completed",
+    "model_name": "logistic_regression",
+    "test_accuracy": 0.81,
+    "test_precision": 0.8192717086834733,
+    "test_recall": 0.81,
+    "test_f1_score": 0.8106666666666666,
+    "timestamp": "2026-05-07T07:25:47.799184"
+  },
+  {
+    "stage": "model_selection",
+    "status": "completed",
+    "best_model": "gradient_boosting",
+    "selection_metric": "f1_score",
+    "best_value": 0.8853903205531113,
+    "all_models": [
+      {
+        "name": "random_forest",
+        "f1_score": 0.8702626262626262
+      },
+      {
+        "name": "gradient_boosting",
+        "f1_score": 0.8853903205531113
+      },
+      {
+        "name": "logistic_regression",
+        "f1_score": 0.8106666666666666
+      }
+    ],
+    "timestamp": "2026-05-07T07:25:47.800311"
+  }
+]

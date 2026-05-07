@@ -1,0 +1,210 @@
+{
+  "pipeline": "flyte-etl-v1",
+  "status": "SUCCESS",
+  "summary": {
+    "total_records_extracted": 18,
+    "total_records_transformed": 18,
+    "sources_attempted": [
+      "database",
+      "api",
+      "unknown_source"
+    ],
+    "sources_succeeded": [
+      "database",
+      "api",
+      "legacy_csv"
+    ],
+    "sources_failed": [],
+    "pipeline_duration_seconds": 0.106,
+    "completed_at": "2026-05-07T06:46:00.868024",
+    "output_path": "/home/user/flyte_project/etl_output.json"
+  },
+  "records": [
+    {
+      "id": "db-0000",
+      "source": "database",
+      "value": 82.0,
+      "tags": [
+        "database",
+        "etl-v1",
+        "high-value"
+      ],
+      "processed_at": "2026-05-07T06:46:00.865197"
+    },
+    {
+      "id": "db-0001",
+      "source": "database",
+      "value": 15.0,
+      "tags": [
+        "database",
+        "etl-v1"
+      ],
+      "processed_at": "2026-05-07T06:46:00.865205"
+    },
+    {
+      "id": "db-0002",
+      "source": "database",
+      "value": 4.0,
+      "tags": [
+        "database",
+        "etl-v1"
+      ],
+      "processed_at": "2026-05-07T06:46:00.865210"
+    },
+    {
+      "id": "db-0003",
+      "source": "database",
+      "value": 95.0,
+      "tags": [
+        "database",
+        "etl-v1",
+        "high-value"
+      ],
+      "processed_at": "2026-05-07T06:46:00.865213"
+    },
+    {
+      "id": "db-0004",
+      "source": "database",
+      "value": 36.0,
+      "tags": [
+        "database",
+        "etl-v1"
+      ],
+      "processed_at": "2026-05-07T06:46:00.865216"
+    },
+    {
+      "id": "db-0005",
+      "source": "database",
+      "value": 32.0,
+      "tags": [
+        "database",
+        "etl-v1"
+      ],
+      "processed_at": "2026-05-07T06:46:00.865219"
+    },
+    {
+      "id": "db-0006",
+      "source": "database",
+      "value": 29.0,
+      "tags": [
+        "database",
+        "etl-v1"
+      ],
+      "processed_at": "2026-05-07T06:46:00.865222"
+    },
+    {
+      "id": "db-0007",
+      "source": "database",
+      "value": 18.0,
+      "tags": [
+        "database",
+        "etl-v1"
+      ],
+      "processed_at": "2026-05-07T06:46:00.865224"
+    },
+    {
+      "id": "db-0008",
+      "source": "database",
+      "value": 95.0,
+      "tags": [
+        "database",
+        "etl-v1",
+        "high-value"
+      ],
+      "processed_at": "2026-05-07T06:46:00.865227"
+    },
+    {
+      "id": "db-0009",
+      "source": "database",
+      "value": 14.0,
+      "tags": [
+        "database",
+        "etl-v1"
+      ],
+      "processed_at": "2026-05-07T06:46:00.865229"
+    },
+    {
+      "id": "api-0000",
+      "source": "api",
+      "value": 32.38,
+      "tags": [
+        "api",
+        "etl-v1"
+      ],
+      "processed_at": "2026-05-07T06:46:00.865233"
+    },
+    {
+      "id": "api-0001",
+      "source": "api",
+      "value": 15.08,
+      "tags": [
+        "api",
+        "etl-v1"
+      ],
+      "processed_at": "2026-05-07T06:46:00.865236"
+    },
+    {
+      "id": "api-0002",
+      "source": "api",
+      "value": 65.09,
+      "tags": [
+        "api",
+        "etl-v1",
+        "high-value"
+      ],
+      "processed_at": "2026-05-07T06:46:00.865239"
+    },
+    {
+      "id": "api-0003",
+      "source": "api",
+      "value": 7.24,
+      "tags": [
+        "api",
+        "etl-v1"
+      ],
+      "processed_at": "2026-05-07T06:46:00.865241"
+    },
+    {
+      "id": "api-0004",
+      "source": "api",
+      "value": 53.59,
+      "tags": [
+        "api",
+        "etl-v1",
+        "high-value"
+      ],
+      "processed_at": "2026-05-07T06:46:00.865244"
+    },
+    {
+      "id": "api-0005",
+      "source": "api",
+      "value": 36.57,
+      "tags": [
+        "api",
+        "etl-v1"
+      ],
+      "processed_at": "2026-05-07T06:46:00.865246"
+    },
+    {
+      "id": "api-0006",
+      "source": "api",
+      "value": 5.8,
+      "tags": [
+        "api",
+        "etl-v1"
+      ],
+      "processed_at": "2026-05-07T06:46:00.865248"
+    },
+    {
+      "id": "api-0007",
+      "source": "api",
+      "value": 50.74,
+      "tags": [
+        "api",
+        "etl-v1",
+        "high-value"
+      ],
+      "processed_at": "2026-05-07T06:46:00.865251"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+    "id": "1f3a184d-942e-4518-9412-835338ab996c",
+    "started_at": "2026-05-06T22:20:00.133685",
+    "finished_at": "2026-05-06T22:30:01.642600",
+    "n_total_trials": 30,
+    "stats": {
+        "n_trials": 30,
+        "n_errors": 0,
+        "evals": {
+            "pochi__gpt-5.2-codex__flyte-tasks": {
+                "n_trials": 30,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.6666666666666666
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "conditional_branching_try_except__uZfSdZm",
+                            "fan_out_fan_in_pipeline__fgy7rvS",
+                            "task_error_handling_retry__aqJvXxp",
+                            "flyte_trace_fine_grained_checkpo__VJWq7if",
+                            "data_processing_pipeline__Yw4B6Dp",
+                            "task_calling_task__9HTbML2",
+                            "task_with_file_io__h2JNFGC",
+                            "task_environment_cpu_resources__eiiLRsX",
+                            "parallel_tasks_asyncio_gather__DEFCJgs",
+                            "task_with_dynamic_parallelism__ndXNAuR",
+                            "dual_environment_orchestration__D4iYoLu",
+                            "install_and_run_hello_world__2mdeLfs",
+                            "define_basic_task__dvq3KXZ",
+                            "task_checkpoint_recovery__4uSGbYY",
+                            "image_build_with_packages__2r3XZXc",
+                            "self_healing_pipeline_recovery__GSAQ7QV",
+                            "multi_env_gpu_cpu_pipeline__qhNUwvg",
+                            "task_with_typed_inputs_outputs__SSboHtS",
+                            "task_with_pip_packages__gLmwxSD",
+                            "parallel_data_aggregation_pipeli__p2ufwmi"
+                        ],
+                        "0.0": [
+                            "full_etl_pipeline_with_recovery__DWGiaiz",
+                            "task_with_cache_config__BLFzdkd",
+                            "task_with_secrets__DNpuhwv",
+                            "end_to_end_ml_platform_workflow__dEShJ4Y",
+                            "migrate_flyte1_workflow_to_v2__tR6u7NU",
+                            "agentic_loop_sandbox_orchestrati__YQ4xDGf",
+                            "experiment_tracking_pipeline__uSVxhcv",
+                            "distributed_map_reduce_pipeline__EFvkg9Y",
+                            "fastapi_app_environment_serve__utfNQeT",
+                            "ml_training_pipeline_with_metric__boD9m2N"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        }
+    }
+}

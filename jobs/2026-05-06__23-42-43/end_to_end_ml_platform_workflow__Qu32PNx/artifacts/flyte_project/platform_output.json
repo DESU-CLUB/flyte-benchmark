@@ -1,0 +1,116 @@
+{
+  "platform": "Flyte 2.0 \u2014 End-to-End ML Platform",
+  "run_started_at": "2026-05-07T06:52:30.859378+00:00",
+  "run_completed_at": "2026-05-07T06:52:41.625383+00:00",
+  "elapsed_seconds": 10.766,
+  "status": "success",
+  "error": null,
+  "configuration": {
+    "ingestion": {
+      "n_samples": 2000,
+      "n_features": 20,
+      "n_informative": 10,
+      "n_classes": 2,
+      "random_state": 42,
+      "test_size": 0.2,
+      "noise_fraction": 0.05,
+      "dataset_name": "synthetic_classification_v1"
+    },
+    "validation": {
+      "max_missing_rate": 0.15,
+      "iqr_multiplier": 3.0,
+      "min_class_ratio": 0.2,
+      "max_correlation": 0.95,
+      "imputation_strategy": "median"
+    },
+    "training": {
+      "test_size": 0.2,
+      "val_size": 0.15,
+      "random_state": 42,
+      "cv_folds": 5
+    },
+    "selection": {
+      "primary_metric": "composite_score",
+      "min_improvement": 0.005,
+      "require_positive_mcc": true
+    }
+  },
+  "pipeline_stages": [
+    "1. ingest_data",
+    "2. validate_data",
+    "3a. train_random_forest   (parallel)",
+    "3b. train_gradient_boosting (parallel)",
+    "3c. train_logistic_regression (parallel)",
+    "4. evaluate_models",
+    "5. select_best_model"
+  ],
+  "selected_model": {
+    "model_name": "RandomForest",
+    "model_file": "<FlyteFile path=/tmp/tmpohld1xd6.pkl>",
+    "selection_reason": "Ranked #1 by composite_score (score=0.9232) | Runner-up 'GradientBoosting' scored 0.9115 | CV accuracy=0.9008 \u00b1 0.0215",
+    "primary_score": 0.923191,
+    "all_scores": {
+      "RandomForest": 0.923191,
+      "GradientBoosting": 0.911505,
+      "LogisticRegression": 0.846772
+    },
+    "feature_columns": [
+      "feature_00",
+      "feature_01",
+      "feature_02",
+      "feature_03",
+      "feature_04",
+      "feature_05",
+      "feature_06",
+      "feature_07",
+      "feature_08",
+      "feature_09",
+      "feature_10",
+      "feature_11",
+      "feature_12",
+      "feature_13",
+      "feature_14",
+      "feature_15",
+      "feature_16",
+      "feature_17",
+      "feature_18",
+      "feature_19"
+    ],
+    "target_column": "target",
+    "hyperparameters": {
+      "n_estimators": "200",
+      "max_depth": "None"
+    },
+    "test_metrics": {
+      "accuracy": 0.9075,
+      "f1_weighted": 0.907491,
+      "precision_weighted": 0.907585,
+      "recall_weighted": 0.9075,
+      "mcc": 0.815073,
+      "roc_auc": 0.959811,
+      "log_loss": 0.306674
+    },
+    "confusion_matrix_flat": [
+      184,
+      17,
+      20,
+      179
+    ],
+    "feature_importances": {
+      "feature_01": 0.103824,
+      "feature_17": 0.086076,
+      "feature_18": 0.084117,
+      "feature_11": 0.059574,
+      "feature_00": 0.058593,
+      "feature_13": 0.057416,
+      "feature_05": 0.056912,
+      "feature_06": 0.055848,
+      "feature_16": 0.055419,
+      "feature_19": 0.051535
+    },
+    "cv_mean_accuracy": 0.900769,
+    "cv_std_accuracy": 0.021538,
+    "selected_at": "2026-05-07T06:52:41.622116+00:00",
+    "warnings": []
+  }
+}

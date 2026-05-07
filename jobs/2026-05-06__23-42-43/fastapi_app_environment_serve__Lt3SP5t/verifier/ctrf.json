@@ -1,0 +1,149 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 12,
+            "passed": 5,
+            "failed": 7,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778136977.22622,
+            "stop": 1778136978.0657613
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_app_py_exists",
+                "status": "passed",
+                "duration": 0.00038989121094346046,
+                "start": 1778136977.2353425,
+                "stop": 1778136977.2359235,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_serve_py_exists",
+                "status": "passed",
+                "duration": 0.0002550518838688731,
+                "start": 1778136977.2359962,
+                "stop": 1778136977.2363572,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_health_returns_200",
+                "status": "passed",
+                "duration": 0.5448330231010914,
+                "start": 1778136977.236413,
+                "stop": 1778136977.7820458,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_health_response_status_healthy",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0020678729051724076,
+                "start": 1778136977.7823458,
+                "stop": 1778136977.7983632,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "running_server = <Popen: returncode: None args: ['python3', '/home/user/flyte_project/serve.py']>\n\n    def test_health_response_status_healthy(running_server):\n        \"\"\"GET /health response body must contain status=='healthy'.\"\"\"\n        _, body = http_get(\"/health\")\n>       assert body.get(\"status\") == \"healthy\", (\n            f\"Expected {{\\\"status\\\": \\\"healthy\\\"}} in /health response, got: {body}\"\n        )\nE       AssertionError: Expected {\"status\": \"healthy\"} in /health response, got: {'status': 'ok'}\nE       assert 'ok' == 'healthy'\nE         \nE         - healthy\nE         + ok\n\n/tests/test_final_state.py:115: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_health_response_service_name",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0020690409000962973,
+                "start": 1778136977.7985265,
+                "stop": 1778136977.803753,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "running_server = <Popen: returncode: None args: ['python3', '/home/user/flyte_project/serve.py']>\n\n    def test_health_response_service_name(running_server):\n        \"\"\"GET /health response body must contain service=='flyte-ml-api'.\"\"\"\n        _, body = http_get(\"/health\")\n>       assert body.get(\"service\") == \"flyte-ml-api\", (\n            f\"Expected {{\\\"service\\\": \\\"flyte-ml-api\\\"}} in /health response, got: {body}\"\n        )\nE       AssertionError: Expected {\"service\": \"flyte-ml-api\"} in /health response, got: {'status': 'ok'}\nE       assert None == 'flyte-ml-api'\nE        +  where None = <built-in method get of dict object at 0xfb5bcf8fc1c0>('service')\nE        +    where <built-in method get of dict object at 0xfb5bcf8fc1c0> = {'status': 'ok'}.get\n\n/tests/test_final_state.py:123: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_predict_five_features_returns_200",
+                "status": "passed",
+                "duration": 0.0028529049595817924,
+                "start": 1778136977.8039143,
+                "stop": 1778136977.8069944,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_predict_five_features_prediction",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0017933219205588102,
+                "start": 1778136977.8071225,
+                "stop": 1778136977.811831,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "running_server = <Popen: returncode: None args: ['python3', '/home/user/flyte_project/serve.py']>\n\n    def test_predict_five_features_prediction(running_server):\n        \"\"\"POST /predict [1,2,3,4,5] \u2192 prediction must equal 3.0.\"\"\"\n        _, body = http_post_json(\"/predict\", {\"features\": [1.0, 2.0, 3.0, 4.0, 5.0]})\n        prediction = body.get(\"prediction\")\n>       assert prediction == pytest.approx(3.0), (\n            f\"Expected prediction==3.0 for features [1,2,3,4,5], got: {prediction}. Full body: {body}\"\n        )\nE       AssertionError: Expected prediction==3.0 for features [1,2,3,4,5], got: 5.0. Full body: {'prediction': 5.0, 'num_features': 5, 'model': 'weighted-sum-v1'}\nE       assert 5.0 == 3.0 \u00b1 3.0e-06\nE         \nE         comparison failed\nE         Obtained: 5.0\nE         Expected: 3.0 \u00b1 3.0e-06\n\n/tests/test_final_state.py:140: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_predict_five_features_n_features",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.002736818161793053,
+                "start": 1778136977.8119507,
+                "stop": 1778136977.817204,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "running_server = <Popen: returncode: None args: ['python3', '/home/user/flyte_project/serve.py']>\n\n    def test_predict_five_features_n_features(running_server):\n        \"\"\"POST /predict [1,2,3,4,5] \u2192 n_features must equal 5.\"\"\"\n        _, body = http_post_json(\"/predict\", {\"features\": [1.0, 2.0, 3.0, 4.0, 5.0]})\n        n_features = body.get(\"n_features\")\n>       assert n_features == 5, (\n            f\"Expected n_features==5 for features [1,2,3,4,5], got: {n_features}. Full body: {body}\"\n        )\nE       AssertionError: Expected n_features==5 for features [1,2,3,4,5], got: None. Full body: {'prediction': 5.0, 'num_features': 5, 'model': 'weighted-sum-v1'}\nE       assert None == 5\n\n/tests/test_final_state.py:149: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_predict_five_features_status",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0020618740236386657,
+                "start": 1778136977.8173425,
+                "stop": 1778136977.8223398,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "running_server = <Popen: returncode: None args: ['python3', '/home/user/flyte_project/serve.py']>\n\n    def test_predict_five_features_status(running_server):\n        \"\"\"POST /predict [1,2,3,4,5] \u2192 status must equal 'processed'.\"\"\"\n        _, body = http_post_json(\"/predict\", {\"features\": [1.0, 2.0, 3.0, 4.0, 5.0]})\n        status_val = body.get(\"status\")\n>       assert status_val == \"processed\", (\n            f\"Expected status=='processed', got: {status_val}. Full body: {body}\"\n        )\nE       AssertionError: Expected status=='processed', got: None. Full body: {'prediction': 5.0, 'num_features': 5, 'model': 'weighted-sum-v1'}\nE       assert None == 'processed'\n\n/tests/test_final_state.py:158: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_predict_two_features_returns_200",
+                "status": "passed",
+                "duration": 0.0012684679822996259,
+                "start": 1778136977.8224561,
+                "stop": 1778136977.8245625,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_predict_two_features_prediction",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0010722099104896188,
+                "start": 1778136977.8246477,
+                "stop": 1778136977.8280458,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "running_server = <Popen: returncode: None args: ['python3', '/home/user/flyte_project/serve.py']>\n\n    def test_predict_two_features_prediction(running_server):\n        \"\"\"POST /predict [10, 20] \u2192 prediction must equal 15.0.\"\"\"\n        _, body = http_post_json(\"/predict\", {\"features\": [10.0, 20.0]})\n        prediction = body.get(\"prediction\")\n>       assert prediction == pytest.approx(15.0), (\n            f\"Expected prediction==15.0 for features [10,20], got: {prediction}. Full body: {body}\"\n        )\nE       AssertionError: Expected prediction==15.0 for features [10,20], got: 20.0. Full body: {'prediction': 20.0, 'num_features': 2, 'model': 'weighted-sum-v1'}\nE       assert 20.0 == 15.0 \u00b1 1.5e-05\nE         \nE         comparison failed\nE         Obtained: 20.0\nE         Expected: 15.0 \u00b1 1.5e-05\n\n/tests/test_final_state.py:175: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_predict_two_features_n_features",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.23379027005285025,
+                "start": 1778136977.8281467,
+                "stop": 1778136978.06394,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "running_server = <Popen: returncode: None args: ['python3', '/home/user/flyte_project/serve.py']>\n\n    def test_predict_two_features_n_features(running_server):\n        \"\"\"POST /predict [10, 20] \u2192 n_features must equal 2.\"\"\"\n        _, body = http_post_json(\"/predict\", {\"features\": [10.0, 20.0]})\n        n_features = body.get(\"n_features\")\n>       assert n_features == 2, (\n            f\"Expected n_features==2 for features [10,20], got: {n_features}. Full body: {body}\"\n        )\nE       AssertionError: Expected n_features==2 for features [10,20], got: None. Full body: {'prediction': 20.0, 'num_features': 2, 'model': 'weighted-sum-v1'}\nE       assert None == 2\n\n/tests/test_final_state.py:184: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

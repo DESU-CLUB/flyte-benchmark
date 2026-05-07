@@ -1,0 +1,106 @@
+{
+    "id": "471fa538-f181-4cd5-82e3-2608018e3536",
+    "task_name": "end_to_end_ml_platform_workflow",
+    "trial_name": "end_to_end_ml_platform_workflow__4UC3uaA",
+    "trial_uri": "file:///Users/warrenlow/Documents/projects/pochi-harbor/jobs/2026-05-07__00-07-42/end_to_end_ml_platform_workflow__4UC3uaA",
+    "task_id": {
+        "path": "flyte-tasks/end_to_end_ml_platform_workflow"
+    },
+    "source": "flyte-tasks",
+    "task_checksum": "d489f331f0c6fdbeee6e76b7cad551fa999183c9dcc07bb72399bf83a6be0122",
+    "config": {
+        "task": {
+            "path": "flyte-tasks/end_to_end_ml_platform_workflow",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": "flyte-tasks"
+        },
+        "trial_name": "end_to_end_ml_platform_workflow__4UC3uaA",
+        "trials_dir": "jobs/2026-05-07__00-07-42",
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": null,
+            "import_path": "agents.pochi:Pochi",
+            "model_name": "zai/glm-4.7",
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "kwargs": {},
+            "env": {}
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "suppress_override_warnings": false,
+            "mounts_json": null,
+            "env": {},
+            "kwargs": {}
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "job_id": "6f990e6c-fe3a-4e9f-9614-fc74b52897c2"
+    },
+    "agent_info": {
+        "name": "pochi",
+        "version": "0.6.8",
+        "model_info": {
+            "name": "glm-4.7",
+            "provider": "zai"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 0,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "exception_info": {
+        "exception_type": "AgentTimeoutError",
+        "exception_message": "Agent execution timed out after 600.0 seconds",
+        "exception_traceback": "Traceback (most recent call last):\n  File \"/Users/warrenlow/.local/share/uv/python/cpython-3.12.10-macos-aarch64-none/lib/python3.12/asyncio/tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"/Users/warrenlow/Documents/projects/pochi-harbor/.venv/lib/python3.12/site-packages/harbor/agents/installed/base.py\", line 41, in wrapper\n    return await fn(self, instruction, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/warrenlow/Documents/projects/pochi-harbor/agents/pochi.py\", line 214, in run\n    await self.exec_as_agent(\n  File \"/Users/warrenlow/Documents/projects/pochi-harbor/.venv/lib/python3.12/site-packages/harbor/agents/installed/base.py\", line 358, in exec_as_agent\n    return await self._exec(\n           ^^^^^^^^^^^^^^^^^\n  File \"/Users/warrenlow/Documents/projects/pochi-harbor/.venv/lib/python3.12/site-packages/harbor/agents/installed/base.py\", line 305, in _exec\n    result = await environment.exec(\n             ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/warrenlow/Documents/projects/pochi-harbor/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker.py\", line 485, in exec\n    return await self._run_docker_compose_command(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/warrenlow/Documents/projects/pochi-harbor/.venv/lib/python3.12/site-packages/harbor/environments/docker/docker.py\", line 296, in _run_docker_compose_command\n    stdout_bytes, stderr_bytes = await process.communicate()\n                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/warrenlow/.local/share/uv/python/cpython-3.12.10-macos-aarch64-none/lib/python3.12/asyncio/subprocess.py\", line 201, in communicate\n    stdin, stdout, stderr = await tasks.gather(stdin, stdout, stderr)\n                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/warrenlow/.local/share/uv/python/cpython-3.12.10-macos-aarch64-none/lib/python3.12/asyncio/subprocess.py\", line 181, in _read_stream\n    output = await stream.read()\n             ^^^^^^^^^^^^^^^^^^^\n  File \"/Users/warrenlow/.local/share/uv/python/cpython-3.12.10-macos-aarch64-none/lib/python3.12/asyncio/streams.py\", line 706, in read\n    block = await self.read(self._limit)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/warrenlow/.local/share/uv/python/cpython-3.12.10-macos-aarch64-none/lib/python3.12/asyncio/streams.py\", line 713, in read\n    await self._wait_for_data('read')\n  File \"/Users/warrenlow/.local/share/uv/python/cpython-3.12.10-macos-aarch64-none/lib/python3.12/asyncio/streams.py\", line 545, in _wait_for_data\n    await self._waiter\nasyncio.exceptions.CancelledError\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/Users/warrenlow/Documents/projects/pochi-harbor/.venv/lib/python3.12/site-packages/harbor/trial/trial.py\", line 285, in _execute_agent\n    await asyncio.wait_for(\n  File \"/Users/warrenlow/.local/share/uv/python/cpython-3.12.10-macos-aarch64-none/lib/python3.12/asyncio/tasks.py\", line 519, in wait_for\n    async with timeouts.timeout(timeout):\n               ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/warrenlow/.local/share/uv/python/cpython-3.12.10-macos-aarch64-none/lib/python3.12/asyncio/timeouts.py\", line 115, in __aexit__\n    raise TimeoutError from exc_val\nTimeoutError\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/Users/warrenlow/Documents/projects/pochi-harbor/.venv/lib/python3.12/site-packages/harbor/trial/trial.py\", line 538, in run\n    await self._execute_agent()\n  File \"/Users/warrenlow/Documents/projects/pochi-harbor/.venv/lib/python3.12/site-packages/harbor/trial/trial.py\", line 294, in _execute_agent\n    raise AgentTimeoutError(\nharbor.trial.trial.AgentTimeoutError: Agent execution timed out after 600.0 seconds\n",
+        "occurred_at": "2026-05-07T00:26:14.225248"
+    },
+    "started_at": "2026-05-07T07:16:00.632953Z",
+    "finished_at": "2026-05-07T07:26:26.662324Z",
+    "environment_setup": {
+        "started_at": "2026-05-07T07:16:00.634374Z",
+        "finished_at": "2026-05-07T07:16:02.258704Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-05-07T07:16:02.258739Z",
+        "finished_at": "2026-05-07T07:16:14.087036Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-05-07T07:16:14.087265Z",
+        "finished_at": "2026-05-07T07:26:14.222416Z"
+    },
+    "verifier": {
+        "started_at": "2026-05-07T07:26:14.233046Z",
+        "finished_at": "2026-05-07T07:26:16.093125Z"
+    }
+}

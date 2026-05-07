@@ -1,0 +1,119 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778131057.6718369,
+            "stop": 1778131057.766679
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_ml_pipeline_script_exists",
+                "status": "passed",
+                "duration": 0.0003121149493381381,
+                "start": 1778131057.678658,
+                "stop": 1778131057.679127,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_runs_without_error",
+                "status": "passed",
+                "duration": 0.0602811110438779,
+                "start": 1778131057.6792002,
+                "stop": 1778131057.7397597,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_experiment_report_exists",
+                "status": "passed",
+                "duration": 0.0003265299601480365,
+                "start": 1778131057.739878,
+                "stop": 1778131057.7403617,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_report_is_valid_json",
+                "status": "passed",
+                "duration": 0.00030586402863264084,
+                "start": 1778131057.74044,
+                "stop": 1778131057.7408435,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_report_type_is_model_selection",
+                "status": "passed",
+                "duration": 0.0002412409521639347,
+                "start": 1778131057.7409143,
+                "stop": 1778131057.74127,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_candidates_evaluated_equals_three",
+                "status": "passed",
+                "duration": 0.0002540330169722438,
+                "start": 1778131057.7413375,
+                "stop": 1778131057.741712,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_accuracy_in_valid_range",
+                "status": "passed",
+                "duration": 0.00022103497758507729,
+                "start": 1778131057.7418017,
+                "stop": 1778131057.7421207,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_winner_is_valid_model_type",
+                "status": "passed",
+                "duration": 0.00022845109924674034,
+                "start": 1778131057.742178,
+                "stop": 1778131057.7425036,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_winner_is_rf",
+                "status": "passed",
+                "duration": 0.0002696160227060318,
+                "start": 1778131057.7425728,
+                "stop": 1778131057.742945,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_train_model_has_flyte_cache",
+                "status": "passed",
+                "duration": 0.0230357781983912,
+                "start": 1778131057.7430074,
+                "stop": 1778131057.7662098,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_asyncio_gather_used_in_source",
+                "status": "passed",
+                "duration": 0.00020099396351724863,
+                "start": 1778131057.7662764,
+                "stop": 1778131057.7665656,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

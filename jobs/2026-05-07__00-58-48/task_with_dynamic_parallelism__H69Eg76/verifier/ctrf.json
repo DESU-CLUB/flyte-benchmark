@@ -1,0 +1,110 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 10,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778140983.7650766,
+            "stop": 1778140983.8362725
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_dynamic_pipeline_script_exists",
+                "status": "passed",
+                "duration": 0.00038157589733600616,
+                "start": 1778140983.7718263,
+                "stop": 1778140983.7723866,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_runs_without_error",
+                "status": "passed",
+                "duration": 0.05935090593993664,
+                "start": 1778140983.7724617,
+                "stop": 1778140983.8320646,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_feature_matrix_json_exists",
+                "status": "passed",
+                "duration": 0.000346451997756958,
+                "start": 1778140983.8321724,
+                "stop": 1778140983.8326452,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_is_valid_json",
+                "status": "passed",
+                "duration": 0.00030032708309590816,
+                "start": 1778140983.832714,
+                "stop": 1778140983.833139,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_n_features_equals_six",
+                "status": "passed",
+                "duration": 0.00031120097264647484,
+                "start": 1778140983.8331952,
+                "stop": 1778140983.83362,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_feature_names_contains_exactly_three_features",
+                "status": "passed",
+                "duration": 0.00030228588730096817,
+                "start": 1778140983.8336725,
+                "stop": 1778140983.8341012,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_feature_matrix_has_six_entries",
+                "status": "passed",
+                "duration": 0.0002951190108433366,
+                "start": 1778140983.8341537,
+                "stop": 1778140983.834555,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_feature0_mean_value_is_150",
+                "status": "passed",
+                "duration": 0.00041215703822672367,
+                "start": 1778140983.834607,
+                "stop": 1778140983.835136,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_feature0_max_value_is_200",
+                "status": "passed",
+                "duration": 0.00032228603959083557,
+                "start": 1778140983.8351898,
+                "stop": 1778140983.8356168,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_asyncio_gather_used_in_source",
+                "status": "passed",
+                "duration": 0.00034524290822446346,
+                "start": 1778140983.83567,
+                "stop": 1778140983.836121,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

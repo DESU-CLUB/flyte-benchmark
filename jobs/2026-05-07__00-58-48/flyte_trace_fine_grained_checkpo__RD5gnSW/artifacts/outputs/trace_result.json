@@ -1,0 +1,1 @@
+{"total_prompts": 3, "valid_count": 3, "results": [{"call_id": 0, "valid": true, "quality_score": 0.2}, {"call_id": 1, "valid": true, "quality_score": 0.3}, {"call_id": 2, "valid": true, "quality_score": 0.3}], "traced_calls": 6}

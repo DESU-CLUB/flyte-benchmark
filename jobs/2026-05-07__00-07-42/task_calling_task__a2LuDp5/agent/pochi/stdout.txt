@@ -1,0 +1,41 @@
+- Initializing MCP connections...
+You
+# Preserving your work Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable. *** # Flyte 2.0 — Task Calling Task (Chained Composition) ## Background In Flyte 2.0, workflows are expressed as tasks that call other tasks — there is no `@workflow` decorator. Any `async def` decorated with `@env.task` can `await` another task directly, composing them into a durable, tracked pipeline. This pattern lets you build multi-step processing pipelines using plain Python async/await. ## Requirements Create the file `/home/user/flyte_project/chained_tasks.py` that demonstrates sequential task composition: ### 1. Setup * Import `asyncio`, `json`, and `flyte`. * Create a `TaskEnvironment` named `"chain-env"` (assign it to a variable named `env`). ### 2. Task: `normalize_text` Define an async task that lowercases and strips surrounding whitespace from its input: ```python @env.task async def normalize_text(text: str) -> str: return text.lower().strip() ``` ### 3. Task: `tokenize` Define an async task that splits the normalized text by spaces and returns the list of tokens: ```python @env.task async def tokenize(text: str) -> list: return text.split(" ") ``` ### 4. Task: `count_tokens` Define an async task that counts total and unique tokens: ```python @env.task async def count_tokens(tokens: list) -> dict: return {"token_count": len(tokens), "unique_count": len(set(tokens))} ``` ### 5. Task: `text_analysis_pipeline` Define an async task that chains the three tasks above in sequence — each `await`ing the result of the previous step — and returns the final count dict: ```python @env.task async def text_analysis_pipeline(raw_text: str) -> dict: normalized = await normalize_text(raw_text) tokens = await tokenize(normalized) counts = await count_tokens(tokens) return counts ``` ### 6. `__main__` block In the `if __name__ == "__main__":` block: * Call `asyncio.run(text_analysis_pipeline("Hello World Hello Flyte World"))` * Write the returned dict as JSON to `/home/user/flyte_project/analysis.json` ```python if __name__ == "__main__": result = asyncio.run(text_analysis_pipeline("Hello World Hello Flyte World")) with open("/home/user/flyte_project/analysis.json", "w") as f: json.dump(result, f) ``` ## Implementation Guide 1. Do **not** use `@workflow` — it does not exist in Flyte 2.0. 2. Tasks call tasks with a plain `await`: `result = await other_task(arg)`. 3. All task functions must be `async def` and decorated with `@env.task`. 4. Running the script with `python3 /home/user/flyte_project/chained_tasks.py` must: * Execute without errors * Produce `/home/user/flyte_project/analysis.json` ## Constraints * **Project path**: `/home/user/flyte_project` * **Script**: `/home/user/flyte_project/chained_tasks.py` * **Log file**: `/home/user/flyte_project/analysis.json` * The `flyte` package is already installed — do **not** reinstall it. * Use only the standard library plus `flyte`.   
+
+Pochi
+💭 Thinking for 627 characters   
+I'll create the Flyte 2.0 chained tasks script for you. Let me first check the directory structure and then create the required file.   
+📂 Listing files in /home/user ✔ 
+💭 Thinking for 54 characters   
+📂 Listing files in /home/user/flyte_project ✔ 
+💭 Thinking for 124 characters   
+Now I'll create the chained tasks script:   
+✏️  Writing /home/user/flyte_project/chained_tasks.py ✔ 
+💭 Thinking for 129 characters   
+Now let me run the script to verify it works correctly:   
+💫 Executing python3 /home/user/flyte_project/chained_tasks.py ✔ 
+💭 Thinking for 106 characters   
+📖 Reading /home/user/flyte_project/analysis.json ✔ 
+💭 Thinking for 140 characters   
+Excellent! Let me save a copy to the artifacts directory as well:   
+💫 Executing cp /home/user/flyte_project/chained_tasks.py /logs/artifacts/ && cp /home/user/flyte_project/analysis.json /logs/artifacts/ ✔ 
+💭 Thinking for 760 characters   
+🎉 Task Completed
+Successfully created the Flyte 2.0 chained tasks script at `/home/user/flyte_project/chained_tasks.py`.
+
+**Implementation details:**
+- Created TaskEnvironment named "chain-env"
+- Defined 4 async tasks decorated with `@env.task`:
+  - `normalize_text`: lowercases and strips text
+  - `tokenize`: splits text by spaces
+  - `count_tokens`: counts total and unique tokens
+  - `text_analysis_pipeline`: chains the three tasks using `await`
+- Added `__main__` block that runs the pipeline with "Hello World Hello Flyte World" and saves results to JSON
+
+**Verification:**
+- Script executes without errors
+- Output file `/home/user/flyte_project/analysis.json` created with: `{"token_count": 5, "unique_count": 3}`
+- Copies saved to `/logs/artifacts/` directory
+
+The implementation follows Flyte 2.0 conventions with no `@workflow` decorator—tasks call other tasks directly using `await`.   
+  

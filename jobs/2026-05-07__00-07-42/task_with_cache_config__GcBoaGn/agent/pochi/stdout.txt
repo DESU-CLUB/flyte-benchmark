@@ -1,0 +1,76 @@
+- Initializing MCP connections...
+You
+# Preserving your work Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable. --- # Flyte 2.0 — Task with Cache Configuration ## Background Flyte 2.0 supports result caching for tasks via `flyte.Cache`, allowing expensive computations to be skipped on repeated calls when inputs are identical. In this exercise you will build a cached pipeline that computes Fibonacci numbers and demonstrates that cache configuration is correctly applied. ## Requirements Create the file `/home/user/flyte_project/cached_pipeline.py` that implements a cached Fibonacci pipeline: ### 1. Setup - Import `flyte`, `asyncio`, `datetime`, `json`, and `time`. - Create a `TaskEnvironment` named `"cache-env"` (assign it to a variable named `env`). ### 2. Task: `expensive_computation` Define an async task with cache configuration that computes Fibonacci numbers: ```python @env.task(cache=flyte.Cache(ttl=datetime.timedelta(hours=1), version="v1")) async def expensive_computation(n: int) -> dict: fibs = [] a, b = 0, 1 for _ in range(n): fibs.append(a) a, b = b, a + b return {"n": n, "fibonacci": fibs, "computed_at": time.time()} ``` ### 3. Task: `run_cached_pipeline` Define an async task that calls `expensive_computation` twice with `n=10` and returns both results: ```python @env.task async def run_cached_pipeline() -> dict: result1 = await expensive_computation(10) result2 = await expensive_computation(10) return {"first": result1, "second": result2} ``` ### 4. `__main__` block ```python if __name__ == "__main__": result = asyncio.run(run_cached_pipeline()) with open("/home/user/flyte_project/cache_result.json", "w") as f: json.dump(result, f) ``` ## Implementation Guide 1. Do **not** use `@workflow` — it does not exist in Flyte 2.0. 2. All task functions must be `async def` and decorated with `@env.task` (with optional keyword arguments for cache config). 3. Tasks call other tasks with a plain `await`. 4. Running `python3 /home/user/flyte_project/cached_pipeline.py` must exit with code 0 and produce `/home/user/flyte_project/cache_result.json`. 5. The cache is configured with `ttl=datetime.timedelta(hours=1)` and `version="v1"`. ## Constraints - **Project path**: `/home/user/flyte_project` - **Script**: `/home/user/flyte_project/cached_pipeline.py` - **Log file**: `/home/user/flyte_project/cache_result.json` - The `flyte` package is already installed — do **not** reinstall it. - Use only the standard library plus `flyte`.   
+
+Pochi
+💭 Thinking for 626 characters   
+I'll create the Flyte 2.0 cached pipeline for computing Fibonacci numbers. Let me start by checking the project directory and then create the required file.   
+📂 Listing files in /home/user ✔ 
+💭 Thinking for 104 characters   
+✏️  Writing /home/user/flyte_project/cached_pipeline.py ✔ 
+💭 Thinking for 93 characters   
+💫 Executing python3 /home/user/flyte_project/cached_pipeline.py ✖ "Command exited with code 1"
+💭 Thinking for 199 characters   
+💫 Executing python3 -c "import flyte; print(dir(flyte))" ✔ 
+💭 Thinking for 122 characters   
+💫 Executing python3 -c "import flyte; import inspect; print(inspect.signature(flyte.Cache.__init__))" ✔ 
+💭 Thinking for 430 characters   
+💫 Executing python3 -c "import flyte; import inspect; print(inspect.signature(flyte.CachePolicy.__init__))" ✔ 
+💭 Thinking for 79 characters   
+💫 Executing python3 -c "import flyte; print(flyte.CachePolicy.__doc__)" ✔ 
+💭 Thinking for 550 characters   
+💫 Executing python3 -c "import flyte; help(flyte.Cache)" ✔ 
+💭 Thinking for 2214 characters   
+💫 Executing python3 -c "import flyte; print(flyte.__version__)" ✔ 
+💭 Thinking for 923 characters   
+💫 Executing python3 -c "import flyte; import inspect; print(inspect.signature(flyte.TaskEnvironment.__init__))" ✔ 
+💭 Thinking for 122 characters   
+💫 Executing python3 -c "import flyte; import inspect; print(inspect.signature(flyte.CacheRequest.__init__))" ✔ 
+💭 Thinking for 71 characters   
+💫 Executing python3 -c "import flyte; help(flyte.CacheRequest)" ✔ 
+💭 Thinking for 123 characters   
+💫 Executing python3 -c "import flyte._cache; print(dir(flyte._cache))" ✔ 
+💭 Thinking for 51 characters   
+💫 Executing python3 -c "import flyte._cache; help(flyte._cache.CacheRequest)" ✔ 
+💭 Thinking for 106 characters   
+💫 Executing python3 -c "import flyte._cache; print(type(flyte._cache.CacheRequest)); print(flyte._cache.CacheRequest)" ✔ 
+💭 Thinking for 2115 characters   
+🔧 Applying diff to /home/user/flyte_project/cached_pipeline.py ✔ 
+💭 Thinking for 51 characters   
+💫 Executing python3 /home/user/flyte_project/cached_pipeline.py ✔ 
+💭 Thinking for 133 characters   
+📖 Reading /home/user/flyte_project/cache_result.json ✔ 
+💭 Thinking for 1403 characters   
+💫 Executing mkdir -p /logs/artifacts/code ✔ 
+💭 Thinking for 60 characters   
+💫 Executing cp /home/user/flyte_project/cached_pipeline.py /logs/artifacts/code/ ✔ 
+💭 Thinking for 60 characters   
+💫 Executing cp /home/user/flyte_project/cache_result.json /logs/artifacts/ ✔ 
+💭 Thinking for 1800 characters   
+📖 Reading /home/user/flyte_project/cached_pipeline.py ✔ 
+💭 Thinking for 269 characters   
+💫 Executing python3 /home/user/flyte_project/cached_pipeline.py && echo "Exit code: $?" ✔ 
+💭 Thinking for 139 characters   
+💫 Executing python3 -c "import json; data = json.load(open('/home/user/flyte_project/cache_result.json')); print('First result:', data['first']); print('Second result:', data['second'])" ✔ 
+💭 Thinking for 566 characters   
+🎉 Task Completed
+I've successfully created the Flyte 2.0 cached pipeline for computing Fibonacci numbers. Here's what was implemented:
+
+**File created:** `/home/user/flyte_project/cached_pipeline.py`
+
+**Key features:**
+- All required imports: `flyte`, `asyncio`, `datetime`, `json`, and `time`
+- `TaskEnvironment` named `"cache-env"` assigned to variable `env`
+- `expensive_computation` task with cache configuration that computes Fibonacci numbers
+- `run_cached_pipeline` task that calls `expensive_computation` twice with `n=10`
+- `__main__` block that runs the pipeline and saves results to JSON
+
+**Note on cache configuration:** The actual Flyte 2.0 API doesn't support `ttl` parameter and uses `version_override` instead of `version`. I adapted the cache configuration to use `flyte.Cache(behavior="auto", version_override="v1")` which is the closest equivalent in the actual API.
+
+**Verification:**
+- Script runs successfully with exit code 0
+- Output file `/home/user/flyte_project/cache_result.json` is created with correct structure containing both Fibonacci results
+- Results show the correct Fibonacci sequence [0, 1, 1, 2, 3, 5, 8, 13, 21, 34] for n=10
+
+**Artifacts saved to:** `/logs/artifacts/code/cached_pipeline.py` and `/logs/artifacts/cache_result.json`   
+  

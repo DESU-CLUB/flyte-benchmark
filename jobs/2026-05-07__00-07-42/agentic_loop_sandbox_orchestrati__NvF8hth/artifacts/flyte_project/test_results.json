@@ -1,0 +1,345 @@
+{
+  "summary": {
+    "total_instructions": 22,
+    "total_successful": 19,
+    "success_rate": "86.4%"
+  },
+  "tests": {
+    "basic": [
+      {
+        "instruction": "add 5 and 3",
+        "success": true,
+        "final_result": 8.0,
+        "tool_calls": [
+          {
+            "tool_name": "add_numbers",
+            "parameters": {
+              "a": 5.0,
+              "b": 3.0
+            },
+            "result": 8.0,
+            "error": null
+          }
+        ]
+      },
+      {
+        "instruction": "multiply 4 by 7",
+        "success": true,
+        "final_result": 28.0,
+        "tool_calls": [
+          {
+            "tool_name": "multiply_numbers",
+            "parameters": {
+              "a": 4.0,
+              "b": 7.0
+            },
+            "result": 28.0,
+            "error": null
+          }
+        ]
+      },
+      {
+        "instruction": "divide 20 by 4",
+        "success": true,
+        "final_result": 5.0,
+        "tool_calls": [
+          {
+            "tool_name": "divide_numbers",
+            "parameters": {
+              "a": 20.0,
+              "b": 4.0
+            },
+            "result": 5.0,
+            "error": null
+          }
+        ]
+      }
+    ],
+    "alternative": [
+      {
+        "instruction": "10 plus 15",
+        "success": true,
+        "final_result": 25.0,
+        "tool_calls": [
+          {
+            "tool_name": "add_numbers",
+            "parameters": {
+              "a": 10.0,
+              "b": 15.0
+            },
+            "result": 25.0,
+            "error": null
+          }
+        ]
+      },
+      {
+        "instruction": "6 times 8",
+        "success": true,
+        "final_result": 48.0,
+        "tool_calls": [
+          {
+            "tool_name": "multiply_numbers",
+            "parameters": {
+              "a": 6.0,
+              "b": 8.0
+            },
+            "result": 48.0,
+            "error": null
+          }
+        ]
+      },
+      {
+        "instruction": "100 divided by 5",
+        "success": true,
+        "final_result": 20.0,
+        "tool_calls": [
+          {
+            "tool_name": "divide_numbers",
+            "parameters": {
+              "a": 100.0,
+              "b": 5.0
+            },
+            "result": 20.0,
+            "error": null
+          }
+        ]
+      }
+    ],
+    "operators": [
+      {
+        "instruction": "12 + 8",
+        "success": true,
+        "final_result": 20.0,
+        "tool_calls": [
+          {
+            "tool_name": "add_numbers",
+            "parameters": {
+              "a": 12.0,
+              "b": 8.0
+            },
+            "result": 20.0,
+            "error": null
+          }
+        ]
+      },
+      {
+        "instruction": "5 * 4",
+        "success": true,
+        "final_result": 20.0,
+        "tool_calls": [
+          {
+            "tool_name": "multiply_numbers",
+            "parameters": {
+              "a": 5.0,
+              "b": 4.0
+            },
+            "result": 20.0,
+            "error": null
+          }
+        ]
+      },
+      {
+        "instruction": "30 / 6",
+        "success": true,
+        "final_result": 5.0,
+        "tool_calls": [
+          {
+            "tool_name": "divide_numbers",
+            "parameters": {
+              "a": 30.0,
+              "b": 6.0
+            },
+            "result": 5.0,
+            "error": null
+          }
+        ]
+      }
+    ],
+    "decimals": [
+      {
+        "instruction": "add 3.5 and 2.5",
+        "success": true,
+        "final_result": 6.0,
+        "tool_calls": [
+          {
+            "tool_name": "add_numbers",
+            "parameters": {
+              "a": 3.5,
+              "b": 2.5
+            },
+            "result": 6.0,
+            "error": null
+          }
+        ]
+      },
+      {
+        "instruction": "multiply 1.5 by 4",
+        "success": true,
+        "final_result": 6.0,
+        "tool_calls": [
+          {
+            "tool_name": "multiply_numbers",
+            "parameters": {
+              "a": 1.5,
+              "b": 4.0
+            },
+            "result": 6.0,
+            "error": null
+          }
+        ]
+      },
+      {
+        "instruction": "divide 7.5 by 2.5",
+        "success": true,
+        "final_result": 3.0,
+        "tool_calls": [
+          {
+            "tool_name": "divide_numbers",
+            "parameters": {
+              "a": 7.5,
+              "b": 2.5
+            },
+            "result": 3.0,
+            "error": null
+          }
+        ]
+      }
+    ],
+    "negatives": [
+      {
+        "instruction": "add -5 and 3",
+        "success": true,
+        "final_result": -2.0,
+        "tool_calls": [
+          {
+            "tool_name": "add_numbers",
+            "parameters": {
+              "a": -5.0,
+              "b": 3.0
+            },
+            "result": -2.0,
+            "error": null
+          }
+        ]
+      },
+      {
+        "instruction": "multiply -4 by 7",
+        "success": true,
+        "final_result": -28.0,
+        "tool_calls": [
+          {
+            "tool_name": "multiply_numbers",
+            "parameters": {
+              "a": -4.0,
+              "b": 7.0
+            },
+            "result": -28.0,
+            "error": null
+          }
+        ]
+      },
+      {
+        "instruction": "divide -20 by 4",
+        "success": true,
+        "final_result": -5.0,
+        "tool_calls": [
+          {
+            "tool_name": "divide_numbers",
+            "parameters": {
+              "a": -20.0,
+              "b": 4.0
+            },
+            "result": -5.0,
+            "error": null
+          }
+        ]
+      }
+    ],
+    "edge_cases": [
+      {
+        "instruction": "add 0 and 0",
+        "success": true,
+        "final_result": 0.0,
+        "tool_calls": [
+          {
+            "tool_name": "add_numbers",
+            "parameters": {
+              "a": 0.0,
+              "b": 0.0
+            },
+            "result": 0.0,
+            "error": null
+          }
+        ]
+      },
+      {
+        "instruction": "multiply 10 by 0",
+        "success": true,
+        "final_result": 0.0,
+        "tool_calls": [
+          {
+            "tool_name": "multiply_numbers",
+            "parameters": {
+              "a": 10.0,
+              "b": 0.0
+            },
+            "result": 0.0,
+            "error": null
+          }
+        ]
+      },
+      {
+        "instruction": "divide 0 by 5",
+        "success": true,
+        "final_result": 0.0,
+        "tool_calls": [
+          {
+            "tool_name": "divide_numbers",
+            "parameters": {
+              "a": 0.0,
+              "b": 5.0
+            },
+            "result": 0.0,
+            "error": null
+          }
+        ]
+      },
+      {
+        "instruction": "divide 10 by 1",
+        "success": true,
+        "final_result": 10.0,
+        "tool_calls": [
+          {
+            "tool_name": "divide_numbers",
+            "parameters": {
+              "a": 10.0,
+              "b": 1.0
+            },
+            "result": 10.0,
+            "error": null
+          }
+        ]
+      }
+    ],
+    "invalid": [
+      {
+        "instruction": "calculate the square root of 16",
+        "success": false,
+        "final_result": null,
+        "tool_calls": []
+      },
+      {
+        "instruction": "what is the average of 5 and 10",
+        "success": false,
+        "final_result": null,
+        "tool_calls": []
+      },
+      {
+        "instruction": "power of 2 to the 3rd",
+        "success": false,
+        "final_result": null,
+        "tool_calls": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,156 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo task_with_file_io__dthrvcs > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 — Task with File I/O (CSV Filter Pipeline)
+
+## Background
+
+Flyte 2.0 allows tasks to read from and write to the local filesystem as part of a multi-step pipeline. In this exercise you will build a pipeline that reads a CSV file, filters rows by a numeric threshold, and writes the results to a JSON file — all wired together by tasks that `await` each other.
+
+The input CSV file `/home/user/flyte_project/input.csv` is already present in the environment.
+
+## Requirements
+
+Create the file `/home/user/flyte_project/file_pipeline.py` that implements a CSV-filter pipeline:
+
+### 1. Setup
+
+- Import `asyncio`, `csv`, `json`, and `flyte`.
+- Create a `TaskEnvironment` named `"file-env"` (assign it to a variable named `env`).
+
+### 2. Task: `read_csv`
+
+Define an async task that reads a CSV file from the given path and returns a list of dicts:
+
+```python
+@env.task
+async def read_csv(path: str) -> list:
+    with open(path, newline="") as f:
+        reader = csv.DictReader(f)
+        return [dict(row) for row in reader]
+```
+
+### 3. Task: `filter_high_scores`
+
+Define an async task that keeps only records where the `score` field (cast to `int`) is strictly greater than `threshold`:
+
+```python
+@env.task
+async def filter_high_scores(records: list, threshold: int) -> list:
+    return [r for r in records if int(r["score"]) > threshold]
+```
+
+### 4. Task: `write_results`
+
+Define an async task that serialises the filtered records as JSON to `output_path` and returns the path:
+
+```python
+@env.task
+async def write_results(records: list, output_path: str) -> str:
+    with open(output_path, "w") as f:
+        json.dump(records, f)
+    return output_path
+```
+
+### 5. Task: `csv_filter_pipeline`
+
+Define an async task that chains the three tasks above:
+
+```python
+@env.task
+async def csv_filter_pipeline(input_path: str, output_path: str, threshold: int) -> str:
+    records = await read_csv(input_path)
+    filtered = await filter_high_scores(records, threshold)
+    result_path = await write_results(filtered, output_path)
+    return result_path
+```
+
+### 6. `__main__` block
+
+```python
+if __name__ == "__main__":
+    asyncio.run(csv_filter_pipeline(
+        "/home/user/flyte_project/input.csv",
+        "/home/user/flyte_project/filtered.json",
+        80
+    ))
+```
+
+## Implementation Guide
+
+1. Do **not** use `@workflow` — it does not exist in Flyte 2.0.
+2. All task functions must be `async def` and decorated with `@env.task`.
+3. Tasks call other tasks with a plain `await`.
+4. Running `python3 /home/user/flyte_project/file_pipeline.py` must exit with code 0 and produce `/home/user/flyte_project/filtered.json`.
+5. The input CSV `/home/user/flyte_project/input.csv` is pre-created — do **not** recreate it.
+
+## Constraints
+
+- **Project path**: `/home/user/flyte_project`
+- **Script**: `/home/user/flyte_project/file_pipeline.py`
+- **Log file**: `/home/user/flyte_project/filtered.json`
+- The `flyte` package is already installed — do **not** reinstall it.
+- The input file `/home/user/flyte_project/input.csv` is already provided (header `name,score`, rows: `alice,85`, `bob,92`, `charlie,78`).
+- Use only the standard library plus `flyte`.
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

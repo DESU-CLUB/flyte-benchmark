@@ -1,0 +1,12 @@
+[
+  {
+    "endpoint": "/api/v1/data",
+    "authenticated": true,
+    "key_length": 18
+  },
+  {
+    "endpoint": "/api/v1/models",
+    "authenticated": true,
+    "key_length": 18
+  }
+]

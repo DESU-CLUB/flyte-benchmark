@@ -1,0 +1,164 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 16,
+            "passed": 16,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778138954.2973478,
+            "stop": 1778138954.5028741
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_environments_py_exists",
+                "status": "passed",
+                "duration": 0.00035876594483852386,
+                "start": 1778138954.3040338,
+                "stop": 1778138954.3045504,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_pipeline_py_exists",
+                "status": "passed",
+                "duration": 0.0003019721480086446,
+                "start": 1778138954.3046227,
+                "stop": 1778138954.3050425,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_main_py_exists",
+                "status": "passed",
+                "duration": 0.0002783889649435878,
+                "start": 1778138954.3051,
+                "stop": 1778138954.3054883,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_main_runs_successfully",
+                "status": "passed",
+                "duration": 0.05570808006450534,
+                "start": 1778138954.3055415,
+                "stop": 1778138954.3614717,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_training_result_json_exists",
+                "status": "passed",
+                "duration": 0.05701851285994053,
+                "start": 1778138954.3615837,
+                "stop": 1778138954.4188216,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_has_preprocessing_key",
+                "status": "passed",
+                "duration": 0.058834553929045796,
+                "start": 1778138954.4189253,
+                "stop": 1778138954.4779186,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_has_model_key",
+                "status": "passed",
+                "duration": 0.0001785490894690156,
+                "start": 1778138954.47802,
+                "stop": 1778138954.4782796,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_has_evaluation_key",
+                "status": "passed",
+                "duration": 0.00017175718676298857,
+                "start": 1778138954.4783309,
+                "stop": 1778138954.478576,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_evaluation_accuracy_positive",
+                "status": "passed",
+                "duration": 0.0002958041150122881,
+                "start": 1778138954.4786246,
+                "stop": 1778138954.479047,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_evaluation_eval_env_is_cpu",
+                "status": "passed",
+                "duration": 0.0001772148534655571,
+                "start": 1778138954.4790993,
+                "stop": 1778138954.4793484,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_model_training_env_is_gpu",
+                "status": "passed",
+                "duration": 0.0001595909707248211,
+                "start": 1778138954.4793942,
+                "stop": 1778138954.479623,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_preprocessing_env_is_cpu",
+                "status": "passed",
+                "duration": 0.00021750899031758308,
+                "start": 1778138954.4796696,
+                "stop": 1778138954.4799838,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_preprocessing_n_samples_is_five",
+                "status": "passed",
+                "duration": 0.0001925501273944974,
+                "start": 1778138954.4800608,
+                "stop": 1778138954.480343,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_cpu_env_resources_cpu",
+                "status": "passed",
+                "duration": 0.021545341121964157,
+                "start": 1778138954.4803972,
+                "stop": 1778138954.5020862,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_gpu_env_resources_cpu",
+                "status": "passed",
+                "duration": 0.00022021890617907047,
+                "start": 1778138954.5021532,
+                "stop": 1778138954.5024602,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_eval_env_resources_cpu",
+                "status": "passed",
+                "duration": 0.00017954991199076176,
+                "start": 1778138954.5025108,
+                "stop": 1778138954.5027633,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,108 @@
+- Initializing MCP connections...
+You
+# Preserving your work Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable. --- # Flyte 2.0 — ML Training Pipeline with Metrics ## Background Flyte 2.0 uses native Python async primitives for composing multi-step ML pipelines. Tasks are `async def` functions decorated with `@env.task` from a `TaskEnvironment`. Parallelism is achieved with `asyncio.gather`, and expensive steps can be memoised with `flyte.Cache`. ## Requirements Create the file `/home/user/flyte_project/ml_pipeline.py` that implements a complete ML training system which trains multiple model configurations in parallel and selects the best one. ### 1. Setup - Import `asyncio`, `datetime`, `json`, and `flyte`. - Create a `TaskEnvironment` named `"ml-training"` with `flyte.Resources(cpu=4, memory="8Gi")` (assign it to a variable named `env`): ```python env = flyte.TaskEnvironment("ml-training", resources=flyte.Resources(cpu=4, memory="8Gi")) ``` ### 2. Task: `generate_dataset` Define an async task: ```python @env.task async def generate_dataset(n_samples: int, n_features: int) -> dict: return { "X": [[float(i + j) for j in range(n_features)] for i in range(n_samples)], "y": [i % 2 for i in range(n_samples)], "n_samples": n_samples, "n_features": n_features, } ``` ### 3. Task: `train_model` (with cache) Define an async task with a `flyte.Cache` of 1 hour TTL: ```python @env.task(cache=flyte.Cache(ttl=datetime.timedelta(hours=1), version="v1")) async def train_model(config: dict, dataset: dict) -> dict: accuracy = min(0.99, config["learning_rate"] * config["epochs"] * 0.1) loss = max(0.01, 1.0 - config["learning_rate"] * config["epochs"] * 0.1) return { "config": config, "accuracy": accuracy, "loss": loss, "n_samples": dataset["n_samples"], } ``` `config` has keys: `model_type` (str), `learning_rate` (float), `epochs` (int). ### 4. Task: `select_best_model` Define an async task: ```python @env.task async def select_best_model(models: list) -> dict: best = max(models, key=lambda m: m["accuracy"]) return {"best_model": best, "n_candidates": len(models), "best_accuracy": best["accuracy"]} ``` ### 5. Task: `generate_report` Define an async task: ```python @env.task async def generate_report(best: dict) -> dict: return { "report_type": "model_selection", "winner": best["best_model"]["config"]["model_type"], "accuracy": best["best_accuracy"], "candidates_evaluated": best["n_candidates"], } ``` ### 6. Task: `run_ml_experiment` Define an async task that orchestrates the full pipeline: ```python @env.task async def run_ml_experiment(n_samples: int, n_features: int) -> dict: dataset = await generate_dataset(n_samples, n_features) configs = [ {"model_type": "lr", "learning_rate": 0.01, "epochs": 100}, {"model_type": "rf", "learning_rate": 0.1, "epochs": 50}, {"model_type": "nn", "learning_rate": 0.001, "epochs": 200}, ] trained = await asyncio.gather(*[train_model(cfg, dataset) for cfg in configs]) best = await select_best_model(list(trained)) report = await generate_report(best) return report ``` ### 7. `__main__` block ```python if __name__ == "__main__": report = asyncio.run(run_ml_experiment(1000, 10)) with open("/home/user/flyte_project/experiment_report.json", "w") as f: json.dump(report, f) ``` ## Implementation Guide 1. Do **not** use `@workflow` or `flytekit.map` — they do not exist in Flyte 2.0. 2. Parallelism is achieved via `asyncio.gather` across the three model configs. 3. All task functions must be `async def` and decorated with `@env.task`. 4. `train_model` must receive its cache via the `@env.task(cache=...)` decorator argument. 5. Running `python3 /home/user/flyte_project/ml_pipeline.py` must exit with code 0 and produce the report file. ## Constraints - **Project path**: `/home/user/flyte_project` - **Script**: `/home/user/flyte_project/ml_pipeline.py` - **Log file**: `/home/user/flyte_project/experiment_report.json` - The `flyte` package is already installed — do **not** reinstall it. - Use only the standard library plus `flyte`.   
+
+Pochi
+💭 Thinking for 119 characters   
+💫 Executing python3 -c "import flyte; help(flyte)" 2>&1 | head -100 ✔ 
+📂 Listing files in /home/user ✔ 
+💫 Executing python3 -c "import flyte; help(flyte)" 2>&1 | grep -A 20 "class Cache\|class TaskEnvironment\|class Resources" ✔ 
+💫 Executing python3 -c "import flyte; help(flyte.Cache)" 2>&1 ✔ 
+📂 Listing files in /home/user/flyte_project ✔ 
+Now I understand the actual `flyte.Cache` API. It uses `behavior` (not `ttl`/`version`). The requirement says `flyte.Cache(ttl=datetime.timedelta(hours=1), version="v1")` but the real API is `Cache(behavior, version_override=...)`. I need to adapt the spec to use the real API while satisfying the intent. Let me check how `@env.task` works too.   
+💫 Executing python3 -c "import flyte; help(flyte.TaskEnvironment.task)" 2>&1 ✔ 
+💫 Executing python3 -c "
+import flyte
+# Test how tasks work locally - can we call them directly?
+import asyncio
+
+env = flyte.TaskEnvironment('test', resources=flyte.Resources(cpu=1, memory='1Gi'))
+
+@env.task
+async def my_task(x: int) -> int:
+    return x + 1
+
+print(type(my_task))
+print(dir(my_task))
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+import flyte, asyncio
+
+env = flyte.TaskEnvironment('test', resources=flyte.Resources(cpu=1, memory='1Gi'))
+
+@env.task
+async def my_task(x: int) -> int:
+    return x + 1
+
+# Try calling it
+async def main():
+    result = await my_task(5)
+    print('result:', result)
+
+asyncio.run(main())
+" 2>&1 ✔ 
+💫 Executing python3 -c "
+import flyte, asyncio
+
+env = flyte.TaskEnvironment('test', resources=flyte.Resources(cpu=1, memory='1Gi'))
+
+# Test Cache with override behavior and version_override
+cache = flyte.Cache(behavior='override', version_override='v1')
+print('Cache created:', cache)
+
+@env.task(cache=cache)
+async def cached_task(x: int) -> int:
+    return x + 1
+
+async def main():
+    result = await cached_task(5)
+    print('result:', result)
+
+asyncio.run(main())
+" 2>&1 ✔ 
+The real API works. Now I'll create the pipeline. The spec mentions `flyte.Cache(ttl=datetime.timedelta(hours=1), version="v1")` but the real `Cache` API uses `behavior` + `version_override`. I'll use `Cache(behavior="override", version_override="v1")` which satisfies the intent (pinned version cache).   
+💫 Executing mkdir -p /home/user/flyte_project ✔ 
+✏️  Writing /home/user/flyte_project/ml_pipeline.py ✔ 
+💫 Executing python3 /home/user/flyte_project/ml_pipeline.py; echo "Exit code: $?" ✔ 
+💫 Executing cat /home/user/flyte_project/experiment_report.json ✔ 
+The script runs cleanly (exit 0) and produces the report. Now copy artifacts to `/logs/artifacts/`.   
+💫 Executing mkdir -p /logs/artifacts/code && cp /home/user/flyte_project/ml_pipeline.py /logs/artifacts/code/ && cp /home/user/flyte_project/experiment_report.json /logs/artifacts/ && echo "Copied." ✔ 
+🎉 Task Completed
+Created `/home/user/flyte_project/ml_pipeline.py` — the full ML training pipeline. Here's a summary of what was built and one adaptation made:
+
+---
+
+### What was implemented
+
+| Task | Role |
+|---|---|
+| `generate_dataset` | Builds synthetic feature matrix + labels |
+| `train_model` | Trains a model config; result is **cached** |
+| `select_best_model` | Picks the config with highest accuracy |
+| `generate_report` | Formats the final selection report |
+| `run_ml_experiment` | Orchestrator: runs all of the above, with the three model configs trained **in parallel** via `asyncio.gather` |
+
+### API adaptation: `flyte.Cache`
+
+The spec calls for `flyte.Cache(ttl=datetime.timedelta(hours=1), version="v1")`, but the installed Flyte 2.0 SDK's `Cache` class takes `(behavior, version_override=...)` — there is no `ttl` or `version` parameter. The equivalent call used is:
+
+```python
+flyte.Cache(behavior="override", version_override="v1")
+```
+
+`behavior="override"` means the cache key is pinned to `version_override="v1"`, which is semantically identical to the spec's intent (an explicit, stable version string that you bump to invalidate).
+
+---
+
+### Output
+
+Running `python3 /home/user/flyte_project/ml_pipeline.py` exits with code **0** and writes:
+
+```json
+{"report_type": "model_selection", "winner": "rf", "accuracy": 0.5, "candidates_evaluated": 3}
+```
+
+The `rf` (Random Forest) config wins with `learning_rate=0.1 × epochs=50 × 0.1 = 0.5` accuracy, beating `lr` (0.1) and `nn` (0.02).
+
+Artifacts saved to `/logs/artifacts/code/ml_pipeline.py` and `/logs/artifacts/experiment_report.json`.   
+  

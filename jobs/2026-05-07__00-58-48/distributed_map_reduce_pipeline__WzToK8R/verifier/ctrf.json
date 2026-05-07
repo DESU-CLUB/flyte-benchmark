@@ -1,0 +1,107 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 3,
+            "failed": 5,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778141245.8005967,
+            "stop": 1778141245.8894453
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_mapreduce_file_exists",
+                "status": "passed",
+                "duration": 0.0004697040421888232,
+                "start": 1778141245.8071156,
+                "stop": 1778141245.807768,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_mapreduce_runs_successfully",
+                "status": "passed",
+                "duration": 0.06043375108856708,
+                "start": 1778141245.807868,
+                "stop": 1778141245.8686728,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_file_exists",
+                "status": "passed",
+                "duration": 0.00036133104003965855,
+                "start": 1778141245.8688288,
+                "stop": 1778141245.8693323,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_total_words_is_eleven",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0005325779784470797,
+                "start": 1778141245.8694046,
+                "stop": 1778141245.8787942,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_total_words_is_eleven():\n        \"\"\"total_words must equal 11 for the sample input text.\"\"\"\n        data = _load_output()\n>       assert \"total_words\" in data, (\n            f\"'total_words' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'total_words' key missing from output. Got keys: ['hello', 'world', 'this', 'is', 'a', 'test', 'flyte', '2', '0', 'distributed', 'map', 'reduce']\nE       assert 'total_words' in {'0': 1, '2': 1, 'a': 1, 'distributed': 1, ...}\n\ntests/test_final_state.py:68: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_unique_words_is_nine",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0011056979419663548,
+                "start": 1778141245.8788958,
+                "stop": 1778141245.8816404,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_unique_words_is_nine():\n        \"\"\"unique_words must equal 9 for the sample input text.\"\"\"\n        data = _load_output()\n>       assert \"unique_words\" in data, (\n            f\"'unique_words' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'unique_words' key missing from output. Got keys: ['hello', 'world', 'this', 'is', 'a', 'test', 'flyte', '2', '0', 'distributed', 'map', 'reduce']\nE       assert 'unique_words' in {'0': 1, '2': 1, 'a': 1, 'distributed': 1, ...}\n\ntests/test_final_state.py:80: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frequency_the_is_three",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00113844801671803,
+                "start": 1778141245.8817377,
+                "stop": 1778141245.884472,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_frequency_the_is_three():\n        \"\"\"frequencies['the'] must equal 3.\"\"\"\n        data = _load_output()\n>       assert \"frequencies\" in data, (\n            f\"'frequencies' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'frequencies' key missing from output. Got keys: ['hello', 'world', 'this', 'is', 'a', 'test', 'flyte', '2', '0', 'distributed', 'map', 'reduce']\nE       assert 'frequencies' in {'0': 1, '2': 1, 'a': 1, 'distributed': 1, ...}\n\ntests/test_final_state.py:92: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frequency_fox_is_two",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0005591200897470117,
+                "start": 1778141245.8845742,
+                "stop": 1778141245.8865228,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_frequency_fox_is_two():\n        \"\"\"frequencies['fox'] must equal 2.\"\"\"\n        data = _load_output()\n>       assert \"frequencies\" in data, (\n            f\"'frequencies' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'frequencies' key missing from output. Got keys: ['hello', 'world', 'this', 'is', 'a', 'test', 'flyte', '2', '0', 'distributed', 'map', 'reduce']\nE       assert 'frequencies' in {'0': 1, '2': 1, 'a': 1, 'distributed': 1, ...}\n\ntests/test_final_state.py:108: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frequency_quick_is_one",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0007211607880890369,
+                "start": 1778141245.8866034,
+                "stop": 1778141245.8892553,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_frequency_quick_is_one():\n        \"\"\"frequencies['quick'] must equal 1.\"\"\"\n        data = _load_output()\n>       assert \"frequencies\" in data, (\n            f\"'frequencies' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'frequencies' key missing from output. Got keys: ['hello', 'world', 'this', 'is', 'a', 'test', 'flyte', '2', '0', 'distributed', 'map', 'reduce']\nE       assert 'frequencies' in {'0': 1, '2': 1, 'a': 1, 'distributed': 1, ...}\n\ntests/test_final_state.py:124: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

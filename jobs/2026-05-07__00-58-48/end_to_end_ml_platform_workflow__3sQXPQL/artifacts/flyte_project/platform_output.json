@@ -1,0 +1,9 @@
+{
+    "models_evaluated": {
+        "LogisticRegression": 0.98,
+        "RandomForest": 0.975,
+        "SVC": 0.985
+    },
+    "best_model": "SVC",
+    "best_accuracy": 0.985
+}

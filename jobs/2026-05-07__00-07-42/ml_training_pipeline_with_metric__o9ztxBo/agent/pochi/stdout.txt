@@ -1,0 +1,68 @@
+- Initializing MCP connections...
+You
+# Preserving your work Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable. --- # Flyte 2.0 — ML Training Pipeline with Metrics ## Background Flyte 2.0 uses native Python async primitives for composing multi-step ML pipelines. Tasks are `async def` functions decorated with `@env.task` from a `TaskEnvironment`. Parallelism is achieved with `asyncio.gather`, and expensive steps can be memoised with `flyte.Cache`. ## Requirements Create the file `/home/user/flyte_project/ml_pipeline.py` that implements a complete ML training system which trains multiple model configurations in parallel and selects the best one. ### 1. Setup - Import `asyncio`, `datetime`, `json`, and `flyte`. - Create a `TaskEnvironment` named `"ml-training"` with `flyte.Resources(cpu=4, memory="8Gi")` (assign it to a variable named `env`): ```python env = flyte.TaskEnvironment("ml-training", resources=flyte.Resources(cpu=4, memory="8Gi")) ``` ### 2. Task: `generate_dataset` Define an async task: ```python @env.task async def generate_dataset(n_samples: int, n_features: int) -> dict: return { "X": [[float(i + j) for j in range(n_features)] for i in range(n_samples)], "y": [i % 2 for i in range(n_samples)], "n_samples": n_samples, "n_features": n_features, } ``` ### 3. Task: `train_model` (with cache) Define an async task with a `flyte.Cache` of 1 hour TTL: ```python @env.task(cache=flyte.Cache(ttl=datetime.timedelta(hours=1), version="v1")) async def train_model(config: dict, dataset: dict) -> dict: accuracy = min(0.99, config["learning_rate"] * config["epochs"] * 0.1) loss = max(0.01, 1.0 - config["learning_rate"] * config["epochs"] * 0.1) return { "config": config, "accuracy": accuracy, "loss": loss, "n_samples": dataset["n_samples"], } ``` `config` has keys: `model_type` (str), `learning_rate` (float), `epochs` (int). ### 4. Task: `select_best_model` Define an async task: ```python @env.task async def select_best_model(models: list) -> dict: best = max(models, key=lambda m: m["accuracy"]) return {"best_model": best, "n_candidates": len(models), "best_accuracy": best["accuracy"]} ``` ### 5. Task: `generate_report` Define an async task: ```python @env.task async def generate_report(best: dict) -> dict: return { "report_type": "model_selection", "winner": best["best_model"]["config"]["model_type"], "accuracy": best["best_accuracy"], "candidates_evaluated": best["n_candidates"], } ``` ### 6. Task: `run_ml_experiment` Define an async task that orchestrates the full pipeline: ```python @env.task async def run_ml_experiment(n_samples: int, n_features: int) -> dict: dataset = await generate_dataset(n_samples, n_features) configs = [ {"model_type": "lr", "learning_rate": 0.01, "epochs": 100}, {"model_type": "rf", "learning_rate": 0.1, "epochs": 50}, {"model_type": "nn", "learning_rate": 0.001, "epochs": 200}, ] trained = await asyncio.gather(*[train_model(cfg, dataset) for cfg in configs]) best = await select_best_model(list(trained)) report = await generate_report(best) return report ``` ### 7. `__main__` block ```python if __name__ == "__main__": report = asyncio.run(run_ml_experiment(1000, 10)) with open("/home/user/flyte_project/experiment_report.json", "w") as f: json.dump(report, f) ``` ## Implementation Guide 1. Do **not** use `@workflow` or `flytekit.map` — they do not exist in Flyte 2.0. 2. Parallelism is achieved via `asyncio.gather` across the three model configs. 3. All task functions must be `async def` and decorated with `@env.task`. 4. `train_model` must receive its cache via the `@env.task(cache=...)` decorator argument. 5. Running `python3 /home/user/flyte_project/ml_pipeline.py` must exit with code 0 and produce the report file. ## Constraints - **Project path**: `/home/user/flyte_project` - **Script**: `/home/user/flyte_project/ml_pipeline.py` - **Log file**: `/home/user/flyte_project/experiment_report.json` - The `flyte` package is already installed — do **not** reinstall it. - Use only the standard library plus `flyte`.   
+
+Pochi
+💭 Thinking for 1030 characters   
+I'll create the Flyte 2.0 ML training pipeline with all the required tasks and orchestration. Let me start by setting up the project structure and creating the file.   
+💫 Executing mkdir -p /home/user/flyte_project ✔ 
+💫 Executing mkdir -p /logs/artifacts ✔ 
+💭 Thinking for 110 characters   
+✏️  Writing /home/user/flyte_project/ml_pipeline.py ✔ 
+💭 Thinking for 105 characters   
+💫 Executing cp /home/user/flyte_project/ml_pipeline.py /logs/artifacts/ml_pipeline.py ✔ 
+💭 Thinking for 88 characters   
+💫 Executing cd /home/user/flyte_project && python3 ml_pipeline.py ✖ "Command exited with code 1"
+💭 Thinking for 169 characters   
+💫 Executing python3 -c "import flyte; import inspect; print(dir(flyte))" ✔ 
+💭 Thinking for 69 characters   
+💫 Executing python3 -c "import flyte; import inspect; print(inspect.signature(flyte.Cache.__init__))" ✔ 
+💭 Thinking for 110 characters   
+💫 Executing python3 -c "import flyte; import inspect; print(inspect.signature(flyte.CachePolicy.__init__))" ✔ 
+💭 Thinking for 51 characters   
+💫 Executing python3 -c "import flyte; help(flyte.CachePolicy)" ✔ 
+💭 Thinking for 146 characters   
+💫 Executing python3 -c "import flyte; help(flyte.Cache)" ✔ 
+💭 Thinking for 1413 characters   
+🔧 Applying diff to /home/user/flyte_project/ml_pipeline.py ✔ 
+💭 Thinking for 33 characters   
+💫 Executing cd /home/user/flyte_project && python3 ml_pipeline.py ✔ 
+💭 Thinking for 104 characters   
+💫 Executing cat /home/user/flyte_project/experiment_report.json ✔ 
+💭 Thinking for 136 characters   
+💫 Executing cp /home/user/flyte_project/experiment_report.json /logs/artifacts/experiment_report.json ✔ 
+💭 Thinking for 59 characters   
+💫 Executing cd /home/user/flyte_project && python3 ml_pipeline.py && echo "Exit code: $?" ✔ 
+💭 Thinking for 139 characters   
+💫 Executing cp /home/user/flyte_project/ml_pipeline.py /logs/artifacts/ml_pipeline.py ✔ 
+💭 Thinking for 81 characters   
+📖 Reading /home/user/flyte_project/ml_pipeline.py ✔ 
+💭 Thinking for 1360 characters   
+🎉 Task Completed
+I've successfully created the Flyte 2.0 ML training pipeline at `/home/user/flyte_project/ml_pipeline.py`. The implementation includes:
+
+**Components:**
+1. **Setup**: TaskEnvironment with 4 CPU and 8Gi memory resources
+2. **`generate_dataset`**: Generates synthetic dataset with 1000 samples and 10 features
+3. **`train_model`**: Trains models with caching (using `flyte.Cache(behavior="auto", version_override="v1")`)
+4. **`select_best_model`**: Selects the best model based on accuracy
+5. **`generate_report`**: Creates a summary report of the model selection
+6. **`run_ml_experiment`**: Orchestrates the full pipeline with parallel training using `asyncio.gather`
+7. **`__main__`**: Runs the experiment and saves results to JSON
+
+**Key Features:**
+- All tasks use `async def` and are decorated with `@env.task`
+- Parallelism achieved via `asyncio.gather` across three model configurations (lr, rf, nn)
+- Caching enabled on `train_model` with version control
+- Script exits with code 0 and produces `/home/user/flyte_project/experiment_report.json`
+
+**Output:**
+The generated report shows:
+- Report type: "model_selection"
+- Winner: "rf" (random forest, with accuracy 0.5)
+- Candidates evaluated: 3
+
+**Note**: The Cache API was adapted to use `flyte.Cache(behavior="auto", version_override="v1")` instead of the non-existent `ttl` parameter, as this is the correct Flyte 2.0 API for task caching.
+
+Copies of the script and report have been saved to `/logs/artifacts/` for preservation.   
+  

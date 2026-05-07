@@ -1,0 +1,107 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 3,
+            "failed": 5,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778141116.468965,
+            "stop": 1778141116.5710611
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_agent_loop_script_exists",
+                "status": "passed",
+                "duration": 0.0005521179409697652,
+                "start": 1778141116.4779673,
+                "stop": 1778141116.4787292,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_runs_without_error",
+                "status": "passed",
+                "duration": 0.0790564880007878,
+                "start": 1778141116.4788504,
+                "stop": 1778141116.5581603,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_agent_output_json_exists",
+                "status": "passed",
+                "duration": 0.00033737102057784796,
+                "start": 1778141116.5582714,
+                "stop": 1778141116.5587456,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_is_valid_json",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00040116196032613516,
+                "start": 1778141116.5588286,
+                "stop": 1778141116.5650175,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_output_is_valid_json():\n        \"\"\"Priority 1 (runtime output): agent_output.json must be parseable JSON containing a dict.\"\"\"\n        try:\n            data = _load_output()\n        except json.JSONDecodeError as exc:\n            pytest.fail(\n                f\"agent_output.json is not valid JSON: {exc}\\n\"\n                f\"Raw content: {open(OUTPUT_PATH).read()!r}\"\n            )\n>       assert isinstance(data, dict), (\n            f\"Expected agent_output.json to contain a JSON object, got: {type(data)}\"\n        )\nE       AssertionError: Expected agent_output.json to contain a JSON object, got: <class 'list'>\nE       assert False\nE        +  where False = isinstance([{'instruction': 'Add 5 and 3', 'result': 8.0}, {'instruction': 'Multiply 4 by 2.5', 'result': 10.0}, {'instruction': 'Divide 10 by 2', 'result': 5.0}, {'instruction': 'What is 100 plus 200?', 'result': 300.0}], dict)\n\ntests/test_final_state.py:56: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_steps_completed_equals_two",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0003960779868066311,
+                "start": 1778141116.5650887,
+                "stop": 1778141116.5668292,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_steps_completed_equals_two():\n        \"\"\"Priority 1 (runtime output): steps_completed must be 2 (two instructions were processed).\"\"\"\n        data = _load_output()\n        assert \"steps_completed\" in data, (\n>           f\"'steps_completed' key missing from agent_output.json. Got keys: {list(data.keys())}\"\n                                                                                    ^^^^^^^^^\n        )\nE       AttributeError: 'list' object has no attribute 'keys'\n\ntests/test_final_state.py:65: AttributeError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_results_is_list_of_two",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.000344953965395689,
+                "start": 1778141116.5669007,
+                "stop": 1778141116.5683496,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_results_is_list_of_two():\n        \"\"\"Priority 1 (runtime output): results must be a list with exactly 2 items.\"\"\"\n        data = _load_output()\n        assert \"results\" in data, (\n>           f\"'results' key missing from agent_output.json. Got keys: {list(data.keys())}\"\n                                                                            ^^^^^^^^^\n        )\nE       AttributeError: 'list' object has no attribute 'keys'\n\ntests/test_final_state.py:77: AttributeError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_first_result_is_add_8",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002917461097240448,
+                "start": 1778141116.5684133,
+                "stop": 1778141116.5696034,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_first_result_is_add_8():\n        \"\"\"Priority 1 (runtime output): first result must be 8.0 (add 5.0 + 3.0).\"\"\"\n        data = _load_output()\n>       results = data[\"results\"]\n                  ^^^^^^^^^^^^^^^\nE       TypeError: list indices must be integers or slices, not str\n\ntests/test_final_state.py:92: TypeError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_second_result_is_multiply_28",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0003809528425335884,
+                "start": 1778141116.5696645,
+                "stop": 1778141116.5708861,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_second_result_is_multiply_28():\n        \"\"\"Priority 1 (runtime output): second result must be 28.0 (multiply 4.0 * 7.0).\"\"\"\n        data = _load_output()\n>       results = data[\"results\"]\n                  ^^^^^^^^^^^^^^^\nE       TypeError: list indices must be integers or slices, not str\n\ntests/test_final_state.py:110: TypeError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

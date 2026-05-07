@@ -1,0 +1,67 @@
+{
+    "id": "e0555ddc-8248-48bf-b91c-e343115ff81b",
+    "started_at": "2026-05-06T22:00:20.335782",
+    "finished_at": "2026-05-06T22:17:48.376012",
+    "n_total_trials": 30,
+    "stats": {
+        "n_trials": 30,
+        "n_errors": 2,
+        "evals": {
+            "pochi__gemini-3-flash__flyte-tasks": {
+                "n_trials": 30,
+                "n_errors": 2,
+                "metrics": [
+                    {
+                        "mean": 0.7333333333333333
+                    }
+                ],
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "conditional_branching_try_except__hdjcDbR",
+                            "fan_out_fan_in_pipeline__BzMKZDP",
+                            "task_error_handling_retry__wL2c2Ln",
+                            "flyte_trace_fine_grained_checkpo__H2GHGCn",
+                            "task_with_secrets__TQbSdhF",
+                            "data_processing_pipeline__xkvRBpv",
+                            "task_calling_task__Gu3PnBT",
+                            "task_with_file_io__j5c27bN",
+                            "task_environment_cpu_resources__HTVtpui",
+                            "parallel_tasks_asyncio_gather__LsE67hQ",
+                            "task_with_dynamic_parallelism__5GEWBcm",
+                            "dual_environment_orchestration__kLLxZpk",
+                            "install_and_run_hello_world__gAUn2FL",
+                            "define_basic_task__3Uaz6Ba",
+                            "task_checkpoint_recovery__JnRFwfk",
+                            "image_build_with_packages__AGge6jY",
+                            "self_healing_pipeline_recovery__QhfevDN",
+                            "multi_env_gpu_cpu_pipeline__j5yvTRs",
+                            "task_with_typed_inputs_outputs__sn9SJUt",
+                            "ml_training_pipeline_with_metric__acGA4Uo",
+                            "task_with_pip_packages__en6qiZQ",
+                            "parallel_data_aggregation_pipeli__JbRTj32"
+                        ],
+                        "0.0": [
+                            "full_etl_pipeline_with_recovery__6DhpZSw",
+                            "task_with_cache_config__E3pAHE8",
+                            "end_to_end_ml_platform_workflow__XHvBNR6",
+                            "migrate_flyte1_workflow_to_v2__x9jQVYw",
+                            "agentic_loop_sandbox_orchestrati__bukMKnv",
+                            "experiment_tracking_pipeline__MGTc36z",
+                            "distributed_map_reduce_pipeline__Smhj7kB",
+                            "fastapi_app_environment_serve__YXSekJi"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "AgentTimeoutError": [
+                        "task_with_cache_config__E3pAHE8"
+                    ],
+                    "NonZeroAgentExitCodeError": [
+                        "experiment_tracking_pipeline__MGTc36z"
+                    ]
+                }
+            }
+        }
+    }
+}

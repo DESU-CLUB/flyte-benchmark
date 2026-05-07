@@ -1,0 +1,104 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 4,
+            "failed": 4,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778136824.5883296,
+            "stop": 1778136824.9412189
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_agent_loop_script_exists",
+                "status": "passed",
+                "duration": 0.0018437150865793228,
+                "start": 1778136824.598129,
+                "stop": 1778136824.6002882,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_runs_without_error",
+                "status": "passed",
+                "duration": 0.32704161189030856,
+                "start": 1778136824.6004622,
+                "stop": 1778136824.9278326,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_agent_output_json_exists",
+                "status": "passed",
+                "duration": 0.00033542595338076353,
+                "start": 1778136824.927961,
+                "stop": 1778136824.9284608,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_is_valid_json",
+                "status": "passed",
+                "duration": 0.0002982569858431816,
+                "start": 1778136824.9285436,
+                "stop": 1778136824.9289598,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_steps_completed_equals_two",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0004666360327973962,
+                "start": 1778136824.9290218,
+                "stop": 1778136824.935544,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_steps_completed_equals_two():\n        \"\"\"Priority 1 (runtime output): steps_completed must be 2 (two instructions were processed).\"\"\"\n        data = _load_output()\n>       assert \"steps_completed\" in data, (\n            f\"'steps_completed' key missing from agent_output.json. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'steps_completed' key missing from agent_output.json. Got keys: ['run_metadata', 'results']\nE       assert 'steps_completed' in {'results': [{'error': '', 'instruction': 'Add 15 and 27', 'operands': {'a': 15.0, 'b': 27.0}, 'result': 42.0, ...}, {...ata': {'environment': 'agent-env', 'failed': 1, 'flyte_version': '2.2.3', 'generated_at': '2026-05-07T06:53:44Z', ...}}\n\ntests/test_final_state.py:64: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_results_is_list_of_two",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00038167694583535194,
+                "start": 1778136824.9356253,
+                "stop": 1778136824.9375815,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_results_is_list_of_two():\n        \"\"\"Priority 1 (runtime output): results must be a list with exactly 2 items.\"\"\"\n        data = _load_output()\n        assert \"results\" in data, (\n            f\"'results' key missing from agent_output.json. Got keys: {list(data.keys())}\"\n        )\n        results = data[\"results\"]\n        assert isinstance(results, list), (\n            f\"Expected 'results' to be a list, got: {type(results)}\"\n        )\n>       assert len(results) == 2, (\n            f\"Expected 'results' to have 2 items (one per instruction), \"\n            f\"but got: {len(results)}\"\n        )\nE       AssertionError: Expected 'results' to have 2 items (one per instruction), but got: 10\nE       assert 10 == 2\nE        +  where 10 = len([{'error': '', 'instruction': 'Add 15 and 27', 'operands': {'a': 15.0, 'b': 27.0}, 'result': 42.0, ...}, {'error': '',... by zero is undefined.', 'instruction': 'Divide 50 by 0', 'operands': {'a': 50.0, 'b': 0.0}, 'result': None, ...}, ...])\n\ntests/test_final_state.py:83: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_first_result_is_add_8",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.000538805965334177,
+                "start": 1778136824.937643,
+                "stop": 1778136824.9394028,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_first_result_is_add_8():\n        \"\"\"Priority 1 (runtime output): first result must be 8.0 (add 5.0 + 3.0).\"\"\"\n        data = _load_output()\n        results = data[\"results\"]\n        assert len(results) >= 1, \"results list must have at least 1 item\"\n        first = results[0]\n        assert isinstance(first, dict), (\n            f\"Expected results[0] to be a dict, got: {type(first)}\"\n        )\n        assert \"result\" in first, (\n            f\"Expected 'result' key in results[0], got keys: {list(first.keys())}\"\n        )\n>       assert first[\"result\"] == pytest.approx(8.0), (\n            f\"Expected results[0]['result'] == 8.0 (add 5.0 + 3.0), \"\n            f\"but got: {first['result']!r}\"\n        )\nE       AssertionError: Expected results[0]['result'] == 8.0 (add 5.0 + 3.0), but got: 42.0\nE       assert 42.0 == 8.0 \u00b1 8.0e-06\nE         \nE         comparison failed\nE         Obtained: 42.0\nE         Expected: 8.0 \u00b1 8.0e-06\n\ntests/test_final_state.py:101: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_second_result_is_multiply_28",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00043709506280720234,
+                "start": 1778136824.9394665,
+                "stop": 1778136824.9410768,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_second_result_is_multiply_28():\n        \"\"\"Priority 1 (runtime output): second result must be 28.0 (multiply 4.0 * 7.0).\"\"\"\n        data = _load_output()\n        results = data[\"results\"]\n        assert len(results) >= 2, \"results list must have at least 2 items\"\n        second = results[1]\n        assert isinstance(second, dict), (\n            f\"Expected results[1] to be a dict, got: {type(second)}\"\n        )\n        assert \"result\" in second, (\n            f\"Expected 'result' key in results[1], got keys: {list(second.keys())}\"\n        )\n>       assert second[\"result\"] == pytest.approx(28.0), (\n            f\"Expected results[1]['result'] == 28.0 (multiply 4.0 * 7.0), \"\n            f\"but got: {second['result']!r}\"\n        )\nE       AssertionError: Expected results[1]['result'] == 28.0 (multiply 4.0 * 7.0), but got: 72.0\nE       assert 72.0 == 28.0 \u00b1 2.8e-05\nE         \nE         comparison failed\nE         Obtained: 72.0\nE         Expected: 28.0 \u00b1 2.8e-05\n\ntests/test_final_state.py:119: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

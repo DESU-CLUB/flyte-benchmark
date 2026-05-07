@@ -1,0 +1,56 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778136538.706031,
+            "stop": 1778136538.7433167
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_tasks_py_exists",
+                "status": "passed",
+                "duration": 0.00037210993468761444,
+                "start": 1778136538.7116556,
+                "stop": 1778136538.7122169,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_add_function_returns_correct_value",
+                "status": "passed",
+                "duration": 0.029095950885675848,
+                "start": 1778136538.7123108,
+                "stop": 1778136538.741699,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_multiply_function_returns_correct_value",
+                "status": "passed",
+                "duration": 0.0005781019572168589,
+                "start": 1778136538.741816,
+                "stop": 1778136538.7425525,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_log_exists",
+                "status": "passed",
+                "duration": 0.0003393200458958745,
+                "start": 1778136538.7426534,
+                "stop": 1778136538.743119,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

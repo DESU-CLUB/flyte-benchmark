@@ -1,0 +1,74 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778131373.0854957,
+            "stop": 1778131373.179699
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_chained_tasks_script_exists",
+                "status": "passed",
+                "duration": 0.000366447027772665,
+                "start": 1778131373.0899146,
+                "stop": 1778131373.0904338,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_runs_without_error",
+                "status": "passed",
+                "duration": 0.08604422584176064,
+                "start": 1778131373.0905187,
+                "stop": 1778131373.1768188,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_analysis_json_exists",
+                "status": "passed",
+                "duration": 0.0003206999972462654,
+                "start": 1778131373.1769466,
+                "stop": 1778131373.1775892,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_is_valid_json",
+                "status": "passed",
+                "duration": 0.00044469512067735195,
+                "start": 1778131373.1776671,
+                "stop": 1778131373.178248,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_token_count_equals_five",
+                "status": "passed",
+                "duration": 0.0003845309838652611,
+                "start": 1778131373.1783338,
+                "stop": 1778131373.1788604,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_unique_count_equals_three",
+                "status": "passed",
+                "duration": 0.000394321046769619,
+                "start": 1778131373.1789472,
+                "stop": 1778131373.1794984,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

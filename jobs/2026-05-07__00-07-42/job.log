@@ -1,0 +1,4045 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo fan_out_fan_in_pipeline__zGGJTgD > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 — Fan-Out / Fan-In Pipeline
+
+## Background
+
+Flyte 2.0 uses native Python async primitives for parallelism. The classic fan-out/fan-in pattern — generate a list of work items, process each item concurrently, then aggregate the results — maps cleanly onto `asyncio.gather`. Tasks are `async def` functions decorated with `@env.task` from a `TaskEnvironment`, and the pipeline is launched with `asyncio.run()`.
+
+## Requirements
+
+Create the file `/home/user/flyte_project/fan_out_pipeline.py` implementing the following fan-out/fan-in data processing pipeline.
+
+### 1. Setup
+
+- Import `asyncio`, `json`, and `flyte`.
+- Create a `TaskEnvironment` named `"fan-env"` (assign it to a variable named `env`).
+
+### 2. Task: `generate_work_items`
+
+```python
+@env.task
+async def generate_work_items(n: int) -> list:
+    return list(range(n))
+```
+
+### 3. Task: `process_item`
+
+```python
+@env.task
+async def process_item(item: int) -> dict:
+    return {"item": item, "squared": item ** 2, "is_even": item % 2 == 0}
+```
+
+### 4. Task: `aggregate`
+
+```python
+@env.task
+async def aggregate(results: list) -> dict:
+    return {
+        "total": len(results),
+        "sum_of_squares": sum(r["squared"] for r in results),
+        "even_count": sum(1 for r in results if r["is_even"]),
+    }
+```
+
+### 5. Task: `fan_out_fan_in`
+
+Define an async task that:
+- Accepts `n: int`
+- Calls `generate_work_items(n)` to get items
+- Uses `asyncio.gather(*[process_item(item) for item in items])` to process all items in parallel
+- Calls `aggregate(list(results))` and returns the aggregated dict
+
+```python
+@env.task
+async def fan_out_fan_in(n: int) -> dict:
+    items = await generate_work_items(n)
+    results = await asyncio.gather(*[process_item(item) for item in items])
+    return await aggregate(list(results))
+```
+
+### 6. `__main__` block
+
+In the `if __name__ == "__main__":` block:
+
+- Call `asyncio.run(fan_out_fan_in(5))`
+- Write the returned dict as JSON to `/home/user/flyte_project/fan_result.json`
+
+```python
+if __name__ == "__main__":
+    result = asyncio.run(fan_out_fan_in(5))
+    with open("/home/user/flyte_project/fan_result.json", "w") as f:
+        json.dump(result, f)
+```
+
+## Implementation Guide
+
+1. Do **not** use `@workflow` or `flytekit.map` — they do not exist in Flyte 2.0.
+2. Fan-out is achieved via `asyncio.gather`, which runs multiple async task coroutines concurrently.
+3. All task functions must be `async def` and decorated with `@env.task`.
+4. Running `python3 /home/user/flyte_project/fan_out_pipeline.py` must:
+   - Execute without errors
+   - Produce `/home/user/flyte_project/fan_result.json`
+
+## Constraints
+
+- **Project path**: `/home/user/flyte_project`
+- **Script**: `/home/user/flyte_project/fan_out_pipeline.py`
+- **Log file**: `/home/user/flyte_project/fan_result.json`
+- The `flyte` package is already installed — do **not** reinstall it.
+- Use only the standard library plus `flyte`.
+
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo task_error_handling_retry__QWLKMpv > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 — Error Handling & Retry with Try/Except
+
+## Background
+
+Flyte 2.0 introduces a Python-native task model where each task is an `async def` function decorated with `@env.task`, where `env` is a `TaskEnvironment` instance. Error handling is done with standard Python `try/except` blocks, making self-healing pipelines natural to write without any special Flyte-specific constructs.
+
+## Requirements
+
+Create a Flyte 2.0 pipeline script at `/home/user/flyte_project/error_handling.py` that demonstrates:
+
+1. A `TaskEnvironment` named `"robust-env"`.
+2. A task `risky_operation(value: int) -> int` that raises `ValueError("Value too large")` when `value > 100`, and returns `value * 2` otherwise.
+3. A task `safe_operation(value: int, fallback: int) -> dict` that calls `risky_operation(value)` in a `try/except` block:
+   - On success: returns `{"result": result, "status": "success", "used_fallback": False}`
+   - On `ValueError`: calls `risky_operation(fallback)` and returns `{"result": fallback_result, "status": "fallback", "used_fallback": True}`
+4. A task `run_pipeline() -> list` that runs both:
+   - `safe_operation(50, 10)` — succeeds because 50 ≤ 100, result = 100
+   - `safe_operation(200, 5)` — triggers fallback because 200 > 100, result = 10
+   - Returns a list containing both result dicts.
+5. A `__main__` block that calls `asyncio.run(run_pipeline())`, then writes the returned list as JSON to `/home/user/flyte_project/error_results.json`.
+
+## Implementation Guide
+
+1. Install Flyte 2.0:
+   ```bash
+   pip install flyte
+   ```
+2. Create the project directory:
+   ```bash
+   mkdir -p /home/user/flyte_project
+   ```
+3. Create `/home/user/flyte_project/error_handling.py`:
+   ```python
+   import asyncio
+   import json
+   from flyte import TaskEnvironment
+
+   env = TaskEnvironment("robust-env")
+
+   @env.task
+   async def risky_operation(value: int) -> int:
+       if value > 100:
+           raise ValueError("Value too large")
+       return value * 2
+
+   @env.task
+   async def safe_operation(value: int, fallback: int) -> dict:
+       try:
+           result = await risky_operation(value)
+           return {"result": result, "status": "success", "used_fallback": False}
+       except ValueError:
+           fallback_result = await risky_operation(fallback)
+           return {"result": fallback_result, "status": "fallback", "used_fallback": True}
+
+   @env.task
+   async def run_pipeline() -> list:
+       r1 = await safe_operation(50, 10)
+       r2 = await safe_operation(200, 5)
+       return [r1, r2]
+
+   if __name__ == "__main__":
+       results = asyncio.run(run_pipeline())
+       with open("/home/user/flyte_project/error_results.json", "w") as f:
+           json.dump(results, f)
+   ```
+4. Run the script:
+   ```bash
+   python3 /home/user/flyte_project/error_handling.py
+   ```
+
+## Constraints
+
+- Project path: /home/user/flyte_project
+- Log file: /home/user/flyte_project/error_results.json
+- Use `flyte` (Flyte 2.0) only — do NOT use `flytekit`.
+- The `__main__` block must use `asyncio.run()` to execute `run_pipeline()`.
+- Write the results list as JSON to `/home/user/flyte_project/error_results.json`.
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo full_etl_pipeline_with_recovery__ZoUSumK > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Build a Flyte 2.0 ETL Pipeline with Recovery
+
+Build a production-ready ETL pipeline at `/home/user/flyte_project/` using Flyte 2.0 that extracts data from multiple sources in parallel, transforms it, and loads it into a warehouse. The pipeline must handle source failures gracefully.
+
+## Requirements
+- Use two `TaskEnvironment`s with different CPU/memory resources for extraction and transformation
+- Extract from "database", "api", and handle unknown sources gracefully
+- Transform records in parallel
+- Cache extraction tasks with `flyte.Cache`
+- Write the final result to `/home/user/flyte_project/etl_output.json`
+
+## Constraints
+- Project path: /home/user/flyte_project
+- Log file: /home/user/flyte_project/etl_output.json
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo conditional_branching_try_except__ocgGs7U > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 — Conditional Branching with Python if/elif/else
+
+## Background
+
+Flyte 2.0 has removed `flytekit.conditional` — the old Flyte 1.x DSL-level conditional construct no longer exists. In Flyte 2.0, conditional branching is expressed using **standard Python `if/elif/else`** (or `try/except`) directly inside `@env.task` async functions. Parallelism is achieved via `asyncio.gather`.
+
+## Requirements
+
+Create the file `/home/user/flyte_project/conditional_pipeline.py` with the following:
+
+### 1. Setup
+
+- Import `asyncio`, `json`, and `flyte`.
+- Create a `TaskEnvironment` named `"branching-env"` (assign it to a variable named `env`).
+
+### 2. Task: `classify_input`
+
+Define an async task that classifies a float value into one of four categories:
+
+```python
+@env.task
+async def classify_input(value: float) -> str:
+    if value < 0:
+        return "negative"
+    elif value == 0.0:
+        return "zero"
+    elif value < 10:
+        return "small_positive"
+    else:
+        return "large_positive"
+```
+
+### 3. Task: `process_by_class`
+
+Define an async task that applies a class-specific operation:
+
+```python
+@env.task
+async def process_by_class(value: float, classification: str) -> dict:
+    if classification == "negative":
+        return {"class": "negative", "result": abs(value), "operation": "abs"}
+    elif classification == "zero":
+        return {"class": "zero", "result": 0.0, "operation": "identity"}
+    elif classification == "small_positive":
+        return {"class": "small_positive", "result": value * 2, "operation": "double"}
+    else:
+        return {"class": "large_positive", "result": value ** 0.5, "operation": "sqrt"}
+```
+
+### 4. Task: `conditional_pipeline`
+
+Define an async task that:
+- Accepts `values: list`
+- Classifies all values **in parallel** using `asyncio.gather` on the `classify_input` calls
+- Processes each value with its classification (sequentially or with `asyncio.gather`) using `process_by_class`
+- Returns a list of result dicts in the same order as the input
+
+```python
+@env.task
+async def conditional_pipeline(values: list) -> list:
+    classifications = await asyncio.gather(*[classify_input(v) for v in values])
+    results = await asyncio.gather(*[process_by_class(v, c) for v, c in zip(values, classifications)])
+    return list(results)
+```
+
+### 5. `__main__` block
+
+In the `if __name__ == "__main__":` block:
+
+- Call `asyncio.run(conditional_pipeline([-5.0, 0.0, 3.0, 25.0]))`
+- Write the returned list as JSON to `/home/user/flyte_project/conditional_results.json`
+
+```python
+if __name__ == "__main__":
+    results = asyncio.run(conditional_pipeline([-5.0, 0.0, 3.0, 25.0]))
+    with open("/home/user/flyte_project/conditional_results.json", "w") as f:
+        json.dump(results, f)
+```
+
+## Implementation Guide
+
+1. **Do NOT use `flytekit.conditional`** — it is removed in Flyte 2.0. Use standard Python `if/elif/else` inside your `@env.task` functions.
+2. Do **not** use `@workflow` — it does not exist in Flyte 2.0.
+3. All task functions must be `async def` decorated with `@env.task`.
+4. Parallelism is achieved via `asyncio.gather`, which runs multiple async task coroutines concurrently and **preserves input order** in the results.
+5. Running the script with `python3 /home/user/flyte_project/conditional_pipeline.py` must:
+   - Execute without errors
+   - Produce `/home/user/flyte_project/conditional_results.json`
+
+## Constraints
+
+- **Project path**: `/home/user/flyte_project`
+- **Script**: `/home/user/flyte_project/conditional_pipeline.py`
+- **Log file**: `/home/user/flyte_project/conditional_results.json`
+- The `flyte` package is already installed — do **not** reinstall it.
+- Use only the standard library plus `flyte`.
+
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo task_with_cache_config__GcBoaGn > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 — Task with Cache Configuration
+
+## Background
+
+Flyte 2.0 supports result caching for tasks via `flyte.Cache`, allowing expensive computations to be skipped on repeated calls when inputs are identical. In this exercise you will build a cached pipeline that computes Fibonacci numbers and demonstrates that cache configuration is correctly applied.
+
+## Requirements
+
+Create the file `/home/user/flyte_project/cached_pipeline.py` that implements a cached Fibonacci pipeline:
+
+### 1. Setup
+
+- Import `flyte`, `asyncio`, `datetime`, `json`, and `time`.
+- Create a `TaskEnvironment` named `"cache-env"` (assign it to a variable named `env`).
+
+### 2. Task: `expensive_computation`
+
+Define an async task with cache configuration that computes Fibonacci numbers:
+
+```python
+@env.task(cache=flyte.Cache(ttl=datetime.timedelta(hours=1), version="v1"))
+async def expensive_computation(n: int) -> dict:
+    fibs = []
+    a, b = 0, 1
+    for _ in range(n):
+        fibs.append(a)
+        a, b = b, a + b
+    return {"n": n, "fibonacci": fibs, "computed_at": time.time()}
+```
+
+### 3. Task: `run_cached_pipeline`
+
+Define an async task that calls `expensive_computation` twice with `n=10` and returns both results:
+
+```python
+@env.task
+async def run_cached_pipeline() -> dict:
+    result1 = await expensive_computation(10)
+    result2 = await expensive_computation(10)
+    return {"first": result1, "second": result2}
+```
+
+### 4. `__main__` block
+
+```python
+if __name__ == "__main__":
+    result = asyncio.run(run_cached_pipeline())
+    with open("/home/user/flyte_project/cache_result.json", "w") as f:
+        json.dump(result, f)
+```
+
+## Implementation Guide
+
+1. Do **not** use `@workflow` — it does not exist in Flyte 2.0.
+2. All task functions must be `async def` and decorated with `@env.task` (with optional keyword arguments for cache config).
+3. Tasks call other tasks with a plain `await`.
+4. Running `python3 /home/user/flyte_project/cached_pipeline.py` must exit with code 0 and produce `/home/user/flyte_project/cache_result.json`.
+5. The cache is configured with `ttl=datetime.timedelta(hours=1)` and `version="v1"`.
+
+## Constraints
+
+- **Project path**: `/home/user/flyte_project`
+- **Script**: `/home/user/flyte_project/cached_pipeline.py`
+- **Log file**: `/home/user/flyte_project/cache_result.json`
+- The `flyte` package is already installed — do **not** reinstall it.
+- Use only the standard library plus `flyte`.
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo flyte_trace_fine_grained_checkpo__uzwfwA4 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 — Fine-Grained Checkpointing with `@flyte.trace`
+
+## Background
+
+Flyte 2.0 introduces `@flyte.trace`, a decorator for `async def` functions that enables **fine-grained sub-task recovery and automated checkpointing**. When an expensive operation (such as an LLM API call) is wrapped with `@flyte.trace`, Flyte can individually track, checkpoint, and recover that operation without re-running the entire pipeline from scratch. This is critical for LLM pipelines where each API call is costly and failures should not trigger a full retry.
+
+The `@flyte.trace` decorator marks async functions as individually recoverable units inside `@env.task` functions. For local execution, `@flyte.trace` functions behave like normal async functions, but in production Flyte environments they enable sub-task-level checkpointing and replay.
+
+## Requirements
+
+Create the file `/home/user/flyte_project/trace_pipeline.py` that:
+
+1. Creates a `TaskEnvironment` named `"trace-env"`.
+2. Defines a `@flyte.trace`-decorated async function `simulate_llm_call` that simulates an expensive LLM API call.
+3. Defines a `@flyte.trace`-decorated async function `validate_response` that validates the LLM response.
+4. Defines `@env.task` functions `process_prompts` and `llm_pipeline` that orchestrate the traced calls.
+5. In `__main__`, runs `llm_pipeline` with a fixed set of prompts and writes the result to `/home/user/flyte_project/trace_result.json`.
+
+## Implementation Guide
+
+### 1. Setup
+
+```python
+import asyncio
+import json
+import flyte
+from flyte import TaskEnvironment
+
+env = TaskEnvironment("trace-env")
+```
+
+### 2. `@flyte.trace` on `simulate_llm_call`
+
+```python
+@flyte.trace
+async def simulate_llm_call(prompt: str, call_id: int) -> dict:
+    """Simulate an expensive LLM API call — marked for individual checkpointing."""
+    return {
+        "call_id": call_id,
+        "prompt": prompt,
+        "response": f"Response to: {prompt}",
+        "tokens_used": len(prompt.split()) * 10,
+    }
+```
+
+`@flyte.trace` is the **key API** here. It wraps the async function to enable Flyte's checkpointing mechanism so that if the pipeline fails mid-execution, individual `simulate_llm_call` invocations that already completed do not need to be re-run.
+
+### 3. `@flyte.trace` on `validate_response`
+
+```python
+@flyte.trace
+async def validate_response(response: dict) -> dict:
+    """Validate the LLM response — individually checkpointed via @flyte.trace."""
+    return {
+        "call_id": response["call_id"],
+        "valid": True,
+        "quality_score": min(1.0, response["tokens_used"] / 100),
+    }
+```
+
+### 4. `process_prompts` task
+
+```python
+@env.task
+async def process_prompts(prompts: list) -> list:
+    results = []
+    for i, prompt in enumerate(prompts):
+        response = await simulate_llm_call(prompt, i)
+        validation = await validate_response(response)
+        results.append(validation)
+    return results
+```
+
+### 5. `llm_pipeline` task
+
+```python
+@env.task
+async def llm_pipeline(prompts: list) -> dict:
+    results = await process_prompts(prompts)
+    return {
+        "total_prompts": len(prompts),
+        "valid_count": sum(1 for r in results if r["valid"]),
+        "results": results,
+        "traced_calls": len(prompts) * 2,
+    }
+```
+
+### 6. `__main__` block
+
+```python
+if __name__ == "__main__":
+    prompts = ["Hello world", "What is Flyte", "Explain async python"]
+    result = asyncio.run(llm_pipeline(prompts))
+    with open("/home/user/flyte_project/trace_result.json", "w") as f:
+        json.dump(result, f)
+```
+
+## Constraints
+
+- **Project path**: `/home/user/flyte_project`
+- **Script**: `/home/user/flyte_project/trace_pipeline.py`
+- **Log file**: `/home/user/flyte_project/trace_result.json`
+- Use `@flyte.trace` (not `@env.task`) on `simulate_llm_call` and `validate_response` — these are the checkpointed sub-operations, not top-level tasks.
+- Use `@env.task` on `process_prompts` and `llm_pipeline`.
+- The `flyte` package is already installed — do **not** reinstall it.
+- Use only the standard library plus `flyte`.
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo task_with_secrets__Ab37rTN > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 Task with Secrets
+
+## Background
+
+Flyte 2.0 provides a `Secret` primitive that lets you declare secret dependencies at the task level using `@env.task(secret_requests=[...])`. In a local execution context, secrets are resolved from environment variables following the convention `<GROUP>__<KEY>` (upper-cased, hyphens replaced by underscores), or a plain fallback variable name. This task walks you through building a pipeline that reads an API key from the environment, uses it to simulate authenticated HTTP calls, and writes results to disk.
+
+## Requirements
+
+- Create `/home/user/flyte_project/secret_task.py` that:
+  1. Creates a `TaskEnvironment` named `"secure-env"`.
+  2. Declares a module-level `Secret`: `API_SECRET = flyte.Secret(key="api_key", group="my-secrets")`.
+  3. Defines an async task `authenticated_call(endpoint: str) -> dict` decorated with `@env.task(secret_requests=[API_SECRET])` that:
+     - Reads the API key from env var `MY_SECRETS__API_KEY` (Flyte local convention) or `API_KEY` as a fallback.
+     - Returns `{"endpoint": endpoint, "authenticated": api_key is not None and len(api_key) > 0, "key_length": len(api_key) if api_key else 0}`.
+  4. Defines an async task `run_secure_pipeline(endpoints: list) -> list` that calls `authenticated_call` for each endpoint using `asyncio.gather`.
+  5. In `__main__`, sets `os.environ["API_KEY"] = "test-api-key-12345"`, calls `asyncio.run(run_secure_pipeline(["/api/v1/data", "/api/v1/models"]))`, and writes the result to `/home/user/flyte_project/secure_output.json`.
+
+## Implementation Guide
+
+### Step 1 — Install Flyte 2.0
+
+```bash
+pip install flyte
+```
+
+### Step 2 — Create `/home/user/flyte_project/secret_task.py`
+
+```python
+import asyncio
+import json
+import os
+import flyte
+
+# 1. Create the task environment
+env = flyte.TaskEnvironment("secure-env")
+
+# 2. Declare the Secret
+API_SECRET = flyte.Secret(key="api_key", group="my-secrets")
+
+# 3. Authenticated call task
+@env.task(secret_requests=[API_SECRET])
+async def authenticated_call(endpoint: str) -> dict:
+    # Flyte local convention: GROUP__KEY (uppercased, hyphens replaced by underscores)
+    api_key = os.environ.get("MY_SECRETS__API_KEY") or os.environ.get("API_KEY")
+    return {
+        "endpoint": endpoint,
+        "authenticated": api_key is not None and len(api_key) > 0,
+        "key_length": len(api_key) if api_key else 0,
+    }
+
+# 4. Pipeline task
+@env.task
+async def run_secure_pipeline(endpoints: list) -> list:
+    results = await asyncio.gather(*[authenticated_call(ep) for ep in endpoints])
+    return list(results)
+
+if __name__ == "__main__":
+    os.environ["API_KEY"] = "test-api-key-12345"
+    result = asyncio.run(run_secure_pipeline(["/api/v1/data", "/api/v1/models"]))
+    with open("/home/user/flyte_project/secure_output.json", "w") as f:
+        json.dump(result, f)
+    print(result)
+```
+
+### Step 3 — Run the script
+
+```bash
+API_KEY="test-api-key-12345" python3 /home/user/flyte_project/secret_task.py
+```
+
+The script writes results to `/home/user/flyte_project/secure_output.json`.
+
+## Constraints
+
+- Project path: `/home/user/flyte_project`
+- Log file: `/home/user/flyte_project/secure_output.json`
+- Use `pip install flyte` (Flyte 2.0 package name).
+- Do NOT use the old `flytekit` API — use `flyte` (the new package).
+- Tasks must be `async def` decorated with `@env.task`.
+- For local execution, the API key is provided via the `API_KEY` environment variable (or `MY_SECRETS__API_KEY`).
+- The `run_secure_pipeline` task must call `authenticated_call` for each endpoint concurrently using `asyncio.gather`.
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo data_processing_pipeline__DWbkTm2 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 Data Processing Pipeline
+
+## Background
+Flyte 2.0 introduces a new `@env.task` decorator pattern for defining async tasks within a `TaskEnvironment`. In this task you will use Flyte 2.0 to build a multi-stage data processing pipeline that loads several CSV datasets concurrently, computes per-dataset statistics in parallel, and merges the results into a summary report.
+
+## Requirements
+- Create a script `/home/user/flyte_project/data_pipeline.py` that implements all pipeline stages below using Flyte 2.0.
+- The pipeline must process multiple datasets in parallel using `asyncio.gather`.
+- Final merged statistics must be written to `/home/user/flyte_project/pipeline_stats.json`.
+
+## Implementation Guide
+
+### 1. Install Flyte 2.0
+```bash
+pip install flyte
+```
+
+### 2. Create `/home/user/flyte_project/data_pipeline.py`
+
+```python
+import asyncio
+import json
+from flyte import TaskEnvironment
+
+env = TaskEnvironment("data-pipeline-env")
+
+@env.task
+async def load_dataset(name: str) -> dict:
+    if name == "sales":
+        return {"name": "sales", "rows": [{"product": "A", "qty": 100, "price": 10.0}, {"product": "B", "qty": 50, "price": 20.0}]}
+    elif name == "inventory":
+        return {"name": "inventory", "rows": [{"product": "A", "stock": 500}, {"product": "B", "stock": 200}]}
+    else:
+        return {"name": name, "rows": []}
+
+@env.task
+async def compute_dataset_stats(dataset: dict) -> dict:
+    return {"name": dataset["name"], "row_count": len(dataset["rows"]), "has_data": len(dataset["rows"]) > 0}
+
+@env.task
+async def merge_stats(stats_list: list) -> dict:
+    return {
+        "total_datasets": len(stats_list),
+        "total_rows": sum(s["row_count"] for s in stats_list),
+        "datasets": [s["name"] for s in stats_list]
+    }
+
+@env.task
+async def run_data_pipeline(dataset_names: list) -> dict:
+    datasets = await asyncio.gather(*[load_dataset(n) for n in dataset_names])
+    stats = await asyncio.gather(*[compute_dataset_stats(d) for d in datasets])
+    return await merge_stats(list(stats))
+
+if __name__ == "__main__":
+    result = asyncio.run(run_data_pipeline(["sales", "inventory", "returns"]))
+    with open("/home/user/flyte_project/pipeline_stats.json", "w") as f:
+        json.dump(result, f)
+```
+
+### 3. Run the pipeline
+```bash
+python3 /home/user/flyte_project/data_pipeline.py
+```
+
+## Constraints
+- Project path: /home/user/flyte_project
+- Log file: /home/user/flyte_project/pipeline_stats.json
+- Use `flyte` (Flyte 2.0) package installed via `pip install flyte`.
+- Use `TaskEnvironment("data-pipeline-env")` and `@env.task` async functions.
+- Use `asyncio.gather` for all parallel stages.
+- Do not use external services; all data is mocked inline.
+
+EOF
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo task_calling_task__a2LuDp5 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 — Task Calling Task (Chained Composition)
+
+## Background
+
+In Flyte 2.0, workflows are expressed as tasks that call other tasks — there is no `@workflow` decorator. Any `async def` decorated with `@env.task` can `await` another task directly, composing them into a durable, tracked pipeline. This pattern lets you build multi-step processing pipelines using plain Python async/await.
+
+## Requirements
+
+Create the file `/home/user/flyte_project/chained_tasks.py` that demonstrates sequential task composition:
+
+### 1. Setup
+
+- Import `asyncio`, `json`, and `flyte`.
+- Create a `TaskEnvironment` named `"chain-env"` (assign it to a variable named `env`).
+
+### 2. Task: `normalize_text`
+
+Define an async task that lowercases and strips surrounding whitespace from its input:
+
+```python
+@env.task
+async def normalize_text(text: str) -> str:
+    return text.lower().strip()
+```
+
+### 3. Task: `tokenize`
+
+Define an async task that splits the normalized text by spaces and returns the list of tokens:
+
+```python
+@env.task
+async def tokenize(text: str) -> list:
+    return text.split(" ")
+```
+
+### 4. Task: `count_tokens`
+
+Define an async task that counts total and unique tokens:
+
+```python
+@env.task
+async def count_tokens(tokens: list) -> dict:
+    return {"token_count": len(tokens), "unique_count": len(set(tokens))}
+```
+
+### 5. Task: `text_analysis_pipeline`
+
+Define an async task that chains the three tasks above in sequence — each `await`ing the result of the previous step — and returns the final count dict:
+
+```python
+@env.task
+async def text_analysis_pipeline(raw_text: str) -> dict:
+    normalized = await normalize_text(raw_text)
+    tokens = await tokenize(normalized)
+    counts = await count_tokens(tokens)
+    return counts
+```
+
+### 6. `__main__` block
+
+In the `if __name__ == "__main__":` block:
+
+- Call `asyncio.run(text_analysis_pipeline("Hello World Hello Flyte World"))`
+- Write the returned dict as JSON to `/home/user/flyte_project/analysis.json`
+
+```python
+if __name__ == "__main__":
+    result = asyncio.run(text_analysis_pipeline("Hello World Hello Flyte World"))
+    with open("/home/user/flyte_project/analysis.json", "w") as f:
+        json.dump(result, f)
+```
+
+## Implementation Guide
+
+1. Do **not** use `@workflow` — it does not exist in Flyte 2.0.
+2. Tasks call tasks with a plain `await`: `result = await other_task(arg)`.
+3. All task functions must be `async def` and decorated with `@env.task`.
+4. Running the script with `python3 /home/user/flyte_project/chained_tasks.py` must:
+   - Execute without errors
+   - Produce `/home/user/flyte_project/analysis.json`
+
+## Constraints
+
+- **Project path**: `/home/user/flyte_project`
+- **Script**: `/home/user/flyte_project/chained_tasks.py`
+- **Log file**: `/home/user/flyte_project/analysis.json`
+- The `flyte` package is already installed — do **not** reinstall it.
+- Use only the standard library plus `flyte`.
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo task_with_file_io__fJRGsm3 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 — Task with File I/O (CSV Filter Pipeline)
+
+## Background
+
+Flyte 2.0 allows tasks to read from and write to the local filesystem as part of a multi-step pipeline. In this exercise you will build a pipeline that reads a CSV file, filters rows by a numeric threshold, and writes the results to a JSON file — all wired together by tasks that `await` each other.
+
+The input CSV file `/home/user/flyte_project/input.csv` is already present in the environment.
+
+## Requirements
+
+Create the file `/home/user/flyte_project/file_pipeline.py` that implements a CSV-filter pipeline:
+
+### 1. Setup
+
+- Import `asyncio`, `csv`, `json`, and `flyte`.
+- Create a `TaskEnvironment` named `"file-env"` (assign it to a variable named `env`).
+
+### 2. Task: `read_csv`
+
+Define an async task that reads a CSV file from the given path and returns a list of dicts:
+
+```python
+@env.task
+async def read_csv(path: str) -> list:
+    with open(path, newline="") as f:
+        reader = csv.DictReader(f)
+        return [dict(row) for row in reader]
+```
+
+### 3. Task: `filter_high_scores`
+
+Define an async task that keeps only records where the `score` field (cast to `int`) is strictly greater than `threshold`:
+
+```python
+@env.task
+async def filter_high_scores(records: list, threshold: int) -> list:
+    return [r for r in records if int(r["score"]) > threshold]
+```
+
+### 4. Task: `write_results`
+
+Define an async task that serialises the filtered records as JSON to `output_path` and returns the path:
+
+```python
+@env.task
+async def write_results(records: list, output_path: str) -> str:
+    with open(output_path, "w") as f:
+        json.dump(records, f)
+    return output_path
+```
+
+### 5. Task: `csv_filter_pipeline`
+
+Define an async task that chains the three tasks above:
+
+```python
+@env.task
+async def csv_filter_pipeline(input_path: str, output_path: str, threshold: int) -> str:
+    records = await read_csv(input_path)
+    filtered = await filter_high_scores(records, threshold)
+    result_path = await write_results(filtered, output_path)
+    return result_path
+```
+
+### 6. `__main__` block
+
+```python
+if __name__ == "__main__":
+    asyncio.run(csv_filter_pipeline(
+        "/home/user/flyte_project/input.csv",
+        "/home/user/flyte_project/filtered.json",
+        80
+    ))
+```
+
+## Implementation Guide
+
+1. Do **not** use `@workflow` — it does not exist in Flyte 2.0.
+2. All task functions must be `async def` and decorated with `@env.task`.
+3. Tasks call other tasks with a plain `await`.
+4. Running `python3 /home/user/flyte_project/file_pipeline.py` must exit with code 0 and produce `/home/user/flyte_project/filtered.json`.
+5. The input CSV `/home/user/flyte_project/input.csv` is pre-created — do **not** recreate it.
+
+## Constraints
+
+- **Project path**: `/home/user/flyte_project`
+- **Script**: `/home/user/flyte_project/file_pipeline.py`
+- **Log file**: `/home/user/flyte_project/filtered.json`
+- The `flyte` package is already installed — do **not** reinstall it.
+- The input file `/home/user/flyte_project/input.csv` is already provided (header `name,score`, rows: `alice,85`, `bob,92`, `charlie,78`).
+- Use only the standard library plus `flyte`.
+
+EOF
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo task_environment_cpu_resources__T74MDp8 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 — TaskEnvironment with CPU Resources
+
+## Overview
+
+You have Flyte 2.0 installed in this environment (`pip install flyte`). Your task is to create a Python script that defines a `TaskEnvironment` with explicit CPU and memory resource constraints and runs a batch-processing task locally.
+
+## Requirements
+
+### 1. Create the project file
+
+Create a Python script at `/home/user/flyte_project/resource_task.py` that does the following:
+
+- Imports `flyte`, `json`, and `asyncio`.
+- Creates a `TaskEnvironment` named `"cpu-env"` with `flyte.Resources(cpu=2, memory="2Gi")`, assigned to a variable called `env`:
+  ```python
+  env = flyte.TaskEnvironment("cpu-env", resources=flyte.Resources(cpu=2, memory="2Gi"))
+  ```
+- Defines a task `process_batch(batch_size: int) -> dict` decorated with `@env.task` that:
+  - Returns a dict with the following keys:
+    - `batch_size`: the input value
+    - `processed`: `batch_size * 2`
+    - `status`: the string `"complete"`
+- In a `if __name__ == "__main__":` block:
+  - Calls `asyncio.run(process_batch(100))` and stores the result.
+  - Prints the result as JSON using `json.dumps`.
+  - Writes the result as JSON to `/home/user/flyte_project/result.json`.
+
+### 2. Run the script
+
+Execute the script:
+
+```bash
+python3 /home/user/flyte_project/resource_task.py
+```
+
+## Key Details
+
+- **Project path**: `/home/user/flyte_project`
+- **Log file**: `/home/user/flyte_project/result.json`
+- The `flyte` package is already installed — do **not** reinstall it.
+- Flyte 2.0 tasks decorated with `@env.task` are `async def` functions; use `asyncio.run()` at the top level.
+- There is **no** `@workflow` decorator in Flyte 2.0 — tasks are standalone async functions.
+- `flyte.Resources(cpu=2, memory="2Gi")` — `cpu` is an `int`, `memory` is a string like `"2Gi"`.
+
+## Expected Behaviour
+
+When the script is run with `batch_size=100`:
+- `processed = 100 * 2 = 200`
+- `status = "complete"`
+
+The file `/home/user/flyte_project/result.json` should contain a valid JSON object such as:
+```json
+{"batch_size": 100, "processed": 200, "status": "complete"}
+```
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo parallel_tasks_asyncio_gather__Kpsjska > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 — Parallel Tasks with asyncio.gather
+
+## Background
+
+Flyte 2.0 embraces native Python async primitives for parallelism. Instead of a `@workflow` decorator or `flytekit.map`, you compose parallel execution using `asyncio.gather`. Tasks are `async def` functions decorated with `@env.task` from a `TaskEnvironment`, and you run them with `asyncio.run()`.
+
+## Requirements
+
+Create the file `/home/user/flyte_project/parallel_pipeline.py` with the following:
+
+### 1. Setup
+
+- Import `asyncio`, `json`, and `flyte`.
+- Create a `TaskEnvironment` named `"parallel-env"` (assign it to a variable named `env`).
+
+### 2. Task: `fetch_data`
+
+Define an async task:
+
+```python
+@env.task
+async def fetch_data(source: str) -> dict:
+    return {"source": source, "records": len(source) * 10}
+```
+
+### 3. Task: `aggregate_results`
+
+Define an async task:
+
+```python
+@env.task
+async def aggregate_results(results: list) -> dict:
+    return {
+        "total_sources": len(results),
+        "total_records": sum(r["records"] for r in results),
+        "sources": [r["source"] for r in results],
+    }
+```
+
+### 4. Task: `run_parallel_pipeline`
+
+Define an async task that:
+- Accepts `sources: list`
+- Uses `asyncio.gather(*[fetch_data(s) for s in sources])` to fetch data from all sources **in parallel**
+- Passes the gathered results to `aggregate_results` and returns its output
+
+```python
+@env.task
+async def run_parallel_pipeline(sources: list) -> dict:
+    results = await asyncio.gather(*[fetch_data(s) for s in sources])
+    return await aggregate_results(list(results))
+```
+
+### 5. `__main__` block
+
+In the `if __name__ == "__main__":` block:
+
+- Call `asyncio.run(run_parallel_pipeline(["alpha", "beta", "gamma"]))`
+- Write the returned dict as JSON to `/home/user/flyte_project/pipeline_result.json`
+
+```python
+if __name__ == "__main__":
+    result = asyncio.run(run_parallel_pipeline(["alpha", "beta", "gamma"]))
+    with open("/home/user/flyte_project/pipeline_result.json", "w") as f:
+        json.dump(result, f)
+```
+
+## Implementation Guide
+
+1. Do **not** use `@workflow` or `flytekit.map` — they do not exist in Flyte 2.0.
+2. Parallelism is achieved via `asyncio.gather`, which runs multiple async task coroutines concurrently.
+3. All task functions must be `async def` and decorated with `@env.task`.
+4. Running the script with `python3 /home/user/flyte_project/parallel_pipeline.py` must:
+   - Execute without errors
+   - Produce `/home/user/flyte_project/pipeline_result.json`
+
+## Constraints
+
+- **Project path**: `/home/user/flyte_project`
+- **Script**: `/home/user/flyte_project/parallel_pipeline.py`
+- **Result file**: `/home/user/flyte_project/pipeline_result.json`
+- The `flyte` package is already installed — do **not** reinstall it.
+- Use only the standard library plus `flyte`.
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo task_with_dynamic_parallelism__iba4rJd > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 — Dynamic Parallelism Feature Engineering Pipeline
+
+## Background
+
+Flyte 2.0 embraces native Python async primitives for parallelism. Instead of a `@workflow` decorator or `flytekit.map`, you compose parallel execution using `asyncio.gather`. Tasks are `async def` functions decorated with `@env.task` from a `TaskEnvironment`, and you run them with `asyncio.run()`.
+
+Dynamic parallelism means the number of parallel tasks is computed at runtime — the task arguments (configs) are generated dynamically based on input parameters, not hardcoded at the call site.
+
+## Requirements
+
+Create the file `/home/user/flyte_project/dynamic_pipeline.py` implementing a dynamically parallel feature engineering pipeline.
+
+### 1. Setup
+
+- Import `asyncio`, `json`, and `flyte`.
+- Create a `TaskEnvironment` named `"dynamic-env"` (assign it to a variable named `env`).
+
+### 2. Task: `generate_feature_configs`
+
+Define an async task:
+
+```python
+@env.task
+async def generate_feature_configs(dataset_size: int) -> list:
+    return [
+        {"feature": f"feature_{i}", "window": i + 1, "agg": agg}
+        for i in range(3)
+        for agg in ["mean", "max"]
+    ]
+```
+
+This returns 6 configs (3 features × 2 aggregations). The `dataset_size` parameter determines the scope at runtime — this is the dynamic aspect.
+
+### 3. Task: `compute_feature`
+
+Define an async task:
+
+```python
+@env.task
+async def compute_feature(config: dict, data_size: int) -> dict:
+    return {
+        "feature": config["feature"],
+        "agg": config["agg"],
+        "window": config["window"],
+        "value": data_size / config["window"] * (1.5 if config["agg"] == "mean" else 2.0),
+    }
+```
+
+### 4. Task: `build_feature_matrix`
+
+Define an async task:
+
+```python
+@env.task
+async def build_feature_matrix(features: list) -> dict:
+    return {
+        "n_features": len(features),
+        "feature_names": list(set(f["feature"] for f in features)),
+        "feature_matrix": features,
+    }
+```
+
+### 5. Task: `run_feature_pipeline`
+
+Define an async task that:
+- Accepts `dataset_size: int`
+- Generates configs: `configs = await generate_feature_configs(dataset_size)`
+- Computes ALL features in parallel: `features = await asyncio.gather(*[compute_feature(cfg, dataset_size) for cfg in configs])`
+- Builds and returns the feature matrix: `return await build_feature_matrix(list(features))`
+
+```python
+@env.task
+async def run_feature_pipeline(dataset_size: int) -> dict:
+    configs = await generate_feature_configs(dataset_size)
+    features = await asyncio.gather(*[compute_feature(cfg, dataset_size) for cfg in configs])
+    return await build_feature_matrix(list(features))
+```
+
+### 6. `__main__` block
+
+In the `if __name__ == "__main__":` block:
+
+- Call `asyncio.run(run_feature_pipeline(100))`
+- Write the returned dict as JSON to `/home/user/flyte_project/feature_matrix.json`
+
+```python
+if __name__ == "__main__":
+    result = asyncio.run(run_feature_pipeline(100))
+    with open("/home/user/flyte_project/feature_matrix.json", "w") as f:
+        json.dump(result, f)
+```
+
+## Implementation Guide
+
+1. Do **not** use `@workflow` or `flytekit.map` — they do not exist in Flyte 2.0.
+2. Parallelism is **dynamic**: the list of `compute_feature` coroutines is generated at runtime from the configs returned by `generate_feature_configs`.
+3. All task functions must be `async def` and decorated with `@env.task`.
+4. Running the script with `python3 /home/user/flyte_project/dynamic_pipeline.py` must:
+   - Execute without errors
+   - Produce `/home/user/flyte_project/feature_matrix.json`
+
+## Constraints
+
+- **Project path**: `/home/user/flyte_project`
+- **Script**: `/home/user/flyte_project/dynamic_pipeline.py`
+- **Result file**: `/home/user/flyte_project/feature_matrix.json`
+- The `flyte` package is already installed — do **not** reinstall it.
+- Use only the standard library plus `flyte`.
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo dual_environment_orchestration__jktgAND > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Dual Environment Orchestration with Flyte 2.0
+
+## Background
+
+Flyte 2.0 introduces `TaskEnvironment`, which lets you define multiple execution environments — each with distinct compute resources — within a single Python file. You can then decorate `async def` task functions with `@env.task` to pin each function to its environment. This is ideal for ML pipelines where data preprocessing is CPU-light but model training demands more resources.
+
+In this task, you will create a two-environment ML pipeline that chains data cleaning, model training, and evaluation using Flyte 2.0's `TaskEnvironment` and `Resources` APIs.
+
+## Requirements
+
+- Create a Flyte 2.0 pipeline script at `/home/user/flyte_project/dual_env_pipeline.py`.
+- Define **two** `TaskEnvironment` objects with different `Resources`:
+  - `cpu_env` — 2 CPUs, 4 Gi memory
+  - `gpu_env` — 8 CPUs, 16 Gi memory
+- Implement the following tasks and wire them into an end-to-end pipeline.
+- When run as `__main__`, execute the pipeline and write the final result to `/home/user/flyte_project/pipeline_output.json`.
+
+## Implementation Guide
+
+### Step 1 — Install Flyte 2.0
+
+```bash
+pip install flyte
+```
+
+### Step 2 — Create `/home/user/flyte_project/dual_env_pipeline.py`
+
+```python
+import asyncio
+import json
+import flyte
+
+# 1. Define environments
+cpu_env = flyte.TaskEnvironment("cpu-env", resources=flyte.Resources(cpu=2, memory="4Gi"))
+gpu_env = flyte.TaskEnvironment("gpu-env", resources=flyte.Resources(cpu=8, memory="16Gi"))
+
+# 2. Data cleaning task — runs on cpu_env
+@cpu_env.task
+async def clean_data(raw: list) -> list:
+    """Filter out None values and convert strings to lowercase."""
+    return [item.lower() for item in raw if item is not None]
+
+# 3. Model training task — runs on gpu_env
+@gpu_env.task
+async def train_model(data: list) -> dict:
+    """Simulate model training; return model metadata."""
+    return {
+        "model": "linear",
+        "data_points": len(data),
+        "weights": [len(data) * 0.1, len(data) * 0.01],
+    }
+
+# 4. Evaluation task — runs on cpu_env
+@cpu_env.task
+async def evaluate_model(model: dict) -> dict:
+    """Evaluate a trained model and return accuracy metrics."""
+    return {
+        "accuracy": min(0.99, model["data_points"] * 0.05),
+        "model_name": model["model"],
+    }
+
+# 5. Orchestrator pipeline — runs on cpu_env
+@cpu_env.task
+async def ml_pipeline(raw_data: list) -> dict:
+    """Chain clean → train → evaluate."""
+    cleaned = await clean_data(raw_data)
+    model = await train_model(cleaned)
+    result = await evaluate_model(model)
+    return result
+
+if __name__ == "__main__":
+    result = asyncio.run(ml_pipeline(["Alice", None, "BOB", "charlie", None]))
+    with open("/home/user/flyte_project/pipeline_output.json", "w") as f:
+        json.dump(result, f)
+    print(result)
+```
+
+### Step 3 — Run the pipeline
+
+```bash
+python3 /home/user/flyte_project/dual_env_pipeline.py
+```
+
+The script writes the final evaluation result to `/home/user/flyte_project/pipeline_output.json`.
+
+## Constraints
+
+- Project path: `/home/user/flyte_project`
+- Log file: `/home/user/flyte_project/pipeline_output.json`
+- Use `pip install flyte` (Flyte 2.0 package name).
+- Do NOT use the old `flytekit` API — use `flyte` (the new package).
+- Tasks must be `async def` decorated with `@env.task`.
+- The `ml_pipeline` task must call `clean_data`, `train_model`, and `evaluate_model` in sequence via `await`.
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo end_to_end_ml_platform_workflow__4UC3uaA > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# End-to-End Flyte 2.0 ML Platform
+
+Build a complete ML platform workflow at `/home/user/flyte_project/` using Flyte 2.0. The system should ingest data, validate it, train multiple models in parallel, evaluate them, and select the best model.
+
+## Constraints
+- Project path: /home/user/flyte_project
+- Log file: /home/user/flyte_project/platform_output.json
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo migrate_flyte1_workflow_to_v2__H8L8Zzm > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Migrate Flyte 1.0 Workflow to Flyte 2.0
+
+## Background
+
+Flyte 2.0 introduces a completely new task model that is **incompatible** with Flyte 1.0. The legacy `flytekit` package (Flyte 1.0) relied on:
+- `@flytekit.workflow` / `@workflow` decorator to define workflow DAGs
+- `flytekit.map_task()` to apply a task over a list of inputs
+- `flytekit.conditional` for branching
+
+All of these are **removed** in Flyte 2.0. The new `flyte` package (Flyte 2.0) uses:
+- `TaskEnvironment("name")` to create a named execution environment
+- `@env.task` to decorate individual async task functions
+- Native `asyncio.gather()` for fan-out parallelism (replaces `map_task`)
+- Plain Python `if/else` for branching (replaces `conditional`)
+
+A pre-existing Flyte 1.0 script is located at `/home/user/flyte_project/legacy_workflow.py`. It reads:
+
+```python
+import flytekit
+from flytekit import task, workflow
+
+@task
+def square(n: int) -> int:
+    return n ** 2
+
+@task
+def total(values: list) -> int:
+    return sum(values)
+
+@workflow
+def compute_sum_of_squares(numbers: list) -> int:
+    squared = flytekit.map_task(square)(n=numbers)
+    return total(values=squared)
+
+if __name__ == "__main__":
+    result = compute_sum_of_squares(numbers=[1, 2, 3, 4, 5])
+    print(f"Sum of squares: {result}")
+```
+
+This code **will not run** under Flyte 2.0 because `@workflow` and `flytekit.map_task` no longer exist.
+
+## Requirements
+
+Create the file `/home/user/flyte_project/modern_workflow.py` that implements the **same logic** (sum of squares of [1,2,3,4,5] = 55) using Flyte 2.0.
+
+### 1. Setup
+
+- Install Flyte 2.0: `pip install flyte`
+- Import `asyncio`, `json`, and `flyte` (NOT `flytekit`)
+- Create a `TaskEnvironment` named `"migrate-env"` (assign it to a variable named `env`)
+
+### 2. Task: `square`
+
+```python
+@env.task
+async def square(n: int) -> int:
+    return n ** 2
+```
+
+### 3. Task: `total`
+
+```python
+@env.task
+async def total(values: list) -> int:
+    return sum(values)
+```
+
+### 4. Task: `compute_sum_of_squares` (replaces `@workflow` + `map_task`)
+
+Define an async task that:
+- Accepts `numbers: list`
+- Uses `asyncio.gather(*[square(n) for n in numbers])` to compute squares in parallel (this replaces `flytekit.map_task`)
+- Calls `total(values=list(squared))` to sum the results
+- Returns the integer total
+
+```python
+@env.task
+async def compute_sum_of_squares(numbers: list) -> int:
+    squared = await asyncio.gather(*[square(n) for n in numbers])
+    return await total(values=list(squared))
+```
+
+### 5. `__main__` block
+
+In the `if __name__ == "__main__":` block:
+- Call `asyncio.run(compute_sum_of_squares([1, 2, 3, 4, 5]))`
+- Write `{"result": <computed_value>, "input": [1, 2, 3, 4, 5]}` as JSON to `/home/user/flyte_project/migration_result.json`
+- The expected result is **55** (1²+2²+3²+4²+5² = 1+4+9+16+25 = 55)
+
+```python
+if __name__ == "__main__":
+    result = asyncio.run(compute_sum_of_squares([1, 2, 3, 4, 5]))
+    with open("/home/user/flyte_project/migration_result.json", "w") as f:
+        json.dump({"result": result, "input": [1, 2, 3, 4, 5]}, f)
+```
+
+## Migration Checklist
+
+| Flyte 1.0 (legacy) | Flyte 2.0 (modern) |
+|---|---|
+| `import flytekit` | `import flyte` |
+| `from flytekit import task, workflow` | `from flyte import TaskEnvironment` |
+| `@task` | `@env.task` (async def) |
+| `@workflow` | `@env.task` (async def, orchestrates other tasks) |
+| `flytekit.map_task(square)(n=numbers)` | `await asyncio.gather(*[square(n) for n in numbers])` |
+| `flytekit.conditional` | Plain Python `if/else` |
+
+## Constraints
+
+- **Project path**: `/home/user/flyte_project`
+- **Output script**: `/home/user/flyte_project/modern_workflow.py`
+- **Log file**: `/home/user/flyte_project/migration_result.json`
+- The `flyte` package is already installed — do **not** reinstall it.
+- Do **not** use `flytekit`, `@workflow`, or `map_task` in the new file.
+- Use only the standard library plus the `flyte` package.
+- The `modern_workflow.py` file must use `asyncio.gather` for fan-out parallelism.
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo install_and_run_hello_world__sazoEjL > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 Hello World
+
+## Overview
+
+You have Flyte 2.0 installed in this environment (`pip install flyte`). Your task is to create a simple Flyte task that greets a user by name and run it locally.
+
+## Requirements
+
+### 1. Create the project file
+
+Create a Python script at `/home/user/flyte_project/hello.py` that does the following:
+
+- Imports the `flyte` package.
+- Creates a `TaskEnvironment` named `"local-env"` (assign it to a variable called `env`).
+- Defines a task function `greet(name: str) -> str` decorated with `@env.task` that returns `f"Hello, {name}!"`.
+- In a `if __name__ == "__main__":` block, calls `greet` with the argument `"World"` using `asyncio.run()` and prints the result.
+
+### 2. Run the script and capture output
+
+Execute the script and save its output:
+
+```bash
+python /home/user/flyte_project/hello.py > /home/user/flyte_project/output.log
+```
+
+## Key Details
+
+- **Project path**: `/home/user/flyte_project/hello.py`
+- **Log file path**: `/home/user/flyte_project/output.log`
+- The `flyte` package is already installed — do **not** reinstall it.
+- Flyte 2.0 tasks decorated with `@env.task` are async functions; use `asyncio.run()` to call them.
+- There is **no** `@workflow` decorator in Flyte 2.0 — workflows are just tasks that call other tasks.
+
+## Expected Behaviour
+
+When the script is run, it should print:
+
+```
+Hello, World!
+```
+
+This output must be captured in `/home/user/flyte_project/output.log`.
+
+EOF
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo define_basic_task__Kp58Uv5 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 — Define Basic Tasks
+
+## Overview
+
+You have Flyte 2.0 installed in this environment (`pip install flyte`). Your task is to create a Python script that defines two arithmetic tasks using Flyte 2.0's `TaskEnvironment` API and runs them locally.
+
+## Requirements
+
+### 1. Create the project file
+
+Create a Python script at `/home/user/flyte_project/tasks.py` that does the following:
+
+- Imports the `flyte` package and `asyncio`.
+- Creates a `TaskEnvironment` named `"basic-env"` (assign it to a variable called `env`).
+- Defines a task function `add(a: int, b: int) -> int` decorated with `@env.task` that returns `a + b`.
+- Defines a task function `multiply(a: int, b: int) -> int` decorated with `@env.task` that returns `a * b`.
+- Defines a `main()` function that:
+  - Calls `asyncio.run(add(3, 4))`, stores the result, and prints it.
+  - Calls `asyncio.run(multiply(3, 4))`, stores the result, and prints it.
+- In a `if __name__ == "__main__":` block, calls `main()`.
+
+### 2. Run the script and capture output
+
+Execute the script and save its output:
+
+```bash
+python /home/user/flyte_project/tasks.py > /home/user/flyte_project/output.log
+```
+
+## Key Details
+
+- **Project path**: `/home/user/flyte_project/tasks.py`
+- **Log file**: `/home/user/flyte_project/output.log`
+- The `flyte` package is already installed — do **not** reinstall it.
+- Flyte 2.0 tasks decorated with `@env.task` are `async def` functions; use `asyncio.run()` to call them.
+- There is **no** `@workflow` decorator in Flyte 2.0 — tasks are standalone async functions.
+
+## Expected Behaviour
+
+When the script is run, it should print the results of both operations:
+
+```
+7
+12
+```
+
+This output must be captured in `/home/user/flyte_project/output.log`.
+
+EOF
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo agentic_loop_sandbox_orchestrati__NvF8hth > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Build a Flyte 2.0 Agentic Loop
+
+Build a simple Flyte 2.0 agentic loop at `/home/user/flyte_project/agent_loop.py` that can execute math operations based on natural language instructions.
+
+## Requirements
+- Use `flyte.TaskEnvironment` named `"agent-env"`
+- Implement `add_numbers`, `multiply_numbers`, and `divide_numbers` as `@env.task` functions
+- Implement a tool selection mechanism using `@flyte.trace`
+- Build an agent loop that processes a list of instructions and returns results
+- Write output to `/home/user/flyte_project/agent_output.json`
+
+## Constraints
+- Project path: `/home/user/flyte_project`
+- Output file: `/home/user/flyte_project/agent_output.json`
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo task_checkpoint_recovery__gjUnHta > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 — Task Checkpoint Recovery
+
+## Background
+
+Flyte 2.0 provides `@flyte.trace` as the key primitive for fine-grained, sub-task level checkpointing. By decorating an async function with `@flyte.trace`, Flyte can checkpoint expensive operations so that on failure the pipeline can resume from the last successful checkpoint rather than restarting from scratch.
+
+## Requirements
+
+Create the file `/home/user/flyte_project/checkpoint_pipeline.py` with the following:
+
+### 1. Setup
+
+- Import `asyncio`, `json`, and `flyte`.
+- Create a `TaskEnvironment` named `"checkpoint-env"` (assign it to a variable named `env`).
+
+### 2. Traced function: `fetch_batch`
+
+Define a `@flyte.trace` decorated async function:
+
+```python
+@flyte.trace
+async def fetch_batch(batch_id: int) -> dict:
+    return {"batch_id": batch_id, "data": list(range(batch_id * 10, (batch_id + 1) * 10))}
+```
+
+This simulates fetching a batch of data. The `@flyte.trace` decorator enables checkpointing so that if the pipeline is interrupted, already-fetched batches do not need to be re-fetched.
+
+### 3. Task: `process_batches`
+
+Define an async task:
+
+```python
+@env.task
+async def process_batches(n_batches: int) -> dict:
+    results = await asyncio.gather(*[fetch_batch(i) for i in range(n_batches)])
+    return {
+        "n_batches": n_batches,
+        "total_items": n_batches * 10,
+        "batch_ids": list(range(n_batches)),
+    }
+```
+
+### 4. Task: `run_checkpointed_pipeline`
+
+Define an async task that calls `process_batches` and adds a `"checkpointed": True` flag to the result:
+
+```python
+@env.task
+async def run_checkpointed_pipeline(n_batches: int) -> dict:
+    result = await process_batches(n_batches)
+    result["checkpointed"] = True
+    return result
+```
+
+### 5. `__main__` block
+
+In the `if __name__ == "__main__":` block:
+
+- Call `asyncio.run(run_checkpointed_pipeline(3))`
+- Write the returned dict as JSON to `/home/user/flyte_project/checkpoint_result.json`
+
+```python
+if __name__ == "__main__":
+    result = asyncio.run(run_checkpointed_pipeline(3))
+    with open("/home/user/flyte_project/checkpoint_result.json", "w") as f:
+        json.dump(result, f)
+```
+
+## Implementation Guide
+
+1. `@flyte.trace` is the Flyte 2.0 primitive for checkpointing — apply it to `fetch_batch`.
+2. Tasks (`process_batches`, `run_checkpointed_pipeline`) must be `async def` and decorated with `@env.task`.
+3. Use `asyncio.gather` inside `process_batches` to invoke all `fetch_batch` calls concurrently.
+4. Running the script with `python3 /home/user/flyte_project/checkpoint_pipeline.py` must:
+   - Execute without errors
+   - Produce `/home/user/flyte_project/checkpoint_result.json`
+
+## Constraints
+
+- **Project path**: `/home/user/flyte_project`
+- **Script**: `/home/user/flyte_project/checkpoint_pipeline.py`
+- **Result file**: `/home/user/flyte_project/checkpoint_result.json`
+- The `flyte` package is already installed — do **not** reinstall it.
+- Use only the standard library plus `flyte`.
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo image_build_with_packages__oQUvZTf > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 — Image Build with Packages
+
+## Overview
+
+You have Flyte 2.0 installed in this environment (`pip install flyte`). Your task is to create a Python script that defines an ML training pipeline using Flyte 2.0's `TaskEnvironment` API with a custom image that declares `pandas`, `scikit-learn`, and `numpy` as pip dependencies and sets an environment variable, then runs it locally.
+
+## Requirements
+
+### 1. Create the project file
+
+Create a Python script at `/home/user/flyte_project/image_config.py` that does the following:
+
+- Imports `flyte`, `asyncio`, and `json`.
+- Builds a custom `flyte.Image` using the fluent builder pattern (assign the image to a variable called `image`):
+  ```python
+  image = (
+      flyte.Image.from_debian_base()
+      .with_pip_packages("pandas", "scikit-learn", "numpy")
+      .with_env_vars(MODEL_ENV="production")
+  )
+  ```
+- Creates a `TaskEnvironment` (assign it to a variable called `env`) named `"ml-env"` using that image and `flyte.Resources(cpu=4, memory="8Gi")`:
+  ```python
+  env = flyte.TaskEnvironment(
+      "ml-env",
+      image=image,
+      resources=flyte.Resources(cpu=4, memory="8Gi")
+  )
+  ```
+- Defines an async task `train_classifier(features: list, labels: list) -> dict` decorated with `@env.task` that:
+  - Creates a mock model config dict and returns:
+    ```python
+    {
+        "model_type": "logistic_regression",
+        "n_features": len(features[0]) if features else 0,
+        "n_samples": len(features),
+        "model_env": "production"
+    }
+    ```
+- Defines an async task `run_ml_pipeline(n_samples: int, n_features: int) -> dict` decorated with `@env.task` that:
+  - Generates mock feature data: a list of `n_samples` inner lists, each containing `n_features` float values (e.g., `[[float(i + j) for j in range(n_features)] for i in range(n_samples)]`).
+  - Generates mock labels: a list of `n_samples` integers alternating 0 and 1 (e.g., `[i % 2 for i in range(n_samples)]`).
+  - Calls `await train_classifier(features, labels)` and returns the result dict.
+- In a `if __name__ == "__main__":` block:
+  - Calls `asyncio.run(run_ml_pipeline(100, 5))` and stores the result.
+  - Writes the result dict as JSON to `/home/user/flyte_project/model_config.json`.
+
+### 2. Run the script
+
+Execute the script:
+
+```bash
+python3 /home/user/flyte_project/image_config.py
+```
+
+## Key Details
+
+- **Project path**: `/home/user/flyte_project`
+- **Log file**: `/home/user/flyte_project/model_config.json`
+- The `flyte`, `pandas`, `scikit-learn`, and `numpy` packages are already installed — do **not** reinstall them.
+- Flyte 2.0 tasks decorated with `@env.task` are `async def` functions; use `await` when calling them from another async task and `asyncio.run()` at the top level.
+- The `with_pip_packages(...)` and `with_env_vars(...)` calls on `flyte.Image` are metadata for remote cluster deployments. When running locally with `python script.py`, the image spec is ignored and the task runs in the current Python environment.
+- There is **no** `@workflow` decorator in Flyte 2.0 — tasks are standalone async functions.
+
+## Expected Behaviour
+
+When the script is run with `n_samples=100` and `n_features=5`:
+- `model_type` == `"logistic_regression"`
+- `n_features` == `5`
+- `n_samples` == `100`
+- `model_env` == `"production"`
+
+The file `/home/user/flyte_project/model_config.json` should contain a valid JSON object such as:
+```json
+{"model_type": "logistic_regression", "n_features": 5, "n_samples": 100, "model_env": "production"}
+```
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo experiment_tracking_pipeline__EkJ6xfk > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 Experiment Tracking Pipeline
+
+Build a Flyte 2.0 experiment tracking system at `/home/user/flyte_project/experiment_tracker.py` that runs multiple ML experiments in parallel and identifies the best configuration.
+
+## Requirements
+- Use `flyte.TaskEnvironment` with appropriate resources
+- Run multiple experiment configurations in parallel using `asyncio.gather`
+- Cache experiment results with `flyte.Cache`
+- Compare experiments and save results
+
+## Constraints
+- Project path: /home/user/flyte_project
+- Log file: /home/user/flyte_project/experiment_result.json
+
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo distributed_map_reduce_pipeline__sgRBUBJ > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 Distributed Map-Reduce Word Counter
+
+Implement a distributed word frequency counter using a Flyte 2.0 map-reduce pattern at `/home/user/flyte_project/mapreduce.py`.
+
+## Requirements
+- Use `flyte.TaskEnvironment` with appropriate resources
+- Implement map-reduce pattern: split text into shards, count words per shard in parallel with `asyncio.gather`, then reduce
+- Count word frequencies in the input text
+- Write results to `/home/user/flyte_project/wordcount.json`
+
+## Constraints
+- Project path: /home/user/flyte_project
+- Log file: /home/user/flyte_project/wordcount.json
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo self_healing_pipeline_recovery__sUgeDrr > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Self-Healing ML Pipeline with Flyte 2.0
+
+## Background
+
+Flyte 2.0 introduces a Python-native task execution model where tasks are defined using `@env.task` decorators on async functions. A powerful pattern is **self-healing pipelines**: tasks that automatically detect resource failures and fall back to cheaper compute environments — all expressed as plain Python `try/except` logic inside task functions. In this task you will implement a complete self-healing ML training pipeline that tries a resource-heavy primary environment first, catches failures, and transparently recovers by routing work to a lightweight fallback environment.
+
+## Requirements
+
+Create `/home/user/flyte_project/self_healing.py` that implements a self-healing ML pipeline using Flyte 2.0:
+
+1. **Two task environments**:
+   - `primary_env = flyte.TaskEnvironment("primary", resources=flyte.Resources(cpu=8, memory="16Gi"))`
+   - `fallback_env = flyte.TaskEnvironment("fallback", resources=flyte.Resources(cpu=2, memory="4Gi"))`
+
+2. **`primary_training(data: list) -> dict`** decorated with `@primary_env.task`:
+   - Raises `RuntimeError("Insufficient memory for primary training")` when `len(data) > 10`
+   - Otherwise returns `{"model": "complex_nn", "accuracy": 0.95, "env": "primary", "data_size": len(data)}`
+
+3. **`fallback_training(data: list) -> dict`** decorated with `@fallback_env.task`:
+   - Always succeeds; returns `{"model": "simple_lr", "accuracy": 0.82, "env": "fallback", "data_size": len(data)}`
+
+4. **`self_healing_train(data: list) -> dict`** decorated with `@fallback_env.task`:
+   - Calls `primary_training(data)` inside a `try` block
+   - On `RuntimeError`: logs the error and calls `fallback_training(data)`
+   - Returns the result dict with `"recovered": True` when fallback was used, `"recovered": False` otherwise
+
+5. **`run_experiment(large_data: list, small_data: list) -> dict`** decorated with `@fallback_env.task`:
+   - Uses `asyncio.gather` to run `self_healing_train(large_data)` and `self_healing_train(small_data)` in parallel
+   - Returns `{"large_data_result": r1, "small_data_result": r2}`
+
+6. **`__main__` block**:
+   - `large_data = list(range(20))` — 20 items, triggers fallback
+   - `small_data = list(range(5))` — 5 items, succeeds on primary
+   - Calls `asyncio.run(run_experiment(large_data, small_data))`
+   - Writes the result dict to `/home/user/flyte_project/experiment_result.json`
+
+## Implementation Guide
+
+1. Install Flyte 2.0: `pip install flyte`
+2. Create the project directory: `mkdir -p /home/user/flyte_project`
+3. Create `/home/user/flyte_project/self_healing.py` with the following structure:
+
+```python
+import asyncio
+import json
+import logging
+import flyte
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+primary_env = flyte.TaskEnvironment("primary", resources=flyte.Resources(cpu=8, memory="16Gi"))
+fallback_env = flyte.TaskEnvironment("fallback", resources=flyte.Resources(cpu=2, memory="4Gi"))
+
+@primary_env.task
+async def primary_training(data: list) -> dict:
+    if len(data) > 10:
+        raise RuntimeError("Insufficient memory for primary training")
+    return {"model": "complex_nn", "accuracy": 0.95, "env": "primary", "data_size": len(data)}
+
+@fallback_env.task
+async def fallback_training(data: list) -> dict:
+    return {"model": "simple_lr", "accuracy": 0.82, "env": "fallback", "data_size": len(data)}
+
+@fallback_env.task
+async def self_healing_train(data: list) -> dict:
+    try:
+        result = await primary_training(data)
+        result["recovered"] = False
+        return result
+    except RuntimeError as e:
+        logger.warning(f"Primary training failed: {e}. Falling back to fallback environment.")
+        result = await fallback_training(data)
+        result["recovered"] = True
+        return result
+
+@fallback_env.task
+async def run_experiment(large_data: list, small_data: list) -> dict:
+    r1, r2 = await asyncio.gather(
+        self_healing_train(large_data),
+        self_healing_train(small_data)
+    )
+    return {"large_data_result": r1, "small_data_result": r2}
+
+if __name__ == "__main__":
+    large_data = list(range(20))
+    small_data = list(range(5))
+    result = asyncio.run(run_experiment(large_data, small_data))
+    with open("/home/user/flyte_project/experiment_result.json", "w") as f:
+        json.dump(result, f, indent=2)
+    print(json.dumps(result, indent=2))
+```
+
+## Constraints
+- Project path: `/home/user/flyte_project`
+- Log file: `/home/user/flyte_project/experiment_result.json`
+- Use `flyte` (Flyte 2.0) — install with `pip install flyte`
+- No `@workflow` decorator — Flyte 2.0 uses `TaskEnvironment` and `@env.task` async functions
+- `large_data` must trigger the fallback (len > 10); `small_data` must succeed on primary (len ≤ 10)
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo fastapi_app_environment_serve__utPkSxv > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 FastAPI App Environment
+
+Create a Flyte 2.0 machine learning prediction API at `/home/user/flyte_project/` using `FastAPIAppEnvironment` and `@env.task`.
+
+## Requirements
+- Use `flyte.TaskEnvironment` for ML processing tasks
+- Create a FastAPI app with `POST /predict` and `GET /health` endpoints
+- Use `FastAPIAppEnvironment` from `flyte.app.extras`
+- The `/predict` endpoint should process a list of features using an `@env.task`
+
+## Constraints
+- Project path: /home/user/flyte_project
+- Start command: python /home/user/flyte_project/serve.py
+- Port: 8000
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo multi_env_gpu_cpu_pipeline__XmVmzdn > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Multi-Environment GPU/CPU ML Training Pipeline with Flyte 2.0
+
+## Background
+
+Flyte 2.0 introduces a Python-native task execution model where tasks are defined using `@env.task` decorators on async functions. A key capability is defining **multiple `TaskEnvironment`s** with different compute resources — CPU-only environments for lightweight preprocessing and evaluation, and GPU-enabled environments for heavy model training — all as plain Python code without a separate `@workflow` decorator.
+
+In this task you will implement a complete multi-environment ML training system split across three files: `environments.py` (resource definitions), `pipeline.py` (task implementations), and `main.py` (entry point).
+
+## Requirements
+
+Create the following three files inside `/home/user/flyte_project/`:
+
+### File 1 — `/home/user/flyte_project/environments.py`
+
+Define three `TaskEnvironment` objects:
+
+```python
+import flyte
+
+cpu_env = flyte.TaskEnvironment("cpu-preprocessing", resources=flyte.Resources(cpu=4, memory="8Gi"))
+gpu_env = flyte.TaskEnvironment("gpu-training", resources=flyte.Resources(cpu=8, memory="32Gi"))
+eval_env = flyte.TaskEnvironment("cpu-evaluation", resources=flyte.Resources(cpu=2, memory="4Gi"))
+```
+
+### File 2 — `/home/user/flyte_project/pipeline.py`
+
+Import the three environments from `environments.py` and implement four tasks:
+
+1. **`preprocess(raw_data: list) -> dict`** — decorated with `@cpu_env.task`:
+   - Remove `None` values and convert remaining items to `float`
+   - Return `{"data": cleaned, "n_samples": len(cleaned), "preprocessing_env": "cpu"}`
+
+2. **`train(preprocessed: dict) -> dict`** — decorated with `@gpu_env.task`:
+   - Return:
+     ```python
+     {
+         "model_weights": [0.1 * i for i in range(5)],
+         "n_samples_trained": preprocessed["n_samples"],
+         "training_env": "gpu",
+         "loss": max(0.01, 1.0 / preprocessed["n_samples"])
+     }
+     ```
+
+3. **`evaluate(model: dict, test_data: list) -> dict`** — decorated with `@eval_env.task`:
+   - Return:
+     ```python
+     {
+         "accuracy": min(0.99, model["n_samples_trained"] * 0.05),
+         "loss": model["loss"],
+         "test_samples": len(test_data),
+         "eval_env": "cpu"
+     }
+     ```
+
+4. **`full_pipeline(train_data: list, test_data: list) -> dict`** — decorated with `@cpu_env.task`:
+   - Chain: `preprocess(train_data)` → `train(preprocessed)` → `evaluate(model, test_data)`
+   - Return `{"preprocessing": preprocessed, "model": model, "evaluation": eval_result}`
+
+### File 3 — `/home/user/flyte_project/main.py`
+
+```python
+import asyncio
+import json
+from pipeline import full_pipeline
+
+if __name__ == "__main__":
+    train_data = [1.0, None, 2.0, 3.0, None, 4.0, 5.0]
+    test_data = [0.5, 1.5, 2.5]
+    result = asyncio.run(full_pipeline(train_data, test_data))
+    with open("/home/user/flyte_project/training_result.json", "w") as f:
+        json.dump(result, f, indent=2)
+    print(json.dumps(result, indent=2))
+```
+
+## Implementation Guide
+
+1. Install Flyte 2.0: `pip install flyte`
+2. Create the project directory: `mkdir -p /home/user/flyte_project`
+3. Create `environments.py`, `pipeline.py`, and `main.py` as described above.
+4. Run: `cd /home/user/flyte_project && python3 main.py`
+
+## Expected Behaviour
+
+- `train_data = [1.0, None, 2.0, 3.0, None, 4.0, 5.0]` → after removing `None`: `[1.0, 2.0, 3.0, 4.0, 5.0]` → `n_samples = 5`
+- `loss = max(0.01, 1.0 / 5) = 0.2`
+- `accuracy = min(0.99, 5 * 0.05) = 0.25`
+- The result JSON must contain three top-level keys: `preprocessing`, `model`, `evaluation`
+- `preprocessing.preprocessing_env` == `"cpu"`, `preprocessing.n_samples` == `5`
+- `model.training_env` == `"gpu"`
+- `evaluation.eval_env` == `"cpu"`, `evaluation.accuracy` == `0.25`
+
+## Constraints
+- Project path: `/home/user/flyte_project`
+- Result file: `/home/user/flyte_project/training_result.json`
+- Use `flyte` (Flyte 2.0) — install with `pip install flyte`
+- No `@workflow` decorator — Flyte 2.0 uses `TaskEnvironment` and `@env.task` async functions
+- Environments must be defined in `environments.py` and imported into `pipeline.py`
+
+EOF
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Exception AgentTimeoutError is in exclude_exceptions, not retrying
+Not retrying trial because the exception is not in include_exceptions or the maximum number of retries has been reached
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo task_with_typed_inputs_outputs__eHeLUHW > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 — Task with Typed Inputs and Outputs
+
+## Overview
+
+You have Flyte 2.0 installed in this environment (`pip install flyte`). Your task is to create a Python script that defines a multi-step ML metrics pipeline using Flyte 2.0's `TaskEnvironment` API, typed inputs/outputs with dataclasses, and runs it locally.
+
+## Requirements
+
+### 1. Create the project file
+
+Create a Python script at `/home/user/flyte_project/pipeline.py` that does the following:
+
+- Imports `flyte`, `dataclasses`, `json`, and `asyncio`.
+- Creates a `TaskEnvironment` named `"typed-env"` (assign it to a variable called `env`).
+- Defines a `@dataclass` named `ModelMetrics` with fields:
+  - `accuracy: float`
+  - `loss: float`
+  - `epoch: int`
+- Defines a task `compute_metrics(predictions: list, labels: list) -> ModelMetrics` decorated with `@env.task` that:
+  - Computes accuracy as the number of correct predictions divided by the total number of predictions (i.e., `sum(p == l for p, l in zip(predictions, labels)) / len(predictions)`).
+  - Computes a fake loss as `1.0 - accuracy`.
+  - Sets `epoch = 1`.
+  - Returns a `ModelMetrics` instance.
+- Defines a task `format_report(metrics: ModelMetrics) -> str` decorated with `@env.task` that:
+  - Returns a JSON string with fields `accuracy`, `loss`, and `epoch` from the metrics object.
+- Defines a task `run_pipeline(predictions: list, labels: list) -> str` decorated with `@env.task` that:
+  - Calls `await compute_metrics(predictions, labels)` to get metrics.
+  - Calls `await format_report(metrics)` to get the report string.
+  - Returns the report string.
+- In a `if __name__ == "__main__":` block:
+  - Calls `asyncio.run(run_pipeline([1, 1, 0, 1], [1, 0, 0, 1]))` and stores the result.
+  - Writes the result string to `/home/user/flyte_project/report.json`.
+
+### 2. Run the script
+
+Execute the script:
+
+```bash
+python3 /home/user/flyte_project/pipeline.py
+```
+
+## Key Details
+
+- **Project path**: `/home/user/flyte_project`
+- **Log file**: `/home/user/flyte_project/report.json`
+- The `flyte` package is already installed — do **not** reinstall it.
+- Flyte 2.0 tasks decorated with `@env.task` are `async def` functions; use `await` when calling them from another task and `asyncio.run()` at the top level.
+- There is **no** `@workflow` decorator in Flyte 2.0 — tasks are standalone async functions that can call each other with `await`.
+- Use Python's `dataclasses.dataclass` decorator (from the `dataclasses` module) to define `ModelMetrics`.
+
+## Expected Behaviour
+
+When the script is run with `predictions=[1, 1, 0, 1]` and `labels=[1, 0, 0, 1]`:
+- 3 out of 4 predictions match → `accuracy = 0.75`
+- `loss = 1.0 - 0.75 = 0.25`
+- `epoch = 1`
+
+The file `/home/user/flyte_project/report.json` should contain a valid JSON object such as:
+```json
+{"accuracy": 0.75, "loss": 0.25, "epoch": 1}
+```
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo ml_training_pipeline_with_metric__o9ztxBo > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 — ML Training Pipeline with Metrics
+
+## Background
+
+Flyte 2.0 uses native Python async primitives for composing multi-step ML pipelines. Tasks are `async def` functions decorated with `@env.task` from a `TaskEnvironment`. Parallelism is achieved with `asyncio.gather`, and expensive steps can be memoised with `flyte.Cache`.
+
+## Requirements
+
+Create the file `/home/user/flyte_project/ml_pipeline.py` that implements a complete ML training system which trains multiple model configurations in parallel and selects the best one.
+
+### 1. Setup
+
+- Import `asyncio`, `datetime`, `json`, and `flyte`.
+- Create a `TaskEnvironment` named `"ml-training"` with `flyte.Resources(cpu=4, memory="8Gi")` (assign it to a variable named `env`):
+
+```python
+env = flyte.TaskEnvironment("ml-training", resources=flyte.Resources(cpu=4, memory="8Gi"))
+```
+
+### 2. Task: `generate_dataset`
+
+Define an async task:
+
+```python
+@env.task
+async def generate_dataset(n_samples: int, n_features: int) -> dict:
+    return {
+        "X": [[float(i + j) for j in range(n_features)] for i in range(n_samples)],
+        "y": [i % 2 for i in range(n_samples)],
+        "n_samples": n_samples,
+        "n_features": n_features,
+    }
+```
+
+### 3. Task: `train_model` (with cache)
+
+Define an async task with a `flyte.Cache` of 1 hour TTL:
+
+```python
+@env.task(cache=flyte.Cache(ttl=datetime.timedelta(hours=1), version="v1"))
+async def train_model(config: dict, dataset: dict) -> dict:
+    accuracy = min(0.99, config["learning_rate"] * config["epochs"] * 0.1)
+    loss = max(0.01, 1.0 - config["learning_rate"] * config["epochs"] * 0.1)
+    return {
+        "config": config,
+        "accuracy": accuracy,
+        "loss": loss,
+        "n_samples": dataset["n_samples"],
+    }
+```
+
+`config` has keys: `model_type` (str), `learning_rate` (float), `epochs` (int).
+
+### 4. Task: `select_best_model`
+
+Define an async task:
+
+```python
+@env.task
+async def select_best_model(models: list) -> dict:
+    best = max(models, key=lambda m: m["accuracy"])
+    return {"best_model": best, "n_candidates": len(models), "best_accuracy": best["accuracy"]}
+```
+
+### 5. Task: `generate_report`
+
+Define an async task:
+
+```python
+@env.task
+async def generate_report(best: dict) -> dict:
+    return {
+        "report_type": "model_selection",
+        "winner": best["best_model"]["config"]["model_type"],
+        "accuracy": best["best_accuracy"],
+        "candidates_evaluated": best["n_candidates"],
+    }
+```
+
+### 6. Task: `run_ml_experiment`
+
+Define an async task that orchestrates the full pipeline:
+
+```python
+@env.task
+async def run_ml_experiment(n_samples: int, n_features: int) -> dict:
+    dataset = await generate_dataset(n_samples, n_features)
+    configs = [
+        {"model_type": "lr",  "learning_rate": 0.01,  "epochs": 100},
+        {"model_type": "rf",  "learning_rate": 0.1,   "epochs": 50},
+        {"model_type": "nn",  "learning_rate": 0.001, "epochs": 200},
+    ]
+    trained = await asyncio.gather(*[train_model(cfg, dataset) for cfg in configs])
+    best = await select_best_model(list(trained))
+    report = await generate_report(best)
+    return report
+```
+
+### 7. `__main__` block
+
+```python
+if __name__ == "__main__":
+    report = asyncio.run(run_ml_experiment(1000, 10))
+    with open("/home/user/flyte_project/experiment_report.json", "w") as f:
+        json.dump(report, f)
+```
+
+## Implementation Guide
+
+1. Do **not** use `@workflow` or `flytekit.map` — they do not exist in Flyte 2.0.
+2. Parallelism is achieved via `asyncio.gather` across the three model configs.
+3. All task functions must be `async def` and decorated with `@env.task`.
+4. `train_model` must receive its cache via the `@env.task(cache=...)` decorator argument.
+5. Running `python3 /home/user/flyte_project/ml_pipeline.py` must exit with code 0 and produce the report file.
+
+## Constraints
+
+- **Project path**: `/home/user/flyte_project`
+- **Script**: `/home/user/flyte_project/ml_pipeline.py`
+- **Log file**: `/home/user/flyte_project/experiment_report.json`
+- The `flyte` package is already installed — do **not** reinstall it.
+- Use only the standard library plus `flyte`.
+
+EOF
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo task_with_pip_packages__4uvhJHv > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 — Task with Pip Packages
+
+## Overview
+
+You have Flyte 2.0 installed in this environment (`pip install flyte`). Your task is to create a Python script that defines a data-summarisation task using Flyte 2.0's `TaskEnvironment` API with a custom image that declares `pandas` and `numpy` as pip dependencies, then runs it locally.
+
+## Requirements
+
+### 1. Create the project file
+
+Create a Python script at `/home/user/flyte_project/data_task.py` that does the following:
+
+- Imports `flyte`, `numpy`, `json`, and `asyncio`.
+- Creates a `TaskEnvironment` named `"data-env"` (assign it to a variable called `env`) using a custom image:
+  ```python
+  env = flyte.TaskEnvironment(
+      "data-env",
+      image=flyte.Image.from_debian_base().with_pip_packages("pandas", "numpy")
+  )
+  ```
+- Defines a task `summarize_data(values: list) -> dict` decorated with `@env.task` that:
+  - Uses `numpy` to compute `mean`, `std`, `min`, and `max` of the values.
+  - Returns a `dict` with keys `mean`, `std`, `min`, and `max`.
+- In a `if __name__ == "__main__":` block:
+  - Calls `asyncio.run(summarize_data([1.0, 2.0, 3.0, 4.0, 5.0]))` and stores the result.
+  - Writes the result dict as JSON to `/home/user/flyte_project/summary.json`.
+
+### 2. Run the script
+
+Execute the script:
+
+```bash
+python3 /home/user/flyte_project/data_task.py
+```
+
+## Key Details
+
+- **Project path**: `/home/user/flyte_project`
+- **Log file**: `/home/user/flyte_project/summary.json`
+- The `flyte`, `pandas`, and `numpy` packages are already installed — do **not** reinstall them.
+- Flyte 2.0 tasks decorated with `@env.task` are `async def` functions; use `await` when calling them from another task and `asyncio.run()` at the top level.
+- The `with_pip_packages(...)` call on `flyte.Image` is metadata for remote cluster deployments. When running locally with `python script.py`, the image spec is ignored and the task runs in the current Python environment — so `pandas` and `numpy` must be installed in the host environment (they are).
+- There is **no** `@workflow` decorator in Flyte 2.0 — tasks are standalone async functions.
+
+## Expected Behaviour
+
+When the script is run with `values=[1.0, 2.0, 3.0, 4.0, 5.0]`:
+- `mean` ≈ 3.0
+- `std` ≈ 1.4142 (population std)
+- `min` == 1.0
+- `max` == 5.0
+
+The file `/home/user/flyte_project/summary.json` should contain a valid JSON object such as:
+```json
+{"mean": 3.0, "std": 1.4142135623730951, "min": 1.0, "max": 5.0}
+```
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo parallel_data_aggregation_pipeli__n3GEBVs > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Parallel Data Aggregation Pipeline with Flyte 2.0
+
+## Background
+
+Flyte 2.0 introduces a lightweight Python-first task model using `@env.task` async functions, `TaskEnvironment`, and `asyncio.gather` for true parallel execution — no cluster required for local runs. Your goal is to build a multi-file Flyte 2.0 project that fetches data from three simulated sources **in parallel**, normalizes each result **in parallel**, and then aggregates everything into a final JSON report.
+
+## Requirements
+
+Create a two-file Python project under `/home/user/flyte_project/`:
+
+1. **`/home/user/flyte_project/tasks.py`** — defines all Flyte tasks.
+2. **`/home/user/flyte_project/main.py`** — entry point that runs the pipeline and writes the report.
+
+### `tasks.py` must define:
+
+- A `TaskEnvironment` named `"aggregation-env"` with `flyte.Resources(cpu=4, memory="8Gi")`.
+- **`fetch_source(source_id: str) -> dict`** — an `@env.task` async function that returns hardcoded mock data for each of the three sources:
+  - `"source_a"`: `{"source_id": "source_a", "row_count": 100, "total_value": 5000.0}`
+  - `"source_b"`: `{"source_id": "source_b", "row_count": 250, "total_value": 12500.0}`
+  - `"source_c"`: `{"source_id": "source_c", "row_count": 75, "total_value": 3750.0}`
+  - For any unknown source_id, raise a `ValueError`.
+- **`normalize_source(raw: dict) -> dict`** — an `@env.task` async function that standardizes the schema, returning `{"id": raw["source_id"], "count": raw["row_count"], "total": raw["total_value"]}`.
+- **`compute_aggregate(normalized_list: list) -> dict`** — an `@env.task` async function that returns a summary dict with keys: `grand_total` (sum of all `total`), `max_count` (max of all `count`), `min_count` (min of all `count`), `source_count` (number of sources).
+- **`run_pipeline(source_ids: list) -> dict`** — an `@env.task` async function that:
+  1. Uses `asyncio.gather` to **fetch all sources in parallel**.
+  2. Uses a second `asyncio.gather` to **normalize all fetched results in parallel**.
+  3. Calls `compute_aggregate` on the normalized list.
+  4. Returns the aggregate dict.
+
+### `main.py` must:
+
+- Import `run_pipeline` from `tasks`.
+- Call `asyncio.run(run_pipeline(["source_a", "source_b", "source_c"]))` to execute the pipeline.
+- Write the resulting aggregate dict as JSON to `/home/user/flyte_project/aggregate_report.json`.
+
+## Implementation Guide
+
+### Step 1 — Create project directory
+
+```bash
+mkdir -p /home/user/flyte_project
+```
+
+### Step 2 — Write `tasks.py`
+
+```python
+import asyncio
+import flyte
+from flyte import TaskEnvironment
+
+env = TaskEnvironment("aggregation-env", resources=flyte.Resources(cpu=4, memory="8Gi"))
+
+_MOCK_DATA = {
+    "source_a": {"source_id": "source_a", "row_count": 100, "total_value": 5000.0},
+    "source_b": {"source_id": "source_b", "row_count": 250, "total_value": 12500.0},
+    "source_c": {"source_id": "source_c", "row_count": 75, "total_value": 3750.0},
+}
+
+@env.task
+async def fetch_source(source_id: str) -> dict:
+    if source_id not in _MOCK_DATA:
+        raise ValueError(f"Unknown source: {source_id}")
+    return _MOCK_DATA[source_id]
+
+@env.task
+async def normalize_source(raw: dict) -> dict:
+    return {"id": raw["source_id"], "count": raw["row_count"], "total": raw["total_value"]}
+
+@env.task
+async def compute_aggregate(normalized_list: list) -> dict:
+    return {
+        "grand_total": sum(n["total"] for n in normalized_list),
+        "max_count": max(n["count"] for n in normalized_list),
+        "min_count": min(n["count"] for n in normalized_list),
+        "source_count": len(normalized_list),
+    }
+
+@env.task
+async def run_pipeline(source_ids: list) -> dict:
+    # First gather: fetch all sources in parallel
+    raw_results = await asyncio.gather(*[fetch_source(sid) for sid in source_ids])
+    # Second gather: normalize all in parallel
+    normalized = await asyncio.gather(*[normalize_source(r) for r in raw_results])
+    # Aggregate
+    return await compute_aggregate(list(normalized))
+```
+
+### Step 3 — Write `main.py`
+
+```python
+import asyncio
+import json
+from tasks import run_pipeline
+
+if __name__ == "__main__":
+    result = asyncio.run(run_pipeline(["source_a", "source_b", "source_c"]))
+    with open("/home/user/flyte_project/aggregate_report.json", "w") as f:
+        json.dump(result, f, indent=2)
+    print("Pipeline complete:", result)
+```
+
+### Step 4 — Run the pipeline
+
+```bash
+cd /home/user/flyte_project && python3 main.py
+```
+
+## Constraints
+
+- Project path: `/home/user/flyte_project`
+- Log file: `/home/user/flyte_project/aggregate_report.json`
+- Both `tasks.py` and `main.py` must exist under the project path.
+- Use `asyncio.gather` **twice** inside `run_pipeline`: once for parallel fetching and once for parallel normalization.
+- The `TaskEnvironment` name must be `"aggregation-env"` with `cpu=4` and `memory="8Gi"`.
+- Do **not** hardcode the final result in `main.py`; it must be produced by executing `run_pipeline`.
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

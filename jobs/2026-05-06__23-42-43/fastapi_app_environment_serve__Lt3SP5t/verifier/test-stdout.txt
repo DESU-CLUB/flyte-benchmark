@@ -1,0 +1,167 @@
+Collecting pluggy
+  Downloading pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+Collecting pytest==8.4.1
+  Downloading pytest-8.4.1-py3-none-any.whl.metadata (7.7 kB)
+Collecting pytest-json-ctrf==0.3.5
+  Downloading pytest_json_ctrf-0.3.5-py3-none-any.whl.metadata (3.3 kB)
+Collecting pochi-verifier
+  Downloading pochi_verifier-0.2.0-py3-none-any.whl.metadata (3.0 kB)
+Collecting iniconfig>=1 (from pytest==8.4.1)
+  Downloading iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting packaging>=20 (from pytest==8.4.1)
+  Downloading packaging-26.2-py3-none-any.whl.metadata (3.5 kB)
+Collecting pygments>=2.7.2 (from pytest==8.4.1)
+  Downloading pygments-2.20.0-py3-none-any.whl.metadata (2.5 kB)
+Downloading pytest-8.4.1-py3-none-any.whl (365 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 365.5/365.5 kB 10.9 MB/s eta 0:00:00
+Downloading pytest_json_ctrf-0.3.5-py3-none-any.whl (6.8 kB)
+Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+Downloading pochi_verifier-0.2.0-py3-none-any.whl (5.9 kB)
+Downloading iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+Downloading packaging-26.2-py3-none-any.whl (100 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.2/100.2 kB 26.5 MB/s eta 0:00:00
+Downloading pygments-2.20.0-py3-none-any.whl (1.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 55.1 MB/s eta 0:00:00
+Installing collected packages: pygments, pochi-verifier, pluggy, packaging, iniconfig, pytest, pytest-json-ctrf
+Successfully installed iniconfig-2.3.0 packaging-26.2 pluggy-1.6.0 pochi-verifier-0.2.0 pygments-2.20.0 pytest-8.4.1 pytest-json-ctrf-0.3.5
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5, anyio-4.13.0
+collected 12 items
+
+../../tests/test_final_state.py ...FF.FFF.FF                             [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_health_response_status_healthy ______________________
+
+running_server = <Popen: returncode: None args: ['python3', '/home/user/flyte_project/serve.py']>
+
+    def test_health_response_status_healthy(running_server):
+        """GET /health response body must contain status=='healthy'."""
+        _, body = http_get("/health")
+>       assert body.get("status") == "healthy", (
+            f"Expected {{\"status\": \"healthy\"}} in /health response, got: {body}"
+        )
+E       AssertionError: Expected {"status": "healthy"} in /health response, got: {'status': 'ok'}
+E       assert 'ok' == 'healthy'
+E         
+E         - healthy
+E         + ok
+
+/tests/test_final_state.py:115: AssertionError
+______________________ test_health_response_service_name _______________________
+
+running_server = <Popen: returncode: None args: ['python3', '/home/user/flyte_project/serve.py']>
+
+    def test_health_response_service_name(running_server):
+        """GET /health response body must contain service=='flyte-ml-api'."""
+        _, body = http_get("/health")
+>       assert body.get("service") == "flyte-ml-api", (
+            f"Expected {{\"service\": \"flyte-ml-api\"}} in /health response, got: {body}"
+        )
+E       AssertionError: Expected {"service": "flyte-ml-api"} in /health response, got: {'status': 'ok'}
+E       assert None == 'flyte-ml-api'
+E        +  where None = <built-in method get of dict object at 0xfb5bcf8fc1c0>('service')
+E        +    where <built-in method get of dict object at 0xfb5bcf8fc1c0> = {'status': 'ok'}.get
+
+/tests/test_final_state.py:123: AssertionError
+____________________ test_predict_five_features_prediction _____________________
+
+running_server = <Popen: returncode: None args: ['python3', '/home/user/flyte_project/serve.py']>
+
+    def test_predict_five_features_prediction(running_server):
+        """POST /predict [1,2,3,4,5] → prediction must equal 3.0."""
+        _, body = http_post_json("/predict", {"features": [1.0, 2.0, 3.0, 4.0, 5.0]})
+        prediction = body.get("prediction")
+>       assert prediction == pytest.approx(3.0), (
+            f"Expected prediction==3.0 for features [1,2,3,4,5], got: {prediction}. Full body: {body}"
+        )
+E       AssertionError: Expected prediction==3.0 for features [1,2,3,4,5], got: 5.0. Full body: {'prediction': 5.0, 'num_features': 5, 'model': 'weighted-sum-v1'}
+E       assert 5.0 == 3.0 ± 3.0e-06
+E         
+E         comparison failed
+E         Obtained: 5.0
+E         Expected: 3.0 ± 3.0e-06
+
+/tests/test_final_state.py:140: AssertionError
+____________________ test_predict_five_features_n_features _____________________
+
+running_server = <Popen: returncode: None args: ['python3', '/home/user/flyte_project/serve.py']>
+
+    def test_predict_five_features_n_features(running_server):
+        """POST /predict [1,2,3,4,5] → n_features must equal 5."""
+        _, body = http_post_json("/predict", {"features": [1.0, 2.0, 3.0, 4.0, 5.0]})
+        n_features = body.get("n_features")
+>       assert n_features == 5, (
+            f"Expected n_features==5 for features [1,2,3,4,5], got: {n_features}. Full body: {body}"
+        )
+E       AssertionError: Expected n_features==5 for features [1,2,3,4,5], got: None. Full body: {'prediction': 5.0, 'num_features': 5, 'model': 'weighted-sum-v1'}
+E       assert None == 5
+
+/tests/test_final_state.py:149: AssertionError
+______________________ test_predict_five_features_status _______________________
+
+running_server = <Popen: returncode: None args: ['python3', '/home/user/flyte_project/serve.py']>
+
+    def test_predict_five_features_status(running_server):
+        """POST /predict [1,2,3,4,5] → status must equal 'processed'."""
+        _, body = http_post_json("/predict", {"features": [1.0, 2.0, 3.0, 4.0, 5.0]})
+        status_val = body.get("status")
+>       assert status_val == "processed", (
+            f"Expected status=='processed', got: {status_val}. Full body: {body}"
+        )
+E       AssertionError: Expected status=='processed', got: None. Full body: {'prediction': 5.0, 'num_features': 5, 'model': 'weighted-sum-v1'}
+E       assert None == 'processed'
+
+/tests/test_final_state.py:158: AssertionError
+_____________________ test_predict_two_features_prediction _____________________
+
+running_server = <Popen: returncode: None args: ['python3', '/home/user/flyte_project/serve.py']>
+
+    def test_predict_two_features_prediction(running_server):
+        """POST /predict [10, 20] → prediction must equal 15.0."""
+        _, body = http_post_json("/predict", {"features": [10.0, 20.0]})
+        prediction = body.get("prediction")
+>       assert prediction == pytest.approx(15.0), (
+            f"Expected prediction==15.0 for features [10,20], got: {prediction}. Full body: {body}"
+        )
+E       AssertionError: Expected prediction==15.0 for features [10,20], got: 20.0. Full body: {'prediction': 20.0, 'num_features': 2, 'model': 'weighted-sum-v1'}
+E       assert 20.0 == 15.0 ± 1.5e-05
+E         
+E         comparison failed
+E         Obtained: 20.0
+E         Expected: 15.0 ± 1.5e-05
+
+/tests/test_final_state.py:175: AssertionError
+_____________________ test_predict_two_features_n_features _____________________
+
+running_server = <Popen: returncode: None args: ['python3', '/home/user/flyte_project/serve.py']>
+
+    def test_predict_two_features_n_features(running_server):
+        """POST /predict [10, 20] → n_features must equal 2."""
+        _, body = http_post_json("/predict", {"features": [10.0, 20.0]})
+        n_features = body.get("n_features")
+>       assert n_features == 2, (
+            f"Expected n_features==2 for features [10,20], got: {n_features}. Full body: {body}"
+        )
+E       AssertionError: Expected n_features==2 for features [10,20], got: None. Full body: {'prediction': 20.0, 'num_features': 2, 'model': 'weighted-sum-v1'}
+E       assert None == 2
+
+/tests/test_final_state.py:184: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED ../../tests/test_final_state.py::test_app_py_exists
+PASSED ../../tests/test_final_state.py::test_serve_py_exists
+PASSED ../../tests/test_final_state.py::test_health_returns_200
+PASSED ../../tests/test_final_state.py::test_predict_five_features_returns_200
+PASSED ../../tests/test_final_state.py::test_predict_two_features_returns_200
+FAILED ../../tests/test_final_state.py::test_health_response_status_healthy
+FAILED ../../tests/test_final_state.py::test_health_response_service_name - A...
+FAILED ../../tests/test_final_state.py::test_predict_five_features_prediction
+FAILED ../../tests/test_final_state.py::test_predict_five_features_n_features
+FAILED ../../tests/test_final_state.py::test_predict_five_features_status - A...
+FAILED ../../tests/test_final_state.py::test_predict_two_features_prediction
+FAILED ../../tests/test_final_state.py::test_predict_two_features_n_features
+========================= 7 failed, 5 passed in 0.85s ==========================

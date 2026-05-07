@@ -1,0 +1,230 @@
+Collecting pluggy
+  Downloading pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+Collecting pytest==8.4.1
+  Downloading pytest-8.4.1-py3-none-any.whl.metadata (7.7 kB)
+Collecting pytest-json-ctrf==0.3.5
+  Downloading pytest_json_ctrf-0.3.5-py3-none-any.whl.metadata (3.3 kB)
+Collecting pochi-verifier
+  Downloading pochi_verifier-0.2.0-py3-none-any.whl.metadata (3.0 kB)
+Collecting iniconfig>=1 (from pytest==8.4.1)
+  Downloading iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting packaging>=20 (from pytest==8.4.1)
+  Downloading packaging-26.2-py3-none-any.whl.metadata (3.5 kB)
+Collecting pygments>=2.7.2 (from pytest==8.4.1)
+  Using cached pygments-2.20.0-py3-none-any.whl.metadata (2.5 kB)
+Downloading pytest-8.4.1-py3-none-any.whl (365 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 365.5/365.5 kB 4.3 MB/s eta 0:00:00
+Downloading pytest_json_ctrf-0.3.5-py3-none-any.whl (6.8 kB)
+Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+Downloading pochi_verifier-0.2.0-py3-none-any.whl (5.9 kB)
+Downloading iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+Downloading packaging-26.2-py3-none-any.whl (100 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.2/100.2 kB 32.6 MB/s eta 0:00:00
+Using cached pygments-2.20.0-py3-none-any.whl (1.2 MB)
+Installing collected packages: pygments, pochi-verifier, pluggy, packaging, iniconfig, pytest, pytest-json-ctrf
+Successfully installed iniconfig-2.3.0 packaging-26.2 pluggy-1.6.0 pochi-verifier-0.2.0 pygments-2.20.0 pytest-8.4.1 pytest-json-ctrf-0.3.5
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5, anyio-4.13.0
+collected 9 items
+
+tests/test_final_state.py .FFFFFFFF                                      [100%]
+
+=================================== FAILURES ===================================
+________________________ test_script_runs_successfully _________________________
+
+    def test_script_runs_successfully():
+        """Priority 1: Run the agent's script with API_KEY set and assert returncode == 0."""
+        env = {
+            "API_KEY": TEST_API_KEY,
+            "PATH": os.environ.get("PATH", ""),
+        }
+        result = subprocess.run(
+            ["python3", SCRIPT_PATH],
+            capture_output=True,
+            text=True,
+            cwd=PROJECT_DIR,
+            env=env,
+        )
+>       assert result.returncode == 0, (
+            f"python3 secret_task.py failed with returncode {result.returncode}.\n"
+            f"stdout: {result.stdout}\nstderr: {result.stderr}"
+        )
+E       AssertionError: python3 secret_task.py failed with returncode 1.
+E         stdout: Filtered traceback (most recent call last):
+E         TypeError: TaskEnvironment.task() got an unexpected keyword argument 'secret_requests'
+E         
+E         
+E         stderr:   File "/home/user/flyte_project/secret_task.py", line 13, in <module>
+E             @env.task(secret_requests=[API_SECRET])
+E              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python3', '/home/user/flyte_project/secret_task.py'], returncode=1, stdout="Filtered traceback...py", line 13, in <module>\n    @env.task(secret_requests=[API_SECRET])\n     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n').returncode
+
+tests/test_final_state.py:37: AssertionError
+___________________________ test_output_file_exists ____________________________
+
+    def test_output_file_exists():
+        """Priority 1 (runtime artifact): Verify secure_output.json exists after script execution."""
+>       assert os.path.isfile(OUTPUT_FILE), (
+            f"Output file not found at {OUTPUT_FILE}. "
+            "The script must write results to /home/user/flyte_project/secure_output.json."
+        )
+E       AssertionError: Output file not found at /home/user/flyte_project/secure_output.json. The script must write results to /home/user/flyte_project/secure_output.json.
+E       assert False
+E        +  where False = <function isfile at 0xf01ed8840220>('/home/user/flyte_project/secure_output.json')
+E        +    where <function isfile at 0xf01ed8840220> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+tests/test_final_state.py:45: AssertionError
+_______________________ test_output_is_list_of_two_items _______________________
+
+    def test_output_is_list_of_two_items():
+        """Priority 1 (runtime artifact): Assert output is a JSON list with exactly 2 items."""
+>       data = _load_output()
+               ^^^^^^^^^^^^^^
+
+tests/test_final_state.py:62: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _load_output():
+        """Helper: parse and return the JSON output file."""
+>       with open(OUTPUT_FILE) as f:
+             ^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/secure_output.json'
+
+tests/test_final_state.py:53: FileNotFoundError
+________________________ test_both_items_authenticated _________________________
+
+    def test_both_items_authenticated():
+        """Priority 1 (runtime artifact): Assert both result items have authenticated == True."""
+>       data = _load_output()
+               ^^^^^^^^^^^^^^
+
+tests/test_final_state.py:73: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _load_output():
+        """Helper: parse and return the JSON output file."""
+>       with open(OUTPUT_FILE) as f:
+             ^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/secure_output.json'
+
+tests/test_final_state.py:53: FileNotFoundError
+________________________ test_both_items_key_length_18 _________________________
+
+    def test_both_items_key_length_18():
+        """Priority 1 (runtime artifact): Assert both items have key_length == 18 (len('test-api-key-12345'))."""
+>       data = _load_output()
+               ^^^^^^^^^^^^^^
+
+tests/test_final_state.py:86: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _load_output():
+        """Helper: parse and return the JSON output file."""
+>       with open(OUTPUT_FILE) as f:
+             ^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/secure_output.json'
+
+tests/test_final_state.py:53: FileNotFoundError
+_____________________ test_output_contains_both_endpoints ______________________
+
+    def test_output_contains_both_endpoints():
+        """Priority 1 (runtime artifact): Assert items contain endpoints '/api/v1/data' and '/api/v1/models'."""
+>       data = _load_output()
+               ^^^^^^^^^^^^^^
+
+tests/test_final_state.py:99: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _load_output():
+        """Helper: parse and return the JSON output file."""
+>       with open(OUTPUT_FILE) as f:
+             ^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/secure_output.json'
+
+tests/test_final_state.py:53: FileNotFoundError
+________________________ test_api_secret_key_attribute _________________________
+
+    def test_api_secret_key_attribute():
+        """Priority 1 (module import): Assert API_SECRET.key == 'api_key'."""
+>       mod = _load_module()
+              ^^^^^^^^^^^^^^
+
+tests/test_final_state.py:119: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:113: in _load_module
+    spec.loader.exec_module(mod)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap>:488: in _call_with_frames_removed
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import asyncio
+    import json
+    import os
+    
+    import flyte
+    
+    
+    env = flyte.TaskEnvironment("secure-env")
+    
+    API_SECRET = flyte.Secret(key="api_key", group="my-secrets")
+    
+    
+>   @env.task(secret_requests=[API_SECRET])
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: TaskEnvironment.task() got an unexpected keyword argument 'secret_requests'
+
+home/user/flyte_project/secret_task.py:13: TypeError
+_______________________ test_api_secret_group_attribute ________________________
+
+    def test_api_secret_group_attribute():
+        """Priority 1 (module import): Assert API_SECRET.group == 'my-secrets'."""
+>       mod = _load_module()
+              ^^^^^^^^^^^^^^
+
+tests/test_final_state.py:130: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_final_state.py:113: in _load_module
+    spec.loader.exec_module(mod)
+<frozen importlib._bootstrap_external>:995: in exec_module
+    ???
+<frozen importlib._bootstrap>:488: in _call_with_frames_removed
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    import asyncio
+    import json
+    import os
+    
+    import flyte
+    
+    
+    env = flyte.TaskEnvironment("secure-env")
+    
+    API_SECRET = flyte.Secret(key="api_key", group="my-secrets")
+    
+    
+>   @env.task(secret_requests=[API_SECRET])
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: TaskEnvironment.task() got an unexpected keyword argument 'secret_requests'
+
+home/user/flyte_project/secret_task.py:13: TypeError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_secret_task_script_exists
+FAILED tests/test_final_state.py::test_script_runs_successfully - AssertionEr...
+FAILED tests/test_final_state.py::test_output_file_exists - AssertionError: O...
+FAILED tests/test_final_state.py::test_output_is_list_of_two_items - FileNotF...
+FAILED tests/test_final_state.py::test_both_items_authenticated - FileNotFoun...
+FAILED tests/test_final_state.py::test_both_items_key_length_18 - FileNotFoun...
+FAILED tests/test_final_state.py::test_output_contains_both_endpoints - FileN...
+FAILED tests/test_final_state.py::test_api_secret_key_attribute - TypeError: ...
+FAILED tests/test_final_state.py::test_api_secret_group_attribute - TypeError...
+========================= 8 failed, 1 passed in 0.15s ==========================

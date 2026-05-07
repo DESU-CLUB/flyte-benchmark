@@ -1,0 +1,136 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo data_processing_pipeline__4T9peJP > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 Data Processing Pipeline
+
+## Background
+Flyte 2.0 introduces a new `@env.task` decorator pattern for defining async tasks within a `TaskEnvironment`. In this task you will use Flyte 2.0 to build a multi-stage data processing pipeline that loads several CSV datasets concurrently, computes per-dataset statistics in parallel, and merges the results into a summary report.
+
+## Requirements
+- Create a script `/home/user/flyte_project/data_pipeline.py` that implements all pipeline stages below using Flyte 2.0.
+- The pipeline must process multiple datasets in parallel using `asyncio.gather`.
+- Final merged statistics must be written to `/home/user/flyte_project/pipeline_stats.json`.
+
+## Implementation Guide
+
+### 1. Install Flyte 2.0
+```bash
+pip install flyte
+```
+
+### 2. Create `/home/user/flyte_project/data_pipeline.py`
+
+```python
+import asyncio
+import json
+from flyte import TaskEnvironment
+
+env = TaskEnvironment("data-pipeline-env")
+
+@env.task
+async def load_dataset(name: str) -> dict:
+    if name == "sales":
+        return {"name": "sales", "rows": [{"product": "A", "qty": 100, "price": 10.0}, {"product": "B", "qty": 50, "price": 20.0}]}
+    elif name == "inventory":
+        return {"name": "inventory", "rows": [{"product": "A", "stock": 500}, {"product": "B", "stock": 200}]}
+    else:
+        return {"name": name, "rows": []}
+
+@env.task
+async def compute_dataset_stats(dataset: dict) -> dict:
+    return {"name": dataset["name"], "row_count": len(dataset["rows"]), "has_data": len(dataset["rows"]) > 0}
+
+@env.task
+async def merge_stats(stats_list: list) -> dict:
+    return {
+        "total_datasets": len(stats_list),
+        "total_rows": sum(s["row_count"] for s in stats_list),
+        "datasets": [s["name"] for s in stats_list]
+    }
+
+@env.task
+async def run_data_pipeline(dataset_names: list) -> dict:
+    datasets = await asyncio.gather(*[load_dataset(n) for n in dataset_names])
+    stats = await asyncio.gather(*[compute_dataset_stats(d) for d in datasets])
+    return await merge_stats(list(stats))
+
+if __name__ == "__main__":
+    result = asyncio.run(run_data_pipeline(["sales", "inventory", "returns"]))
+    with open("/home/user/flyte_project/pipeline_stats.json", "w") as f:
+        json.dump(result, f)
+```
+
+### 3. Run the pipeline
+```bash
+python3 /home/user/flyte_project/data_pipeline.py
+```
+
+## Constraints
+- Project path: /home/user/flyte_project
+- Log file: /home/user/flyte_project/pipeline_stats.json
+- Use `flyte` (Flyte 2.0) package installed via `pip install flyte`.
+- Use `TaskEnvironment("data-pipeline-env")` and `@env.task` async functions.
+- Use `asyncio.gather` for all parallel stages.
+- Do not use external services; all data is mocked inline.
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

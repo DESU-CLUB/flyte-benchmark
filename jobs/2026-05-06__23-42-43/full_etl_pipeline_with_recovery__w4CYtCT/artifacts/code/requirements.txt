@@ -1,0 +1,4 @@
+# Flyte 2.0 ETL Pipeline — Python dependencies
+# Install with: pip install -r requirements.txt
+
+flytekit>=1.14.0

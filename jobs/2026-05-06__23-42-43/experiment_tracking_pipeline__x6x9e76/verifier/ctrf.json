@@ -1,0 +1,116 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 4,
+            "failed": 5,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778136770.2748766,
+            "stop": 1778136771.0980482
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_experiment_tracker_script_exists",
+                "status": "passed",
+                "duration": 0.00040908996015787125,
+                "start": 1778136770.2810192,
+                "stop": 1778136770.2816198,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_runs_without_error",
+                "status": "passed",
+                "duration": 0.42340129998046905,
+                "start": 1778136770.2817085,
+                "stop": 1778136770.7060692,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_experiment_log_json_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.000565633992664516,
+                "start": 1778136770.706222,
+                "stop": 1778136770.7129266,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_experiment_log_json_exists():\n        \"\"\"Priority 4 (existence gate): experiment_log.json must exist after running the script.\"\"\"\n>       assert os.path.isfile(LOG_PATH), (\n            f\"Expected /home/user/flyte_project/experiment_log.json to exist after running the script, \"\n            \"but it was not found.\"\n        )\nE       AssertionError: Expected /home/user/flyte_project/experiment_log.json to exist after running the script, but it was not found.\nE       assert False\nE        +  where False = <function isfile at 0xf9bbecbf0220>('/home/user/flyte_project/experiment_log.json')\nE        +    where <function isfile at 0xf9bbecbf0220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:38: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_experiment_result_json_exists",
+                "status": "passed",
+                "duration": 0.0004122989485040307,
+                "start": 1778136770.7130075,
+                "stop": 1778136770.7135837,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_is_valid_json_object",
+                "status": "passed",
+                "duration": 0.0004269249038770795,
+                "start": 1778136770.7136521,
+                "stop": 1778136770.7142246,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_experiments_run_equals_three",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0004852998536080122,
+                "start": 1778136770.7142918,
+                "stop": 1778136770.715958,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_experiments_run_equals_three():\n        \"\"\"Priority 1 (runtime output): experiments_run must be 3 (one per config).\"\"\"\n        data = _load_result()\n>       assert \"experiments_run\" in data, (\n            f\"'experiments_run' key missing from experiment_result.json. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'experiments_run' key missing from experiment_result.json. Got keys: ['pipeline', 'version', 'generated_at', 'flytekit_version', 'best_experiment', 'summary', 'ranked_experiments', 'analysis']\nE       assert 'experiments_run' in {'analysis': {'duration_seconds': {'max': 0.6506, 'mean': 0.1275, 'total': 1.2753}, 'optimizer_breakdown': {'adam': 0....ne, 'experiment_id': 'exp_10', ...}, 'flytekit_version': '1.16.20', 'generated_at': '2026-05-07T06:52:50.621724Z', ...}\n\ntests/test_final_state.py:75: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_best_experiment_is_fast_lr",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00044205004815012217,
+                "start": 1778136770.7160232,
+                "stop": 1778136770.717885,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_best_experiment_is_fast_lr():\n        \"\"\"Priority 1 (runtime output): best_experiment must be 'fast_lr'.\n    \n        fast_lr achieves accuracy = min(0.99, 0.01 * 1000 / 1000) = 0.01, which is the highest\n        among the three configs (baseline=0.001, fast_lr=0.01, high_epochs=0.002).\n        \"\"\"\n        data = _load_result()\n        assert \"best_experiment\" in data, (\n            f\"'best_experiment' key missing from experiment_result.json. Got keys: {list(data.keys())}\"\n        )\n>       assert data[\"best_experiment\"] == \"fast_lr\", (\n            f\"Expected best_experiment == 'fast_lr', but got: {data['best_experiment']!r}\"\n        )\nE       AssertionError: Expected best_experiment == 'fast_lr', but got: {'train_loss': 0.141176, 'val_loss': 0.160491, 'train_accuracy': 0.920859, 'val_accuracy': 0.901544, 'duration_seconds': 0.2482, 'experiment_id': 'exp_10', 'config': {'experiment_id': 'exp_10', 'learning_rate': 0.0005, 'batch_size': 64, 'num_epochs': 200, 'dropout_rate': 0.1, 'optimizer': 'adam', 'hidden_units': 768}, 'status': 'success', 'error_message': None, 'timestamp': '2026-05-07T06:51:57.080898Z'}\nE       assert {'config': {'batch_size': 64, 'dropout_rate': 0.1, 'experiment_id': 'exp_10', 'hidden_units': 768, ...}, 'duration_seconds': 0.2482, 'error_message': None, 'experiment_id': 'exp_10', ...} == 'fast_lr'\n\ntests/test_final_state.py:93: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_best_accuracy_approximately_0_01",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0005092179635539651,
+                "start": 1778136770.7179606,
+                "stop": 1778136770.719609,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_best_accuracy_approximately_0_01():\n        \"\"\"Priority 1 (runtime output): best_accuracy must be approximately 0.01 (\u00b10.001).\n    \n        fast_lr: accuracy = min(0.99, 0.01 * 1000 / 1000) = 0.01.\n        \"\"\"\n        data = _load_result()\n>       assert \"best_accuracy\" in data, (\n            f\"'best_accuracy' key missing from experiment_result.json. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'best_accuracy' key missing from experiment_result.json. Got keys: ['pipeline', 'version', 'generated_at', 'flytekit_version', 'best_experiment', 'summary', 'ranked_experiments', 'analysis']\nE       assert 'best_accuracy' in {'analysis': {'duration_seconds': {'max': 0.6506, 'mean': 0.1275, 'total': 1.2753}, 'optimizer_breakdown': {'adam': 0....ne, 'experiment_id': 'exp_10', ...}, 'flytekit_version': '1.16.20', 'generated_at': '2026-05-07T06:52:50.621724Z', ...}\n\ntests/test_final_state.py:104: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_run_experiment_has_cache_attribute",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.33390762691851705,
+                "start": 1778136770.7196898,
+                "stop": 1778136771.0977964,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_run_experiment_has_cache_attribute():\n        \"\"\"Priority 1 (module inspection): run_experiment must have a .cache attribute that is a flyte.Cache instance.\"\"\"\n        import flyte\n>       module = _load_module()\n                 ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:127: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_final_state.py:120: in _load_module\n    spec.loader.exec_module(module)\n<frozen importlib._bootstrap_external>:995: in exec_module\n    ???\n<frozen importlib._bootstrap>:488: in _call_with_frames_removed\n    ???\nhome/user/flyte_project/experiment_tracker.py:49: in <module>\n    @dataclass\n     ^^^^^^^^^\nusr/lib/python3.12/dataclasses.py:1268: in dataclass\n    return wrap(cls)\n           ^^^^^^^^^\nusr/lib/python3.12/dataclasses.py:1258: in wrap\n    return _process_class(cls, init, repr, eq, order, unsafe_hash,\nusr/lib/python3.12/dataclasses.py:983: in _process_class\n    and _is_type(type, cls, dataclasses, dataclasses.KW_ONLY,\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nannotation = 'str', cls = <class 'experiment_tracker.ExperimentConfig'>\na_module = <module 'dataclasses' from '/usr/lib/python3.12/dataclasses.py'>\na_type = <dataclasses._KW_ONLY_TYPE object at 0xf9bbecb6d3d0>\nis_type_predicate = <function _is_kw_only at 0xf9bbec9eca40>\n\n    def _is_type(annotation, cls, a_module, a_type, is_type_predicate):\n        # Given a type annotation string, does it refer to a_type in\n        # a_module?  For example, when checking that annotation denotes a\n        # ClassVar, then a_module is typing, and a_type is\n        # typing.ClassVar.\n    \n        # It's possible to look up a_module given a_type, but it involves\n        # looking in sys.modules (again!), and seems like a waste since\n        # the caller already knows a_module.\n    \n        # - annotation is a string type annotation\n        # - cls is the class that this annotation was found in\n        # - a_module is the module we want to match\n        # - a_type is the type in that module we want to match\n        # - is_type_predicate is a function called with (obj, a_module)\n        #   that determines if obj is of the desired type.\n    \n        # Since this test does not do a local namespace lookup (and\n        # instead only a module (global) lookup), there are some things it\n        # gets wrong.\n    \n        # With string annotations, cv0 will be detected as a ClassVar:\n        #   CV = ClassVar\n        #   @dataclass\n        #   class C0:\n        #     cv0: CV\n    \n        # But in this example cv1 will not be detected as a ClassVar:\n        #   @dataclass\n        #   class C1:\n        #     CV = ClassVar\n        #     cv1: CV\n    \n        # In C1, the code in this function (_is_type) will look up \"CV\" in\n        # the module and not find it, so it will not consider cv1 as a\n        # ClassVar.  This is a fairly obscure corner case, and the best\n        # way to fix it would be to eval() the string \"CV\" with the\n        # correct global and local namespaces.  However that would involve\n        # a eval() penalty for every single field of every dataclass\n        # that's defined.  It was judged not worth it.\n    \n        match = _MODULE_IDENTIFIER_RE.match(annotation)\n        if match:\n            ns = None\n            module_name = match.group(1)\n            if not module_name:\n                # No module name, assume the class's module did\n                # \"from dataclasses import InitVar\".\n>               ns = sys.modules.get(cls.__module__).__dict__\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE               AttributeError: 'NoneType' object has no attribute '__dict__'. Did you mean: '__dir__'?\n\nusr/lib/python3.12/dataclasses.py:749: AttributeError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

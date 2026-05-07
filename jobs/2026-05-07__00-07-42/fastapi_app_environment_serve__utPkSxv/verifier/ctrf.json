@@ -1,0 +1,138 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 12,
+            "passed": 2,
+            "failed": 10,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778138802.5952961,
+            "stop": 1778138832.8015938
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_app_py_exists",
+                "status": "passed",
+                "duration": 0.00030501605942845345,
+                "start": 1778138802.6036549,
+                "stop": 1778138802.6040921,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_serve_py_exists",
+                "status": "passed",
+                "duration": 0.00020488596055656672,
+                "start": 1778138802.604167,
+                "stop": 1778138802.6044586,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_health_returns_200",
+                "status": "failed",
+                "duration": 30.162134254933335,
+                "start": 1778138802.6045172,
+                "stop": 1778138832.7801316,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def running_server():\n        \"\"\"Start serve.py and wait for port 8000 to be ready, then yield; shut down after.\"\"\"\n        assert os.path.isfile(APP_PY), f\"app.py not found at {APP_PY}\"\n        assert os.path.isfile(SERVE_PY), f\"serve.py not found at {SERVE_PY}\"\n    \n        proc = subprocess.Popen(\n            [\"python3\", SERVE_PY],\n            stdout=subprocess.PIPE,\n            stderr=subprocess.PIPE,\n            preexec_fn=os.setsid,\n        )\n    \n        if not wait_for_port(PORT, timeout=30):\n            os.killpg(os.getpgid(proc.pid), signal.SIGTERM)\n            proc.wait(timeout=10)\n            stdout = proc.stdout.read().decode() if proc.stdout else \"\"\n            stderr = proc.stderr.read().decode() if proc.stderr else \"\"\n>           pytest.fail(\n                f\"Server did not start on port {PORT} within 30 seconds.\\n\"\n                f\"stdout: {stdout}\\nstderr: {stderr}\"\n            )\nE           Failed: Server did not start on port 8000 within 30 seconds.\nE           stdout: \nE           stderr: Traceback (most recent call last):\nE             File \"/home/user/flyte_project/serve.py\", line 5, in <module>\nE               from app import app\nE             File \"/home/user/flyte_project/app.py\", line 2, in <module>\nE               import numpy as np\nE           ModuleNotFoundError: No module named 'numpy'\n\n/tests/test_final_state.py:78: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_health_response_status_healthy",
+                "status": "failed",
+                "duration": 0.0006763689452782273,
+                "start": 1778138832.7803388,
+                "stop": 1778138832.7832267,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def running_server():\n        \"\"\"Start serve.py and wait for port 8000 to be ready, then yield; shut down after.\"\"\"\n        assert os.path.isfile(APP_PY), f\"app.py not found at {APP_PY}\"\n        assert os.path.isfile(SERVE_PY), f\"serve.py not found at {SERVE_PY}\"\n    \n        proc = subprocess.Popen(\n            [\"python3\", SERVE_PY],\n            stdout=subprocess.PIPE,\n            stderr=subprocess.PIPE,\n            preexec_fn=os.setsid,\n        )\n    \n        if not wait_for_port(PORT, timeout=30):\n            os.killpg(os.getpgid(proc.pid), signal.SIGTERM)\n            proc.wait(timeout=10)\n            stdout = proc.stdout.read().decode() if proc.stdout else \"\"\n            stderr = proc.stderr.read().decode() if proc.stderr else \"\"\n>           pytest.fail(\n                f\"Server did not start on port {PORT} within 30 seconds.\\n\"\n                f\"stdout: {stdout}\\nstderr: {stderr}\"\n            )\nE           Failed: Server did not start on port 8000 within 30 seconds.\nE           stdout: \nE           stderr: Traceback (most recent call last):\nE             File \"/home/user/flyte_project/serve.py\", line 5, in <module>\nE               from app import app\nE             File \"/home/user/flyte_project/app.py\", line 2, in <module>\nE               import numpy as np\nE           ModuleNotFoundError: No module named 'numpy'\n\n/tests/test_final_state.py:78: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_health_response_service_name",
+                "status": "failed",
+                "duration": 0.0001913849264383316,
+                "start": 1778138832.7833142,
+                "stop": 1778138832.785548,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def running_server():\n        \"\"\"Start serve.py and wait for port 8000 to be ready, then yield; shut down after.\"\"\"\n        assert os.path.isfile(APP_PY), f\"app.py not found at {APP_PY}\"\n        assert os.path.isfile(SERVE_PY), f\"serve.py not found at {SERVE_PY}\"\n    \n        proc = subprocess.Popen(\n            [\"python3\", SERVE_PY],\n            stdout=subprocess.PIPE,\n            stderr=subprocess.PIPE,\n            preexec_fn=os.setsid,\n        )\n    \n        if not wait_for_port(PORT, timeout=30):\n            os.killpg(os.getpgid(proc.pid), signal.SIGTERM)\n            proc.wait(timeout=10)\n            stdout = proc.stdout.read().decode() if proc.stdout else \"\"\n            stderr = proc.stderr.read().decode() if proc.stderr else \"\"\n>           pytest.fail(\n                f\"Server did not start on port {PORT} within 30 seconds.\\n\"\n                f\"stdout: {stdout}\\nstderr: {stderr}\"\n            )\nE           Failed: Server did not start on port 8000 within 30 seconds.\nE           stdout: \nE           stderr: Traceback (most recent call last):\nE             File \"/home/user/flyte_project/serve.py\", line 5, in <module>\nE               from app import app\nE             File \"/home/user/flyte_project/app.py\", line 2, in <module>\nE               import numpy as np\nE           ModuleNotFoundError: No module named 'numpy'\n\n/tests/test_final_state.py:78: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_predict_five_features_returns_200",
+                "status": "failed",
+                "duration": 0.00034535001032054424,
+                "start": 1778138832.7856343,
+                "stop": 1778138832.7884116,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def running_server():\n        \"\"\"Start serve.py and wait for port 8000 to be ready, then yield; shut down after.\"\"\"\n        assert os.path.isfile(APP_PY), f\"app.py not found at {APP_PY}\"\n        assert os.path.isfile(SERVE_PY), f\"serve.py not found at {SERVE_PY}\"\n    \n        proc = subprocess.Popen(\n            [\"python3\", SERVE_PY],\n            stdout=subprocess.PIPE,\n            stderr=subprocess.PIPE,\n            preexec_fn=os.setsid,\n        )\n    \n        if not wait_for_port(PORT, timeout=30):\n            os.killpg(os.getpgid(proc.pid), signal.SIGTERM)\n            proc.wait(timeout=10)\n            stdout = proc.stdout.read().decode() if proc.stdout else \"\"\n            stderr = proc.stderr.read().decode() if proc.stderr else \"\"\n>           pytest.fail(\n                f\"Server did not start on port {PORT} within 30 seconds.\\n\"\n                f\"stdout: {stdout}\\nstderr: {stderr}\"\n            )\nE           Failed: Server did not start on port 8000 within 30 seconds.\nE           stdout: \nE           stderr: Traceback (most recent call last):\nE             File \"/home/user/flyte_project/serve.py\", line 5, in <module>\nE               from app import app\nE             File \"/home/user/flyte_project/app.py\", line 2, in <module>\nE               import numpy as np\nE           ModuleNotFoundError: No module named 'numpy'\n\n/tests/test_final_state.py:78: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_predict_five_features_prediction",
+                "status": "failed",
+                "duration": 0.00023688701912760735,
+                "start": 1778138832.7885177,
+                "stop": 1778138832.7913315,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def running_server():\n        \"\"\"Start serve.py and wait for port 8000 to be ready, then yield; shut down after.\"\"\"\n        assert os.path.isfile(APP_PY), f\"app.py not found at {APP_PY}\"\n        assert os.path.isfile(SERVE_PY), f\"serve.py not found at {SERVE_PY}\"\n    \n        proc = subprocess.Popen(\n            [\"python3\", SERVE_PY],\n            stdout=subprocess.PIPE,\n            stderr=subprocess.PIPE,\n            preexec_fn=os.setsid,\n        )\n    \n        if not wait_for_port(PORT, timeout=30):\n            os.killpg(os.getpgid(proc.pid), signal.SIGTERM)\n            proc.wait(timeout=10)\n            stdout = proc.stdout.read().decode() if proc.stdout else \"\"\n            stderr = proc.stderr.read().decode() if proc.stderr else \"\"\n>           pytest.fail(\n                f\"Server did not start on port {PORT} within 30 seconds.\\n\"\n                f\"stdout: {stdout}\\nstderr: {stderr}\"\n            )\nE           Failed: Server did not start on port 8000 within 30 seconds.\nE           stdout: \nE           stderr: Traceback (most recent call last):\nE             File \"/home/user/flyte_project/serve.py\", line 5, in <module>\nE               from app import app\nE             File \"/home/user/flyte_project/app.py\", line 2, in <module>\nE               import numpy as np\nE           ModuleNotFoundError: No module named 'numpy'\n\n/tests/test_final_state.py:78: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_predict_five_features_n_features",
+                "status": "failed",
+                "duration": 0.0001756749115884304,
+                "start": 1778138832.791414,
+                "stop": 1778138832.793404,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def running_server():\n        \"\"\"Start serve.py and wait for port 8000 to be ready, then yield; shut down after.\"\"\"\n        assert os.path.isfile(APP_PY), f\"app.py not found at {APP_PY}\"\n        assert os.path.isfile(SERVE_PY), f\"serve.py not found at {SERVE_PY}\"\n    \n        proc = subprocess.Popen(\n            [\"python3\", SERVE_PY],\n            stdout=subprocess.PIPE,\n            stderr=subprocess.PIPE,\n            preexec_fn=os.setsid,\n        )\n    \n        if not wait_for_port(PORT, timeout=30):\n            os.killpg(os.getpgid(proc.pid), signal.SIGTERM)\n            proc.wait(timeout=10)\n            stdout = proc.stdout.read().decode() if proc.stdout else \"\"\n            stderr = proc.stderr.read().decode() if proc.stderr else \"\"\n>           pytest.fail(\n                f\"Server did not start on port {PORT} within 30 seconds.\\n\"\n                f\"stdout: {stdout}\\nstderr: {stderr}\"\n            )\nE           Failed: Server did not start on port 8000 within 30 seconds.\nE           stdout: \nE           stderr: Traceback (most recent call last):\nE             File \"/home/user/flyte_project/serve.py\", line 5, in <module>\nE               from app import app\nE             File \"/home/user/flyte_project/app.py\", line 2, in <module>\nE               import numpy as np\nE           ModuleNotFoundError: No module named 'numpy'\n\n/tests/test_final_state.py:78: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_predict_five_features_status",
+                "status": "failed",
+                "duration": 0.00024459592532366514,
+                "start": 1778138832.793503,
+                "stop": 1778138832.79538,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def running_server():\n        \"\"\"Start serve.py and wait for port 8000 to be ready, then yield; shut down after.\"\"\"\n        assert os.path.isfile(APP_PY), f\"app.py not found at {APP_PY}\"\n        assert os.path.isfile(SERVE_PY), f\"serve.py not found at {SERVE_PY}\"\n    \n        proc = subprocess.Popen(\n            [\"python3\", SERVE_PY],\n            stdout=subprocess.PIPE,\n            stderr=subprocess.PIPE,\n            preexec_fn=os.setsid,\n        )\n    \n        if not wait_for_port(PORT, timeout=30):\n            os.killpg(os.getpgid(proc.pid), signal.SIGTERM)\n            proc.wait(timeout=10)\n            stdout = proc.stdout.read().decode() if proc.stdout else \"\"\n            stderr = proc.stderr.read().decode() if proc.stderr else \"\"\n>           pytest.fail(\n                f\"Server did not start on port {PORT} within 30 seconds.\\n\"\n                f\"stdout: {stdout}\\nstderr: {stderr}\"\n            )\nE           Failed: Server did not start on port 8000 within 30 seconds.\nE           stdout: \nE           stderr: Traceback (most recent call last):\nE             File \"/home/user/flyte_project/serve.py\", line 5, in <module>\nE               from app import app\nE             File \"/home/user/flyte_project/app.py\", line 2, in <module>\nE               import numpy as np\nE           ModuleNotFoundError: No module named 'numpy'\n\n/tests/test_final_state.py:78: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_predict_two_features_returns_200",
+                "status": "failed",
+                "duration": 0.00017592497169971466,
+                "start": 1778138832.7954512,
+                "stop": 1778138832.797407,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def running_server():\n        \"\"\"Start serve.py and wait for port 8000 to be ready, then yield; shut down after.\"\"\"\n        assert os.path.isfile(APP_PY), f\"app.py not found at {APP_PY}\"\n        assert os.path.isfile(SERVE_PY), f\"serve.py not found at {SERVE_PY}\"\n    \n        proc = subprocess.Popen(\n            [\"python3\", SERVE_PY],\n            stdout=subprocess.PIPE,\n            stderr=subprocess.PIPE,\n            preexec_fn=os.setsid,\n        )\n    \n        if not wait_for_port(PORT, timeout=30):\n            os.killpg(os.getpgid(proc.pid), signal.SIGTERM)\n            proc.wait(timeout=10)\n            stdout = proc.stdout.read().decode() if proc.stdout else \"\"\n            stderr = proc.stderr.read().decode() if proc.stderr else \"\"\n>           pytest.fail(\n                f\"Server did not start on port {PORT} within 30 seconds.\\n\"\n                f\"stdout: {stdout}\\nstderr: {stderr}\"\n            )\nE           Failed: Server did not start on port 8000 within 30 seconds.\nE           stdout: \nE           stderr: Traceback (most recent call last):\nE             File \"/home/user/flyte_project/serve.py\", line 5, in <module>\nE               from app import app\nE             File \"/home/user/flyte_project/app.py\", line 2, in <module>\nE               import numpy as np\nE           ModuleNotFoundError: No module named 'numpy'\n\n/tests/test_final_state.py:78: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_predict_two_features_prediction",
+                "status": "failed",
+                "duration": 0.00017367512919008732,
+                "start": 1778138832.7974825,
+                "stop": 1778138832.7993896,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def running_server():\n        \"\"\"Start serve.py and wait for port 8000 to be ready, then yield; shut down after.\"\"\"\n        assert os.path.isfile(APP_PY), f\"app.py not found at {APP_PY}\"\n        assert os.path.isfile(SERVE_PY), f\"serve.py not found at {SERVE_PY}\"\n    \n        proc = subprocess.Popen(\n            [\"python3\", SERVE_PY],\n            stdout=subprocess.PIPE,\n            stderr=subprocess.PIPE,\n            preexec_fn=os.setsid,\n        )\n    \n        if not wait_for_port(PORT, timeout=30):\n            os.killpg(os.getpgid(proc.pid), signal.SIGTERM)\n            proc.wait(timeout=10)\n            stdout = proc.stdout.read().decode() if proc.stdout else \"\"\n            stderr = proc.stderr.read().decode() if proc.stderr else \"\"\n>           pytest.fail(\n                f\"Server did not start on port {PORT} within 30 seconds.\\n\"\n                f\"stdout: {stdout}\\nstderr: {stderr}\"\n            )\nE           Failed: Server did not start on port 8000 within 30 seconds.\nE           stdout: \nE           stderr: Traceback (most recent call last):\nE             File \"/home/user/flyte_project/serve.py\", line 5, in <module>\nE               from app import app\nE             File \"/home/user/flyte_project/app.py\", line 2, in <module>\nE               import numpy as np\nE           ModuleNotFoundError: No module named 'numpy'\n\n/tests/test_final_state.py:78: Failed"
+            },
+            {
+                "name": "test_final_state.py::test_predict_two_features_n_features",
+                "status": "failed",
+                "duration": 0.00019501009956002235,
+                "start": 1778138832.7994645,
+                "stop": 1778138832.8013544,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def running_server():\n        \"\"\"Start serve.py and wait for port 8000 to be ready, then yield; shut down after.\"\"\"\n        assert os.path.isfile(APP_PY), f\"app.py not found at {APP_PY}\"\n        assert os.path.isfile(SERVE_PY), f\"serve.py not found at {SERVE_PY}\"\n    \n        proc = subprocess.Popen(\n            [\"python3\", SERVE_PY],\n            stdout=subprocess.PIPE,\n            stderr=subprocess.PIPE,\n            preexec_fn=os.setsid,\n        )\n    \n        if not wait_for_port(PORT, timeout=30):\n            os.killpg(os.getpgid(proc.pid), signal.SIGTERM)\n            proc.wait(timeout=10)\n            stdout = proc.stdout.read().decode() if proc.stdout else \"\"\n            stderr = proc.stderr.read().decode() if proc.stderr else \"\"\n>           pytest.fail(\n                f\"Server did not start on port {PORT} within 30 seconds.\\n\"\n                f\"stdout: {stdout}\\nstderr: {stderr}\"\n            )\nE           Failed: Server did not start on port 8000 within 30 seconds.\nE           stdout: \nE           stderr: Traceback (most recent call last):\nE             File \"/home/user/flyte_project/serve.py\", line 5, in <module>\nE               from app import app\nE             File \"/home/user/flyte_project/app.py\", line 2, in <module>\nE               import numpy as np\nE           ModuleNotFoundError: No module named 'numpy'\n\n/tests/test_final_state.py:78: Failed"
+            }
+        ]
+    }
+}

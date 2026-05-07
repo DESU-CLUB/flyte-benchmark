@@ -1,0 +1,119 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo task_environment_cpu_resources__T74MDp8 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model zai/glm-4.7 --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 — TaskEnvironment with CPU Resources
+
+## Overview
+
+You have Flyte 2.0 installed in this environment (`pip install flyte`). Your task is to create a Python script that defines a `TaskEnvironment` with explicit CPU and memory resource constraints and runs a batch-processing task locally.
+
+## Requirements
+
+### 1. Create the project file
+
+Create a Python script at `/home/user/flyte_project/resource_task.py` that does the following:
+
+- Imports `flyte`, `json`, and `asyncio`.
+- Creates a `TaskEnvironment` named `"cpu-env"` with `flyte.Resources(cpu=2, memory="2Gi")`, assigned to a variable called `env`:
+  ```python
+  env = flyte.TaskEnvironment("cpu-env", resources=flyte.Resources(cpu=2, memory="2Gi"))
+  ```
+- Defines a task `process_batch(batch_size: int) -> dict` decorated with `@env.task` that:
+  - Returns a dict with the following keys:
+    - `batch_size`: the input value
+    - `processed`: `batch_size * 2`
+    - `status`: the string `"complete"`
+- In a `if __name__ == "__main__":` block:
+  - Calls `asyncio.run(process_batch(100))` and stores the result.
+  - Prints the result as JSON using `json.dumps`.
+  - Writes the result as JSON to `/home/user/flyte_project/result.json`.
+
+### 2. Run the script
+
+Execute the script:
+
+```bash
+python3 /home/user/flyte_project/resource_task.py
+```
+
+## Key Details
+
+- **Project path**: `/home/user/flyte_project`
+- **Log file**: `/home/user/flyte_project/result.json`
+- The `flyte` package is already installed — do **not** reinstall it.
+- Flyte 2.0 tasks decorated with `@env.task` are `async def` functions; use `asyncio.run()` at the top level.
+- There is **no** `@workflow` decorator in Flyte 2.0 — tasks are standalone async functions.
+- `flyte.Resources(cpu=2, memory="2Gi")` — `cpu` is an `int`, `memory` is a string like `"2Gi"`.
+
+## Expected Behaviour
+
+When the script is run with `batch_size=100`:
+- `processed = 100 * 2 = 200`
+- `status = "complete"`
+
+The file `/home/user/flyte_project/result.json` should contain a valid JSON object such as:
+```json
+{"batch_size": 100, "processed": 200, "status": "complete"}
+```
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

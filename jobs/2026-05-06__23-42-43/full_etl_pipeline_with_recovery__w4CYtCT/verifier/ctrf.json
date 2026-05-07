@@ -1,0 +1,98 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 2,
+            "failed": 5,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778136398.6702096,
+            "stop": 1778136398.7205474
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_etl_pipeline_file_exists",
+                "status": "passed",
+                "duration": 0.00040465290658175945,
+                "start": 1778136398.679735,
+                "stop": 1778136398.6803648,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_main_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0007246780442073941,
+                "start": 1778136398.680663,
+                "stop": 1778136398.696774,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_main_file_exists():\n        \"\"\"main.py must exist in the project directory.\"\"\"\n>       assert os.path.isfile(MAIN_FILE), (\n            f\"Expected '{MAIN_FILE}' to exist, but it was not found.\"\n        )\nE       AssertionError: Expected '/home/user/flyte_project/main.py' to exist, but it was not found.\nE       assert False\nE        +  where False = <function isfile at 0xea785fe50220>('/home/user/flyte_project/main.py')\nE        +    where <function isfile at 0xea785fe50220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:30: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_main_runs_successfully",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.010734314913861454,
+                "start": 1778136398.6969175,
+                "stop": 1778136398.7096393,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_main_runs_successfully():\n        \"\"\"Running main.py with python3 must exit with returncode 0.\"\"\"\n        result = subprocess.run(\n            [\"python3\", MAIN_FILE],\n            capture_output=True,\n            text=True,\n            timeout=120,\n        )\n>       assert result.returncode == 0, (\n            f\"main.py exited with code {result.returncode}.\\n\"\n            f\"stdout:\\n{result.stdout}\\n\"\n            f\"stderr:\\n{result.stderr}\"\n        )\nE       AssertionError: main.py exited with code 2.\nE         stdout:\nE         \nE         stderr:\nE         python3: can't open file '/home/user/flyte_project/main.py': [Errno 2] No such file or directory\nE         \nE       assert 2 == 0\nE        +  where 2 = CompletedProcess(args=['python3', '/home/user/flyte_project/main.py'], returncode=2, stdout='', stderr=\"python3: can't open file '/home/user/flyte_project/main.py': [Errno 2] No such file or directory\\n\").returncode\n\n/tests/test_final_state.py:47: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_output_file_exists",
+                "status": "passed",
+                "duration": 0.00046811799984425306,
+                "start": 1778136398.7097743,
+                "stop": 1778136398.7104354,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_warehouse_status_loaded",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0012122530024498701,
+                "start": 1778136398.7105677,
+                "stop": 1778136398.7128446,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_warehouse_status_loaded():\n        \"\"\"The output must contain warehouse_status == 'loaded'.\"\"\"\n        data = _load_output()\n>       assert \"warehouse_status\" in data, (\n            f\"'warehouse_status' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'warehouse_status' key missing from output. Got keys: ['pipeline', 'status', 'summary', 'records']\nE       assert 'warehouse_status' in {'pipeline': 'flyte-etl-v1', 'records': [{'id': 'db-0000', 'processed_at': '2026-05-07T06:46:00.865197', 'source': 'da...etl_output.json', 'pipeline_duration_seconds': 0.106, 'sources_attempted': ['database', 'api', 'unknown_source'], ...}}\n\n/tests/test_final_state.py:76: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_sources_contain_database_and_api",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0006310449680313468,
+                "start": 1778136398.713049,
+                "stop": 1778136398.7153666,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_sources_contain_database_and_api():\n        \"\"\"The output sources list must include 'database' and 'api'.\"\"\"\n        data = _load_output()\n>       assert \"sources\" in data, (\n            f\"'sources' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'sources' key missing from output. Got keys: ['pipeline', 'status', 'summary', 'records']\nE       assert 'sources' in {'pipeline': 'flyte-etl-v1', 'records': [{'id': 'db-0000', 'processed_at': '2026-05-07T06:46:00.865197', 'source': 'da...etl_output.json', 'pipeline_duration_seconds': 0.106, 'sources_attempted': ['database', 'api', 'unknown_source'], ...}}\n\n/tests/test_final_state.py:87: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_total_records_is_twelve",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0013122608652338386,
+                "start": 1778136398.7155287,
+                "stop": 1778136398.720003,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_total_records_is_twelve():\n        \"\"\"total_records must equal 12 (7 from database + 5 from api).\"\"\"\n        data = _load_output()\n>       assert \"total_records\" in data, (\n            f\"'total_records' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'total_records' key missing from output. Got keys: ['pipeline', 'status', 'summary', 'records']\nE       assert 'total_records' in {'pipeline': 'flyte-etl-v1', 'records': [{'id': 'db-0000', 'processed_at': '2026-05-07T06:46:00.865197', 'source': 'da...etl_output.json', 'pipeline_duration_seconds': 0.106, 'sources_attempted': ['database', 'api', 'unknown_source'], ...}}\n\n/tests/test_final_state.py:102: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

@@ -1,0 +1,1610 @@
+[37m2026-05-07 05:02:41.014[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:1[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	pochi v0.6.8
+[37m2026-05-07 05:02:41.491[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:519633[39m[0m[0m[1m[37m	loadAgents[39m[22m[0m[0m	Loaded 6 custom agents (6 valid, 0 invalid)
+[37m2026-05-07 05:02:41.492[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:519634[39m[0m[0m[1m[37m	loadSkills[39m[22m[0m[0m	Loaded 2 skills (2 valid, 0 invalid)
+[37m2026-05-07 05:02:41.519[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:444677[39m[0m[0m[1m[37m	PochiVendor[39m[22m[0m[0m	JWT is expiring or missing, fetching a new one
+[37m2026-05-07 05:02:42.482[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:416517[39m[0m[0m[1m[37m	MCPHub[39m[22m[0m[0m	MCP servers configuration changed via signal:
+[37m2026-05-07 05:02:42.482[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:416629[39m[0m[0m[1m[37m	MCPHub[39m[22m[0m[0m	Build MCPHub Status
+[37m2026-05-07 05:02:42.586[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Starting task runner...
+[37m2026-05-07 05:02:42.752[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:507614[39m[0m[0m[1m[37m	generateTaskTitle[39m[22m[0m[0m	Generating task title, old: null, new: # Preserving your work
+[37m2026-05-07 05:02:55.846[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:507614[39m[0m[0m[1m[37m	generateTaskTitle[39m[22m[0m[0m	Generating task title, old: # Preserving your work, new: Implement a Flyte 2.0 pipeline with secret management and async tasks
+[37m2026-05-07 05:03:11.906[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:462742[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	searchFiles /usr/local/lib/python3.12/dist-packages/flyte secret_requests [90mundefined[39m
+[37m2026-05-07 05:03:11.907[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:462742[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	command "/usr/bin/rg" --json --case-sensitive --binary --sortr modified 'secret_requests' '/usr/local/lib/python3.12/dist-packages/flyte'
+[37m2026-05-07 05:03:13.813[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:462742[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	searchFiles /usr/local/lib/python3.12/dist-packages/flyte Secret [90mundefined[39m
+[37m2026-05-07 05:03:13.813[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:462742[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	command "/usr/bin/rg" --json --case-sensitive --binary --sortr modified 'Secret' '/usr/local/lib/python3.12/dist-packages/flyte'
+[37m2026-05-07 05:03:13.828[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/config/__pycache__/_config.cpython-312.pyc"},"lines":{"bytes":"2gxDbGllbnRTZWNyZXRyFgo="},"line_number":1903,"absolute_offset":5200,"submatches":[{"match":{"text":"Secret"},"start":8,"end":14}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.830[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/config/__pycache__/_internal.cpython-312.pyc"},"lines":{"bytes":"2gtDcmVkZW50aWFsc9oLY3JlZGVudGlhbHN6DWFkbWluLmNvbW1hbmR6EmFkbWluLnByb3h5Q29tbWFuZHoOYWRtaW4uY2xpZW50SWR6GmFkbWluLmNsaWVudFNlY3JldExvY2F0aW9uehhhZG1pbi5jbGllbnRTZWNyZXRFbnZWYXJ6DGFkbWluLnNjb3Blc3oOYWRtaW4uYXV0aFR5cGVOKQ5yBwo="},"line_number":372,"absolute_offset":1250,"submatches":[{"match":{"text":"Secret"},"start":91,"end":97},{"match":{"text":"Secret"},"start":119,"end":125}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.830[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/_client/auth/__pycache__/_client_config.cpython-312.pyc"},"lines":{"bytes":"TikB2g5hYnN0cmFjdG1ldGhvZCkB2hlBdXRoTWV0YWRhdGFTZXJ2aWNlQ2xpZW50KQLaGEdldE9BdXRoMk1ldGFkYXRhUmVxdWVzdNocR2V0UHVibGljQ2xpZW50Q29uZmlnUmVxdWVzdCkF2gxDbGllbnRTZWNyZXTaBFBrY2XaD0V4dGVybmFsQ29tbWFuZNoK"},"line_number":122,"absolute_offset":255,"submatches":[{"match":{"text":"Secret"},"start":116,"end":122}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.831[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/_client/auth/__pycache__/_session.cpython-312.pyc"},"lines":{"bytes":"KQHaDmRlY29kZV9hcGlfa2V52gxDbGllbnRTZWNyZXTaCWF1dGhfdHlwZdoJY2xpZW50X2lk2g1jbGllbnRfc2VjcmV02hljbGllbnRfY3JlZGVudGlhbHNfc2VjcmV0eihFbmRwb2ludCBtdXN0IGJlIHNwZWNpZmllZCBieSB0aGlzIHBvaW50RnIqCg=="},"line_number":2307,"absolute_offset":8701,"submatches":[{"match":{"text":"Secret"},"start":26,"end":32}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.833[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/_client/auth/_authenticators/__pycache__/factory.cpython-312.pyc"},"lines":{"bytes":"2gZ2ZXJpZnnaDENsaWVudFNlY3JldCkB2h5DbGllbnRDcmVkZW50aWFsc0F1dGhlbnRpY2F0b3LaD0V4dGVybmFsQ29tbWFuZHIECg=="},"line_number":742,"absolute_offset":7222,"submatches":[{"match":{"text":"Secret"},"start":16,"end":22}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.833[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/_client/__pycache__/_protocols.cpython-312.pyc"},"lines":{"bytes":"ZgRkB4QEWhJ5CCkJ2g1TZWNyZXRTZXJ2aWNlchEK"},"line_number":3640,"absolute_offset":10044,"submatches":[{"match":{"text":"Secret"},"start":14,"end":20}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.833[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/_client/__pycache__/_protocols.cpython-312.pyc"},"lines":{"bytes":"2g1jcmVhdGVfc2VjcmV0ehtTZWNyZXRTZXJ2aWNlLmNyZWF0ZV9zZWNyZXSECg=="},"line_number":3685,"absolute_offset":10146,"submatches":[{"match":{"text":"Secret"},"start":17,"end":23}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.833[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/_client/__pycache__/_protocols.cpython-312.pyc"},"lines":{"bytes":"2g11cGRhdGVfc2VjcmV0ehtTZWNyZXRTZXJ2aWNlLnVwZGF0ZV9zZWNyZXSGCg=="},"line_number":3733,"absolute_offset":10269,"submatches":[{"match":{"text":"Secret"},"start":17,"end":23}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.834[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/_client/__pycache__/_protocols.cpython-312.pyc"},"lines":{"bytes":"Z2V0X3NlY3JldHoYU2VjcmV0U2VydmljZS5nZXRfc2VjcmV0iAo="},"line_number":3782,"absolute_offset":10394,"submatches":[{"match":{"text":"Secret"},"start":12,"end":18}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.834[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/_client/__pycache__/_protocols.cpython-312.pyc"},"lines":{"bytes":"2gxsaXN0X3NlY3JldHN6GlNlY3JldFNlcnZpY2UubGlzdF9zZWNyZXRzigo="},"line_number":3830,"absolute_offset":10509,"submatches":[{"match":{"text":"Secret"},"start":16,"end":22}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.834[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/_client/__pycache__/_protocols.cpython-312.pyc"},"lines":{"bytes":"2g1kZWxldGVfc2VjcmV0ehtTZWNyZXRTZXJ2aWNlLmRlbGV0ZV9zZWNyZXSMCg=="},"line_number":3878,"absolute_offset":10630,"submatches":[{"match":{"text":"Secret"},"start":17,"end":23}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.834[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/_client/__pycache__/_protocols.cpython-312.pyc"},"lines":{"bytes":"2hNDcmVhdGVTZWNyZXRSZXF1ZXN02hRDcmVhdGVTZWNyZXRSZXNwb25zZXKrCg=="},"line_number":3899,"absolute_offset":10711,"submatches":[{"match":{"text":"Secret"},"start":8,"end":14},{"match":{"text":"Secret"},"start":29,"end":35}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.834[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/_client/__pycache__/_protocols.cpython-312.pyc"},"lines":{"bytes":"2hNVcGRhdGVTZWNyZXRSZXF1ZXN02hRVcGRhdGVTZWNyZXRSZXNwb25zZXKtCg=="},"line_number":3902,"absolute_offset":10759,"submatches":[{"match":{"text":"Secret"},"start":8,"end":14},{"match":{"text":"Secret"},"start":29,"end":35}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.834[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/_client/__pycache__/_protocols.cpython-312.pyc"},"lines":{"bytes":"2hBHZXRTZWNyZXRSZXF1ZXN02hFHZXRTZWNyZXRSZXNwb25zZXKvCg=="},"line_number":3905,"absolute_offset":10807,"submatches":[{"match":{"text":"Secret"},"start":5,"end":11},{"match":{"text":"Secret"},"start":23,"end":29}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.834[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/_client/__pycache__/_protocols.cpython-312.pyc"},"lines":{"bytes":"2hJMaXN0U2VjcmV0c1JlcXVlc3TaE0xpc3RTZWNyZXRzUmVzcG9uc2VysQo="},"line_number":3908,"absolute_offset":10849,"submatches":[{"match":{"text":"Secret"},"start":6,"end":12},{"match":{"text":"Secret"},"start":26,"end":32}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.835[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/_client/__pycache__/_protocols.cpython-312.pyc"},"lines":{"bytes":"2hNEZWxldGVTZWNyZXRSZXF1ZXN02hREZWxldGVTZWNyZXRSZXNwb25zZXKzCg=="},"line_number":3911,"absolute_offset":10895,"submatches":[{"match":{"text":"Secret"},"start":8,"end":14},{"match":{"text":"Secret"},"start":29,"end":35}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.835[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/_client/__pycache__/controlplane.cpython-312.pyc"},"lines":{"bytes":"YWxydV9jYWNoZSkB2hBBcHBTZXJ2aWNlQ2xpZW50KQHaFUlkZW50aXR5U2VydmljZUNsaWVudCkB2gtwYXlsb2FkX3BiMikB2hRDbHVzdGVyU2VydmljZUNsaWVudCkB2g5pZGVudGlmaWVyX3BiMikB2hVkYXRhcHJveHlfc2VydmljZV9wYjIpAdoWRGF0YVByb3h5U2VydmljZUNsaWVudCkB2hRQcm9qZWN0U2VydmljZUNsaWVudCkB2hNTZWNyZXRTZXJ2aWNlQ2xpZW50KQHaFVNldHRpbmdzU2VydmljZUNsaWVudCkB2hFUYXNrU2VydmljZUNsaWVudCkB2hRUcmlnZ2VyU2VydmljZUNsaWVudCkB2hRSdW5Mb2dzU2VydmljZUNsaWVudCkB2hBSdW5TZXJ2aWNlQ2xpZW506QEK"},"line_number":102,"absolute_offset":445,"submatches":[{"match":{"text":"Secret"},"start":191,"end":197}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.835[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/_client/__pycache__/controlplane.cpython-312.pyc"},"lines":{"bytes":"UnVuU2VydmljZdoNU2VjcmV0U2VydmljZdoPU2V0dGluZ3NTZXJ2aWNl2gtUYXNrU2VydmljZdoOVHJpZ2dlclNlcnZpY2UpAtoNU2Vzc2lvbkNvbmZpZ9oVY3JlYXRlX3Nlc3Npb25fY29uZmlnYwo="},"line_number":107,"absolute_offset":879,"submatches":[{"match":{"text":"Secret"},"start":12,"end":18}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.836[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/__pycache__/__init__.cpython-312.pyc"},"lines":{"bytes":"UnVuRGV0YWlsc9oGU2VjcmV02gtTZWNyZXRUeXBlc9oIU2V0dGluZ3PaBFRhc2vaC1Rhc2tEZXRhaWxz2go="},"line_number":52,"absolute_offset":394,"submatches":[{"match":{"text":"Secret"},"start":12,"end":18},{"match":{"text":"Secret"},"start":20,"end":26}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.837[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/__pycache__/_secret.cpython-312.pyc"},"lines":{"bytes":"KRLaBlNlY3JldHoVZGVmaW5pdGlvbl9wYjIuU2VjcmV02gNwYjJjBAo="},"line_number":175,"absolute_offset":603,"submatches":[{"match":{"text":"Secret"},"start":4,"end":10},{"match":{"text":"Secret"},"start":27,"end":33}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.837[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/__pycache__/_secret.cpython-312.pyc"},"lines":{"bytes":"U2VjcmV0VHlwZdoTU0VDUkVUX1RZUEVfR0VORVJJQ9odU0VDUkVUX1RZUEVfSU1BR0VfUFVMTF9TRUNSRVTaCg=="},"line_number":634,"absolute_offset":1705,"submatches":[{"match":{"text":"Secret"},"start":0,"end":6}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.839[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/__pycache__/_secret.cpython-312.pyc"},"lines":{"bytes":"2hNDcmVhdGVTZWNyZXRSZXF1ZXN02hBTZWNyZXRJZGVudGlmaWVy2gNvcmcpCdoDY2xzchwK"},"line_number":643,"absolute_offset":1850,"submatches":[{"match":{"text":"Secret"},"start":8,"end":14},{"match":{"text":"Secret"},"start":23,"end":29}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.840[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/__pycache__/_secret.cpython-312.pyc"},"lines":{"bytes":"ICAgICAgICAg+j8vdXNyL2xvY2FsL2xpYi9weXRob24zLjEyL2Rpc3QtcGFja2FnZXMvZmx5dGUvcmVtb3RlL19zZWNyZXQucHnaBmNyZWF0ZXoNU2VjcmV0LmNyZWF0ZRQK"},"line_number":658,"absolute_offset":1959,"submatches":[{"match":{"text":"Secret"},"start":84,"end":90}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.840[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/__pycache__/_secret.cpython-312.pyc"},"lines":{"bytes":"2hBHZXRTZWNyZXRSZXF1ZXN0cggK"},"line_number":987,"absolute_offset":2916,"submatches":[{"match":{"text":"Secret"},"start":5,"end":11}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.840[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/__pycache__/_secret.cpython-312.pyc"},"lines":{"bytes":"2hJMaXN0U2VjcmV0c1JlcXVlc3RyLAo="},"line_number":1374,"absolute_offset":3949,"submatches":[{"match":{"text":"Secret"},"start":6,"end":12}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.840[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/__pycache__/_secret.cpython-312.pyc"},"lines":{"bytes":"2gdsaXN0YWxseg5TZWNyZXQubGlzdGFsbFoK"},"line_number":1409,"absolute_offset":4089,"submatches":[{"match":{"text":"Secret"},"start":11,"end":17}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.840[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/__pycache__/_secret.cpython-312.pyc"},"lines":{"bytes":"2hNEZWxldGVTZWNyZXRSZXF1ZXN0cggK"},"line_number":1692,"absolute_offset":4860,"submatches":[{"match":{"text":"Secret"},"start":8,"end":14}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.841[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/__pycache__/_secret.cpython-312.pyc"},"lines":{"bytes":"2gZkZWxldGV6DVNlY3JldC5kZWxldGV4Cg=="},"line_number":1722,"absolute_offset":4936,"submatches":[{"match":{"text":"Secret"},"start":10,"end":16}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.841[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/__pycache__/_secret.cpython-312.pyc"},"lines":{"bytes":"egtTZWNyZXQubmFtZY0K"},"line_number":1838,"absolute_offset":5283,"submatches":[{"match":{"text":"Secret"},"start":2,"end":8}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.841[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/__pycache__/_secret.cpython-312.pyc"},"lines":{"bytes":"egtTZWNyZXQudHlwZZQK"},"line_number":2130,"absolute_offset":5812,"submatches":[{"match":{"text":"Secret"},"start":2,"end":8}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.841[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/__pycache__/_secret.cpython-312.pyc"},"lines":{"bytes":"2hRTZWNyZXRQcmVzZW5jZVN0YXR1c9oETmFtZdoPcHJlc2VuY2Vfc3RhdHVzKQLaAi4w2gFzcwIK"},"line_number":2817,"absolute_offset":6958,"submatches":[{"match":{"text":"Secret"},"start":2,"end":8}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.841[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/__pycache__/_secret.cpython-312.pyc"},"lines":{"bytes":"+gk8Z2VuZXhwcj56J1NlY3JldC5fX3JpY2hfcmVwcl9fLjxsb2NhbHM+LjxnZW5leHByPqkK"},"line_number":2823,"absolute_offset":7024,"submatches":[{"match":{"text":"Secret"},"start":13,"end":19}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.841[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/__pycache__/_secret.cpython-312.pyc"},"lines":{"bytes":"2g1fX3JpY2hfcmVwcl9fehRTZWNyZXQuX19yaWNoX3JlcHJfX58K"},"line_number":2884,"absolute_offset":7337,"submatches":[{"match":{"text":"Secret"},"start":17,"end":23}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.841[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/__pycache__/_secret.cpython-312.pyc"},"lines":{"bytes":"2gtTZWNyZXRUeXBlcykEchwK"},"line_number":2917,"absolute_offset":7698,"submatches":[{"match":{"text":"Secret"},"start":2,"end":8}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.841[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/connectors/__pycache__/_connector.cpython-312.pyc"},"lines":{"bytes":"TikC2gNBQkPaDmFic3RyYWN0bWV0aG9kKQLaBmFzZGljdNoJZGF0YWNsYXNzKQTaA0FuedoERGljdNoETGlzdNoIT3B0aW9uYWwpAdoNY29ubmVjdG9yX3BiMikB2glDb25uZWN0b3IpBNoTR2V0VGFza0xvZ3NSZXNwb25zZdoWR2V0VGFza01ldHJpY3NSZXNwb25zZdoMVGFza0NhdGVnb3J52hVUYXNrRXhlY3V0aW9uTWV0YWRhdGEpAdoJdGFza3NfcGIyKQLaDVRhc2tFeGVjdXRpb27aB1Rhc2tMb2cpAdoLanNvbl9mb3JtYXQpAdoGU3RydWN0KQHaBlNlY3JldCkB2hFidWlsZF9jb2RlX2J1bmRsZSkB2gxpbnRlcm5hbF9jdHgpAdoMYnVpbGRfaW1hZ2VzKQHaD2dldF9pbml0X2NvbmZpZykC2gdjb252ZXJ02gJpbykC2h1jb252ZXJ0X2Zyb21fbmF0aXZlX3RvX2lucHV0c9oeY29udmVydF9mcm9tX25hdGl2ZV90b19vdXRwdXRzKQHaDXVwbG9hZF9pbnB1dHMpAdoOZ2V0X3Byb3RvX3Rhc2spAdoGbG9nZ2VyKQLaGUFzeW5jRnVuY3Rpb25UYXNrVGVtcGxhdGXaDFRhc2tUZW1wbGF0ZSkC2hVfcmVuZGVyX3Rhc2tfdGVtcGxhdGXaEWlzX3Rlcm1pbmFsX3BoYXNlKQPaCg=="},"line_number":211,"absolute_offset":691,"submatches":[{"match":{"text":"Secret"},"start":256,"end":262}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.841[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/connectors/__pycache__/_connector.cpython-312.pyc"},"lines":{"bytes":"Wgl5BSkG2hVDb25uZWN0b3JTZWNyZXRzTWl4aW7aB3NlY3JldHNjAgo="},"line_number":2549,"absolute_offset":9540,"submatches":[{"match":{"text":"Secret"},"start":17,"end":23}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.841[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/connectors/__pycache__/_connector.cpython-312.pyc"},"lines":{"bytes":"2ghfX2luaXRfX3oeQ29ubmVjdG9yU2VjcmV0c01peGluLl9faW5pdF9fywo="},"line_number":2596,"absolute_offset":9663,"submatches":[{"match":{"text":"Secret"},"start":21,"end":27}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.841[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/connectors/__pycache__/_connector.cpython-312.pyc"},"lines":{"bytes":"eh1Db25uZWN0b3JTZWNyZXRzTWl4aW4uc2VjcmV0c88K"},"line_number":2721,"absolute_offset":9957,"submatches":[{"match":{"text":"Secret"},"start":11,"end":17}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.841[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/prefetch/__pycache__/_hf_model.cpython-312.pyc"},"lines":{"bytes":"TikB2gZTZWNyZXRyDQo="},"line_number":5738,"absolute_offset":21193,"submatches":[{"match":{"text":"Secret"},"start":5,"end":11}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.841[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/_utils/__pycache__/docker_credentials.cpython-312.pyc"},"lines":{"bytes":"ehlDcmVkZW50aWFsIGhlbHBlciBlcnJvcjogTtoIVXNlcm5hbWXaBlNlY3JldHoSQ3JlZGVudGlhbCBoZWxwZXIgehIgbm90IGZvdW5kIGluIFBBVEh6G0Vycm9yIGdldHRpbmcgY3JlZGVudGlhbHM6ICkM2go="},"line_number":950,"absolute_offset":3062,"submatches":[{"match":{"text":"Secret"},"start":40,"end":46}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.841[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/cli/__pycache__/_create.cpython-312.pyc"},"lines":{"bytes":"KQHaBFBhdGgpA9oDQW552gREaWN02ghnZXRfYXJnc04pAtoPRGVwZW5kZW50T3B0aW9u2hdNdXR1YWxseUV4Y2x1c2l2ZU9wdGlvbikB2gtTZWNyZXRUeXBlc9oGY3JlYXRlKQHaBG5hbWVjCg=="},"line_number":1602,"absolute_offset":2695,"submatches":[{"match":{"text":"Secret"},"start":80,"end":86}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.841[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/cli/__pycache__/_create.cpython-312.pyc"},"lines":{"bytes":"egctLXZhbHVlegxTZWNyZXQgdmFsdWV6EkVudGVyIHNlY3JldCB2YWx1ZSkD2glmcm9tX2ZpbGXaEmZyb21fZG9ja2VyX2NvbmZpZ9oIcmVnaXN0cnkpBXIUCg=="},"line_number":1923,"absolute_offset":4287,"submatches":[{"match":{"text":"Secret"},"start":11,"end":17}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.841[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/cli/__pycache__/_create.cpython-312.pyc"},"lines":{"bytes":"KQHaBlNlY3JldE5yFQo="},"line_number":2591,"absolute_offset":7985,"submatches":[{"match":{"text":"Secret"},"start":4,"end":10}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.841[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/cli/__pycache__/_get.cpython-312.pyc"},"lines":{"bytes":"2gZTZWNyZXRyNwo="},"line_number":5928,"absolute_offset":14898,"submatches":[{"match":{"text":"Secret"},"start":2,"end":8}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.841[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/cli/__pycache__/_get.cpython-312.pyc"},"lines":{"bytes":"2gdTZWNyZXRzKQo="},"line_number":5931,"absolute_offset":14911,"submatches":[{"match":{"text":"Secret"},"start":2,"end":8}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.841[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/cli/__pycache__/_delete.cpython-312.pyc"},"lines":{"bytes":"KQHaBlNlY3JldE7aCg=="},"line_number":789,"absolute_offset":1508,"submatches":[{"match":{"text":"Secret"},"start":4,"end":10}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.841[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/cli/__pycache__/_common.cpython-312.pyc"},"lines":{"bytes":"RGV2aWNlRmxvd9oMQ2xpZW50U2VjcmV02g9FeHRlcm5hbENvbW1hbmR6E1Vua25vd24gYXV0aCB0eXBlOiB6Fy4gU3VwcG9ydGVkIHR5cGVzIGFyZTog+gEuKQfaBWxvd2Vy2g1fcGtjZV9vcHRpb25z2hRfZGV2aWNlX2Zsb3dfb3B0aW9uc9oWX2NsaWVudF9zZWNyZXRfb3B0aW9uc9oZX2V4dGVybmFsX2NvbW1hbmRfb3B0aW9uc9oK"},"line_number":622,"absolute_offset":2508,"submatches":[{"match":{"text":"Secret"},"start":18,"end":24}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.841[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/__pycache__/_environment.cpython-312.pyc"},"lines":{"bytes":"KQHaBUltYWdlKQHaC1BvZFRlbXBsYXRlKQHaCVJlc291cmNlcykC2gZTZWNyZXTaDVNlY3JldFJlcXVlc3T6EUxpc3RbRW52aXJvbm1lbnRd2hVfRU5WSVJPTk1FTlRfUkVHSVNUUlljCg=="},"line_number":125,"absolute_offset":422,"submatches":[{"match":{"text":"Secret"},"start":41,"end":47},{"match":{"text":"Secret"},"start":49,"end":55}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.842[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/__pycache__/_environment.cpython-312.pyc"},"lines":{"bytes":"ZGVwZW5kc19vbk56IU9wdGlvbmFsW1VuaW9uW3N0ciwgUG9kVGVtcGxhdGVdXdoMcG9kX3RlbXBsYXRl+g1PcHRpb25hbFtzdHJd2gtkZXNjcmlwdGlvbvoXT3B0aW9uYWxbU2VjcmV0UmVxdWVzdF3aB3NlY3JldHP6GE9wdGlvbmFsW0RpY3Rbc3RyLCBzdHJdXdoIZW52X3ZhcnP6E09wdGlvbmFsW1Jlc291cmNlc13aCXJlc291cmNlc0baBGJvb2zaDWludGVycnVwdGlibGXaBGF1dG96KFVuaW9uW3N0ciwgSW1hZ2UsIExpdGVyYWxbJ2F1dG8nXSwgTm9uZV3aBWltYWdleg9UdXBsZVtzdHIsIC4uLl3aB2luY2x1ZGUpA3IfCg=="},"line_number":397,"absolute_offset":3178,"submatches":[{"match":{"text":"Secret"},"start":99,"end":105}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.842[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/__pycache__/_environment.cpython-312.pyc"},"lines":{"bytes":"dwEpDk56L0V4cGVjdGVkIGltYWdlIHRvIGJlIG9mIHR5cGUgc3RyIG9yIEltYWdlLCBnb3QgejJFeHBlY3RlZCBzZWNyZXRzIHRvIGJlIG9mIHR5cGUgU2VjcmV0UmVxdWVzdCwgZ290IHo5RXhwZWN0ZWQgZGVwZW5kc19vbiB0byBiZSBvZiB0eXBlIExpc3RbRW52aXJvbm1lbnRdLCBnb3QgejBFeHBlY3RlZCByZXNvdXJjZXMgdG8gYmUgb2YgdHlwZSBSZXNvdXJjZXMsIGdvdCB6NEV4cGVjdGVkIGVudl92YXJzIHRvIGJlIG9mIHR5cGUgRGljdFtzdHIsIHN0cl0sIGdvdCB6PEV4cGVjdGVkIHBvZF90ZW1wbGF0ZSB0byBiZSBvZiB0eXBlIHN0ciBvciBQb2RUZW1wbGF0ZSwgZ290IOn/Cg=="},"line_number":2343,"absolute_offset":7395,"submatches":[{"match":{"text":"Secret"},"start":87,"end":93}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.842[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/__pycache__/__init__.cpython-312.pyc"},"lines":{"bytes":"Q2hlY2twb2ludNoRbGF0ZXN0X2NoZWNrcG9pbnQpAdoDY3R4KQLaDmN1c3RvbV9jb250ZXh02hJnZXRfY3VzdG9tX2NvbnRleHQpAtoMYnVpbGRfaW1hZ2Vz2gZkZXBsb3kpAdoLRW52aXJvbm1lbnQpAdoRY3VzdG9tX2V4Y2VwdGhvb2spAdoFZ3JvdXApAdoFSW1hZ2UpB9oOY3VycmVudF9kb21haW7aD2N1cnJlbnRfcHJvamVjdNoEaW5pdNoRaW5pdF9mcm9tX2FwaV9rZXnaEGluaXRfZnJvbV9jb25maWfaD2luaXRfaW5fY2x1c3RlctoQaW5pdF9wYXNzdGhyb3VnaCkB2gRMaW5rKQHaC3VzZXJfbG9nZ2VyKQHaA21hcCkB2gtQb2RUZW1wbGF0ZSkI2gdBTURfR1BV2gNHUFXaDEhBQkFOQV9HQVVESdoDVFBV2gZEZXZpY2XaC0RldmljZUNsYXNz2gZOZXVyb27aCVJlc291cmNlcykB2g1SZXRyeVN0cmF0ZWd5KQHaC1JldXNlUG9saWN5KQLaA3J1btoPd2l0aF9ydW5jb250ZXh0KQHaEXJ1bl9weXRob25fc2NyaXB0KQLaBlNlY3JldNoNU2VjcmV0UmVxdWVzdCkD2glBcHBIYW5kbGXaBXNlcnZl2hF3aXRoX3NlcnZlY29udGV4dCkB2g9UYXNrRW52aXJvbm1lbnQpAtoHVGltZW91dNoLVGltZW91dFR5cGUpAdoFdHJhY2UpBNoEQ3JvbtoJRml4ZWRSYXRl2gdUcmlnZ2Vy2gtUcmlnZ2VyVGltZakB2gtfX3ZlcnNpb25fX2MK"},"line_number":82,"absolute_offset":718,"submatches":[{"match":{"text":"Secret"},"start":466,"end":472},{"match":{"text":"Secret"},"start":474,"end":480}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.842[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/__pycache__/_image.cpython-312.pyc"},"lines":{"bytes":"2g1UWVBFX0NIRUNLSU5H2gNBbnnaCENsYXNzVmFy2gREaWN02gRMaXN02gdMaXRlcmFs2ghPcHRpb25hbNoFVHVwbGXaB1R5cGVWYXLaBVVuaW9uKQLaBlNlY3JldNoNU2VjcmV0UmVxdWVzdCkC6QMK"},"line_number":1229,"absolute_offset":2128,"submatches":[{"match":{"text":"Secret"},"start":88,"end":94},{"match":{"text":"Secret"},"start":96,"end":102}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.842[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/__pycache__/_image.cpython-312.pyc"},"lines":{"bytes":"ZXh0cmFfYXJnc/oiT3B0aW9uYWxbVHVwbGVbc3RyIHwgU2VjcmV0LCAuLi5dXdoNc2VjcmV0X21vdW50c2MBCg=="},"line_number":1968,"absolute_offset":5249,"submatches":[{"match":{"text":"Secret"},"start":33,"end":39}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.842[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/__pycache__/_image.cpython-312.pyc"},"lines":{"bytes":"2hdfREVGQVVMVF9JTUFHRV9QUkVGSVhFU3oQQ2xhc3NWYXJbb2JqZWN0XdoGX3Rva2VuehBPcHRpb25hbFtTZWNyZXRd2hZfaW1hZ2VfcmVnaXN0cnlfc2VjcmV0YwEK"},"line_number":10446,"absolute_offset":27719,"submatches":[{"match":{"text":"Secret"},"start":62,"end":68}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.842[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/__pycache__/_image.cpython-312.pyc"},"lines":{"bytes":"+hZPcHRpb25hbFtzdHIgfCBTZWNyZXRdcjAK"},"line_number":16849,"absolute_offset":57669,"submatches":[{"match":{"text":"Secret"},"start":17,"end":23}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.842[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/__pycache__/_image.cpython-312.pyc"},"lines":{"bytes":"+hdPcHRpb25hbFtTZWNyZXRSZXF1ZXN0XXJiCg=="},"line_number":16934,"absolute_offset":57929,"submatches":[{"match":{"text":"Secret"},"start":11,"end":17}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.842[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/__pycache__/_secret.cpython-312.pyc"},"lines":{"bytes":"hARaD3kDKQvaBlNlY3JldGE/BQo="},"line_number":202,"absolute_offset":504,"submatches":[{"match":{"text":"Secret"},"start":10,"end":16}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.846[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/__pycache__/_secret.cpython-312.pyc"},"lines":{"bytes":"ICD6OC91c3IvbG9jYWwvbGliL3B5dGhvbjMuMTIvZGlzdC1wYWNrYWdlcy9mbHl0ZS9fc2VjcmV0LnB52g1fX3Bvc3RfaW5pdF9fehRTZWNyZXQuX19wb3N0X2luaXRfXyoK"},"line_number":649,"absolute_offset":2681,"submatches":[{"match":{"text":"Secret"},"start":77,"end":83}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.847[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/__pycache__/_secret.cpython-312.pyc"},"lines":{"bytes":"2gtzdGFibGVfaGFzaHoSU2VjcmV0LnN0YWJsZV9oYXNoNgo="},"line_number":928,"absolute_offset":3519,"submatches":[{"match":{"text":"Secret"},"start":15,"end":21}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.847[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/__pycache__/_secret.cpython-312.pyc"},"lines":{"bytes":"2ghfX2hhc2hfX3oPU2VjcmV0Ll9faGFzaF9fRQo="},"line_number":1024,"absolute_offset":3873,"submatches":[{"match":{"text":"Secret"},"start":12,"end":18}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.847[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/__pycache__/_secret.cpython-312.pyc"},"lines":{"bytes":"2g1TZWNyZXRSZXF1ZXN0cjgK"},"line_number":1299,"absolute_offset":4841,"submatches":[{"match":{"text":"Secret"},"start":2,"end":8}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.847[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/__pycache__/_task_environment.cpython-312.pyc"},"lines":{"bytes":"KQLaBUNhY2hl2gxDYWNoZVJlcXVlc3QpAdoNRG9jdW1lbnRhdGlvbikB2gtFbnZpcm9ubWVudCkB2gVJbWFnZSkB2gRMaW5rKQHaC1BvZFRlbXBsYXRlKQHaCVJlc291cmNlcykB2g1SZXRyeVN0cmF0ZWd5KQHaC1JldXNlUG9saWN5KQHaDVNlY3JldFJlcXVlc3QpAtoZQXN5bmNGdW5jdGlvblRhc2tUZW1wbGF0ZdoMVGFza1RlbXBsYXRlKQHaB1RyaWdnZXIpAtoTTUFYX0lOTElORV9JT19CWVRFU9oPTmF0aXZlSW50ZXJmYWNlqQPaAUbaAVDaAVIpAdoQQ29kZVRhc2tUZW1wbGF0ZakB2hVTYW5kYm94ZWRUYXNrVGVtcGxhdGVUKQLaBGluaXTaBHJlcHJjCg=="},"line_number":141,"absolute_offset":663,"submatches":[{"match":{"text":"Secret"},"start":136,"end":142}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.847[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/__pycache__/_task.cpython-312.pyc"},"lines":{"bytes":"KQLaBUNhY2hl2gxDYWNoZVJlcXVlc3QpAdoMaW50ZXJuYWxfY3R4KQHaDURvY3VtZW50YXRpb24pAdoFSW1hZ2UpAdoETGluaykB2glSZXNvdXJjZXMpAdoNUmV0cnlTdHJhdGVneSkB2gtSZXVzZVBvbGljeSkB2g1TZWNyZXRSZXF1ZXN0KQHaC1RpbWVvdXRUeXBlKQHaB1RyaWdnZXIpA9oTTUFYX0lOTElORV9JT19CWVRFU9oPTmF0aXZlSW50ZXJmYWNl2hRTZXJpYWxpemF0aW9uQ29udGV4dCkB2hFEYXRhTG9hZGluZ0NvbmZpZykB2g9UYXNrRW52aXJvbm1lbnTaAVDaAVJyEwo="},"line_number":162,"absolute_offset":958,"submatches":[{"match":{"text":"Secret"},"start":122,"end":128}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.847[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/__pycache__/_task.cpython-312.pyc"},"lines":{"bytes":"2gVjYWNoZUbaBGJvb2zaDWludGVycnVwdGlibGX6GVVuaW9uW2ludCwgUmV0cnlTdHJhdGVneV3aB3JldHJpZXN6GFVuaW9uW1JldXNlUG9saWN5LCBOb25lXdoIcmV1c2FibGV6F09wdGlvbmFsW0RvY3VtZW50YXRpb25d2gRkb2Nz+hhPcHRpb25hbFtEaWN0W3N0ciwgc3RyXV3aCGVudl92YXJz+hdPcHRpb25hbFtTZWNyZXRSZXF1ZXN0XdoHc2VjcmV0c/oVT3B0aW9uYWxbVGltZW91dFR5cGVd2gd0aW1lb3V0+iFPcHRpb25hbFtVbmlvbltzdHIsIFBvZFRlbXBsYXRlXV3aDHBvZF90ZW1wbGF0ZdoGcmVwb3J0+g1PcHRpb25hbFtzdHJd2gVxdWV1ZdoK"},"line_number":435,"absolute_offset":4828,"submatches":[{"match":{"text":"Secret"},"start":179,"end":185}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.848[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/__pycache__/_initialize.cpython-312.pyc"},"lines":{"bytes":"el1BUEkga2V5IG11c3QgYmUgcHJvdmlkZWQgZWl0aGVyIGFzIGEgcGFyYW1ldGVyIG9yIHZpYSB0aGUgRkxZVEVfQVBJX0tFWSBlbnZpcm9ubWVudCB2YXJpYWJsZS7aBE5vbmXaDENsaWVudFNlY3JldEYpEnImCg=="},"line_number":2993,"absolute_offset":15990,"submatches":[{"match":{"text":"Secret"},"start":109,"end":115}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.848[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/app/__pycache__/_app_environment.cpython-312.pyc"},"lines":{"bytes":"KQHaC2Fubm90YXRpb25zTikD2glkYXRhY2xhc3PaBWZpZWxk2gdyZXBsYWNlKQbaA0FuedoIQ2FsbGFibGXaBExpc3TaB0xpdGVyYWzaCE9wdGlvbmFs2gVVbmlvbikE2gtFbnZpcm9ubWVudNoFSW1hZ2XaCVJlc291cmNlc9oNU2VjcmV0UmVxdWVzdCkB2glQYXJhbWV0ZXIpBdoGRG9tYWlu2gRMaW5r2gRQb3J02gdTY2FsaW5n2ghUaW1lb3V0cykB2hRTZXJpYWxpemF0aW9uQ29udGV4dHpAW2EtejAtOV0oWy1hLXowLTldKlthLXowLTldKT8oXFwuW2EtejAtOV0oWy1hLXowLTldKlthLXowLTldKT8pKikFaUwfCg=="},"line_number":147,"absolute_offset":379,"submatches":[{"match":{"text":"Secret"},"start":129,"end":135}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.848[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/app/__pycache__/_app_environment.cpython-312.pyc"},"lines":{"bytes":"ehdPcHRpb25hbFtTZWNyZXRSZXF1ZXN0XXKjCg=="},"line_number":4677,"absolute_offset":16456,"submatches":[{"match":{"text":"Secret"},"start":11,"end":17}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.849[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/_internal/runtime/__pycache__/task_serde.cpython-312.pyc"},"lines":{"bytes":"Y29tbW9uX3BiMtoPZW52aXJvbm1lbnRfcGIy2hN0YXNrX2RlZmluaXRpb25fcGIyKQLaDGR1cmF0aW9uX3BiMtoMd3JhcHBlcnNfcGIyKQLaEVZlcnNpb25QYXJhbWV0ZXJz2hJjYWNoZV9mcm9tX3JlcXVlc3QpAdoGbG9nZ2VyKQLaHV9QUklNQVJZX0NPTlRBSU5FUl9OQU1FX0ZJRUxE2gtQb2RUZW1wbGF0ZSkC2g1TZWNyZXRSZXF1ZXN02hRzZWNyZXRzX2Zyb21fcmVxdWVzdCkC2hlBc3luY0Z1bmN0aW9uVGFza1RlbXBsYXRl2gxUYXNrVGVtcGxhdGUpA9oK"},"line_number":359,"absolute_offset":1253,"submatches":[{"match":{"text":"Secret"},"start":179,"end":185}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.849[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/_internal/runtime/__pycache__/task_serde.cpython-312.pyc"},"lines":{"bytes":"2g9TZWN1cml0eUNvbnRleHTaBlNlY3JldHI/Cg=="},"line_number":978,"absolute_offset":3660,"submatches":[{"match":{"text":"Secret"},"start":19,"end":25}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.849[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/_internal/imagebuild/__pycache__/remote_builder.cpython-312.pyc"},"lines":{"bytes":"Q29weUNvbmZpZ9oMRG9ja2VySWdub3Jl2gNFbnbaCVBpcE9wdGlvbtoLUGlwUGFja2FnZXPaDVBvZXRyeVByb2plY3TaDFB5dGhvbldoZWVsc9oMUmVxdWlyZW1lbnRz2glVVlByb2plY3TaCFVWU2NyaXB02gdXb3JrRGlyKQLaDEltYWdlQnVpbGRlctoMSW1hZ2VDaGVja2VyKQPaFWNvcHlfZmlsZXNfdG9fY29udGV4dNoZZ2V0X2FuZF9saXN0X2RvY2tlcmlnbm9yZdokZ2V0X3V2X3Byb2plY3RfZWRpdGFibGVfZGVwZW5kZW5jaWVzKQHaFGdldF9zZWN1cml0eV9jb250ZXh0KQHaBmxvZ2dlcikB2gZTZWNyZXQpAdoGc3RhdHVzKQLaDUFjdGlvbk91dHB1dHPaA1J1bqkB2g5kZWZpbml0aW9uX3BiMqkB2go="},"line_number":176,"absolute_offset":939,"submatches":[{"match":{"text":"Secret"},"start":284,"end":290}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.849[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/_internal/imagebuild/__pycache__/docker_builder.cpython-312.pyc"},"lines":{"bytes":"TikB2gRQYXRoKQHaCFRlbXBsYXRlKQXaDVRZUEVfQ0hFQ0tJTkfaCENsYXNzVmFy2ghPcHRpb25hbNoIUHJvdG9jb2zaBGNhc3QpAdoGU2VjcmV0KQHaGFNUQU5EQVJEX0lHTk9SRV9QQVRURVJOUykB2htjb3B5X2NvZGVfYnVuZGxlX3RvX2NvbnRleHQpEtoLQXB0UGFja2FnZXPaD0NvZGVCdW5kbGVMYXllctoIQ29tbWFuZHPaCg=="},"line_number":347,"absolute_offset":1013,"submatches":[{"match":{"text":"Secret"},"start":78,"end":84}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:13.850[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/_internal/imagebuild/__pycache__/docker_builder.cpython-312.pyc"},"lines":{"bytes":"eggtLXNlY3JldHoDaWQ9+gUsZW52PXoNL2V0Yy9zZWNyZXRzL3ocU2VjcmV0IG5vdCBmb3VuZCBpbiBFbnYgVmFyIHoJIG9yIGZpbGUgegUsc3JjPSkPck8K"},"line_number":6017,"absolute_offset":19167,"submatches":[{"match":{"text":"Secret"},"start":39,"end":45}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:03:15.791[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/local/lib/python3.12/dist-packages/flyte/_task_environment.py" resolvedPath="/usr/local/lib/python3.12/dist-packages/flyte/_task_environment.py" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-07 05:03:15.791[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-07 05:03:15.795[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:518725[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/local/lib/python3.12/dist-packages/flyte/_task_environment.py" mtime=1777942682000 contentLen=24082
+[37m2026-05-07 05:03:17.965[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/local/lib/python3.12/dist-packages/flyte/_secret.py" resolvedPath="/usr/local/lib/python3.12/dist-packages/flyte/_secret.py" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-07 05:03:17.965[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-07 05:03:17.966[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:518725[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/local/lib/python3.12/dist-packages/flyte/_secret.py" mtime=1777942682000 contentLen=3511
+[37m2026-05-07 05:03:24.901[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/local/lib/python3.12/dist-packages/flyte/_task.py" resolvedPath="/usr/local/lib/python3.12/dist-packages/flyte/_task.py" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-07 05:03:24.901[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-07 05:03:24.903[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:518725[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/local/lib/python3.12/dist-packages/flyte/_task.py" mtime=1777942682000 contentLen=25059
+[37m2026-05-07 05:03:43.778[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Task runner finished successfully.
+[37m2026-05-07 05:03:43.778[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Shutting down...
+[37m2026-05-07 05:03:43.786[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Shutdown completed. Process will exit.
+[37m2026-05-07 05:03:43.786[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Process exiting with code 0

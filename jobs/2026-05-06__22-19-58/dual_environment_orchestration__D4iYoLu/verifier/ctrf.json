@@ -1,0 +1,92 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778131511.897208,
+            "stop": 1778131512.0038197
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_pipeline_script_exists",
+                "status": "passed",
+                "duration": 0.0004361119354143739,
+                "start": 1778131511.9049575,
+                "stop": 1778131511.9055989,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_pipeline_script_runs_successfully",
+                "status": "passed",
+                "duration": 0.06811145506799221,
+                "start": 1778131511.9056857,
+                "stop": 1778131511.9740736,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_file_exists_and_is_valid_json",
+                "status": "passed",
+                "duration": 0.0003973629791289568,
+                "start": 1778131511.9742012,
+                "stop": 1778131511.974749,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_model_name_is_linear",
+                "status": "passed",
+                "duration": 0.00033607310615479946,
+                "start": 1778131511.9748185,
+                "stop": 1778131511.9752958,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_accuracy_in_valid_range",
+                "status": "passed",
+                "duration": 0.0003338638925924897,
+                "start": 1778131511.9753597,
+                "stop": 1778131511.97582,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_accuracy_exact_value",
+                "status": "passed",
+                "duration": 0.0005219440208747983,
+                "start": 1778131511.9758816,
+                "stop": 1778131511.9765275,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_cpu_env_resources",
+                "status": "passed",
+                "duration": 0.025900473119691014,
+                "start": 1778131511.9765909,
+                "stop": 1778131512.0027297,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_gpu_env_resources",
+                "status": "passed",
+                "duration": 0.0006340231047943234,
+                "start": 1778131512.0028293,
+                "stop": 1778131512.0036108,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

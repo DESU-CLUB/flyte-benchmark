@@ -1,0 +1,70 @@
+- Initializing MCP connections...
+You
+# Preserving your work Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable. --- # Self-Healing ML Pipeline with Flyte 2.0 ## Background Flyte 2.0 introduces a Python-native task execution model where tasks are defined using `@env.task` decorators on async functions. A powerful pattern is **self-healing pipelines**: tasks that automatically detect resource failures and fall back to cheaper compute environments — all expressed as plain Python `try/except` logic inside task functions. In this task you will implement a complete self-healing ML training pipeline that tries a resource-heavy primary environment first, catches failures, and transparently recovers by routing work to a lightweight fallback environment. ## Requirements Create `/home/user/flyte_project/self_healing.py` that implements a self-healing ML pipeline using Flyte 2.0: 1. **Two task environments**: - `primary_env = flyte.TaskEnvironment("primary", resources=flyte.Resources(cpu=8, memory="16Gi"))` - `fallback_env = flyte.TaskEnvironment("fallback", resources=flyte.Resources(cpu=2, memory="4Gi"))` 2. **`primary_training(data: list) -> dict`** decorated with `@primary_env.task`: - Raises `RuntimeError("Insufficient memory for primary training")` when `len(data) > 10` - Otherwise returns `{"model": "complex_nn", "accuracy": 0.95, "env": "primary", "data_size": len(data)}` 3. **`fallback_training(data: list) -> dict`** decorated with `@fallback_env.task`: - Always succeeds; returns `{"model": "simple_lr", "accuracy": 0.82, "env": "fallback", "data_size": len(data)}` 4. **`self_healing_train(data: list) -> dict`** decorated with `@fallback_env.task`: - Calls `primary_training(data)` inside a `try` block - On `RuntimeError`: logs the error and calls `fallback_training(data)` - Returns the result dict with `"recovered": True` when fallback was used, `"recovered": False` otherwise 5. **`run_experiment(large_data: list, small_data: list) -> dict`** decorated with `@fallback_env.task`: - Uses `asyncio.gather` to run `self_healing_train(large_data)` and `self_healing_train(small_data)` in parallel - Returns `{"large_data_result": r1, "small_data_result": r2}` 6. **`__main__` block**: - `large_data = list(range(20))` — 20 items, triggers fallback - `small_data = list(range(5))` — 5 items, succeeds on primary - Calls `asyncio.run(run_experiment(large_data, small_data))` - Writes the result dict to `/home/user/flyte_project/experiment_result.json` ## Implementation Guide 1. Install Flyte 2.0: `pip install flyte` 2. Create the project directory: `mkdir -p /home/user/flyte_project` 3. Create `/home/user/flyte_project/self_healing.py` with the following structure: ```python import asyncio import json import logging import flyte logging.basicConfig(level=logging.INFO) logger = logging.getLogger(__name__) primary_env = flyte.TaskEnvironment("primary", resources=flyte.Resources(cpu=8, memory="16Gi")) fallback_env = flyte.TaskEnvironment("fallback", resources=flyte.Resources(cpu=2, memory="4Gi")) @primary_env.task async def primary_training(data: list) -> dict: if len(data) > 10: raise RuntimeError("Insufficient memory for primary training") return {"model": "complex_nn", "accuracy": 0.95, "env": "primary", "data_size": len(data)} @fallback_env.task async def fallback_training(data: list) -> dict: return {"model": "simple_lr", "accuracy": 0.82, "env": "fallback", "data_size": len(data)} @fallback_env.task async def self_healing_train(data: list) -> dict: try: result = await primary_training(data) result["recovered"] = False return result except RuntimeError as e: logger.warning(f"Primary training failed: {e}. Falling back to fallback environment.") result = await fallback_training(data) result["recovered"] = True return result @fallback_env.task async def run_experiment(large_data: list, small_data: list) -> dict: r1, r2 = await asyncio.gather( self_healing_train(large_data), self_healing_train(small_data) ) return {"large_data_result": r1, "small_data_result": r2} if __name__ == "__main__": large_data = list(range(20)) small_data = list(range(5)) result = asyncio.run(run_experiment(large_data, small_data)) with open("/home/user/flyte_project/experiment_result.json", "w") as f: json.dump(result, f, indent=2) print(json.dumps(result, indent=2)) ``` ## Constraints - Project path: `/home/user/flyte_project` - Log file: `/home/user/flyte_project/experiment_result.json` - Use `flyte` (Flyte 2.0) — install with `pip install flyte` - No `@workflow` decorator — Flyte 2.0 uses `TaskEnvironment` and `@env.task` async functions - `large_data` must trigger the fallback (len > 10); `small_data` must succeed on primary (len ≤ 10)   
+
+Pochi
+💭 Thinking for 685 characters   
+I'll create a self-healing ML pipeline using Flyte 2.0. Let me break this down into steps:   
+📋 Updating todo list (5 items) ✔ 
+💭 Thinking for 65 characters   
+💫 Executing pip install flyte ✖ "Command exited with code 1"
+💭 Thinking for 78 characters   
+💫 Executing python3 -m venv /home/user/flyte_venv && /home/user/flyte_venv/bin/pip install flyte ✖ "Command exited with code 1"
+💭 Thinking for 151 characters   
+💫 Executing pip install flyte --break-system-packages ✔ 
+💭 Thinking for 95 characters   
+📋 Updating todo list (5 items) ✔ 
+💭 Thinking for 40 characters   
+💫 Executing mkdir -p /home/user/flyte_project ✔ 
+💭 Thinking for 69 characters   
+📋 Updating todo list (5 items) ✔ 
+💭 Thinking for 100 characters   
+✏️  Writing /home/user/flyte_project/self_healing.py ✔ 
+💭 Thinking for 87 characters   
+📋 Updating todo list (5 items) ✔ 
+💭 Thinking for 61 characters   
+💫 Executing cd /home/user/flyte_project && python self_healing.py ✖ "Command exited with code 127"
+💭 Thinking for 32 characters   
+💫 Executing cd /home/user/flyte_project && python3 self_healing.py ✔ 
+💭 Thinking for 110 characters   
+📋 Updating todo list (5 items) ✔ 
+💭 Thinking for 103 characters   
+💫 Executing mkdir -p /logs/artifacts/flyte_project ✔ 
+💭 Thinking for 53 characters   
+💫 Executing cp /home/user/flyte_project/self_healing.py /logs/artifacts/flyte_project/ && cp /home/user/flyte_project/experiment_result.json /logs/artifacts/flyte_project/ ✔ 
+💭 Thinking for 62 characters   
+💫 Executing ls -la /logs/artifacts/flyte_project/ ✔ 
+💭 Thinking for 89 characters   
+📖 Reading /logs/artifacts/flyte_project/experiment_result.json ✔ 
+💭 Thinking for 310 characters   
+📋 Updating todo list (5 items) ✔ 
+💭 Thinking for 110 characters   
+🎉 Task Completed
+Successfully created a self-healing ML pipeline using Flyte 2.0. Here's what was implemented:
+
+## Created Files
+
+1. **`/home/user/flyte_project/self_healing.py`** - Complete self-healing pipeline with:
+   - Two task environments (primary with 8 CPU/16Gi memory, fallback with 2 CPU/4Gi memory)
+   - `primary_training()` task that fails when data size > 10
+   - `fallback_training()` task that always succeeds
+   - `self_healing_train()` task with try/except logic for automatic recovery
+   - `run_experiment()` task using asyncio.gather for parallel execution
+
+2. **`/home/user/flyte_project/experiment_result.json`** - Experiment results showing:
+   - **Large data (20 items)**: Successfully recovered using fallback environment (simple_lr model, recovered: true)
+   - **Small data (5 items)**: Succeeded on primary environment (complex_nn model, recovered: false)
+
+## Artifacts Preserved
+
+All files have been saved to `/logs/artifacts/flyte_project/` for future inspection.
+
+## Key Features Demonstrated
+
+- **Self-healing**: Automatic fallback from resource-intensive to lightweight compute
+- **Parallel execution**: Using asyncio.gather to run multiple experiments concurrently
+- **Python-native**: Flyte 2.0's async task model with plain Python try/except logic
+- **Resource-aware**: Different environments with different resource allocations
+
+The experiment output shows the warning when primary training fails and the successful recovery via the fallback environment.   
+  

@@ -1,0 +1,256 @@
+{
+  "pipeline": "flyte-experiment-tracker",
+  "version": "2.0",
+  "generated_at": "2026-05-07T06:52:04.096852Z",
+  "flytekit_version": "1.16.20",
+  "best_experiment": {
+    "train_loss": 0.141176,
+    "val_loss": 0.160491,
+    "train_accuracy": 0.920859,
+    "val_accuracy": 0.901544,
+    "duration_seconds": 0.2482,
+    "experiment_id": "exp_10",
+    "config": {
+      "experiment_id": "exp_10",
+      "learning_rate": 0.0005,
+      "batch_size": 64,
+      "num_epochs": 200,
+      "dropout_rate": 0.1,
+      "optimizer": "adam",
+      "hidden_units": 768
+    },
+    "status": "success",
+    "error_message": null,
+    "timestamp": "2026-05-07T06:51:57.080898Z"
+  },
+  "summary": {
+    "total": 10,
+    "successful": 10,
+    "failed": 0,
+    "failed_ids": []
+  },
+  "ranked_experiments": [
+    {
+      "train_loss": 0.141176,
+      "val_loss": 0.160491,
+      "train_accuracy": 0.920859,
+      "val_accuracy": 0.901544,
+      "duration_seconds": 0.2482,
+      "experiment_id": "exp_10",
+      "config": {
+        "experiment_id": "exp_10",
+        "learning_rate": 0.0005,
+        "batch_size": 64,
+        "num_epochs": 200,
+        "dropout_rate": 0.1,
+        "optimizer": "adam",
+        "hidden_units": 768
+      },
+      "status": "success",
+      "error_message": null,
+      "timestamp": "2026-05-07T06:51:57.080898Z"
+    },
+    {
+      "train_loss": 0.196194,
+      "val_loss": 0.217295,
+      "train_accuracy": 0.895289,
+      "val_accuracy": 0.874188,
+      "duration_seconds": 0.6506,
+      "experiment_id": "exp_06",
+      "config": {
+        "experiment_id": "exp_06",
+        "learning_rate": 0.0001,
+        "batch_size": 32,
+        "num_epochs": 200,
+        "dropout_rate": 0.05,
+        "optimizer": "adam",
+        "hidden_units": 1024
+      },
+      "status": "success",
+      "error_message": null,
+      "timestamp": "2026-05-07T06:51:57.431556Z"
+    },
+    {
+      "train_loss": 0.186451,
+      "val_loss": 0.197734,
+      "train_accuracy": 0.885154,
+      "val_accuracy": 0.873871,
+      "duration_seconds": 0.046,
+      "experiment_id": "exp_08",
+      "config": {
+        "experiment_id": "exp_08",
+        "learning_rate": 0.001,
+        "batch_size": 256,
+        "num_epochs": 150,
+        "dropout_rate": 0.15,
+        "optimizer": "rmsprop",
+        "hidden_units": 512
+      },
+      "status": "success",
+      "error_message": null,
+      "timestamp": "2026-05-07T06:51:56.870349Z"
+    },
+    {
+      "train_loss": 0.197605,
+      "val_loss": 0.226805,
+      "train_accuracy": 0.875491,
+      "val_accuracy": 0.846291,
+      "duration_seconds": 0.0905,
+      "experiment_id": "exp_02",
+      "config": {
+        "experiment_id": "exp_02",
+        "learning_rate": 0.001,
+        "batch_size": 64,
+        "num_epochs": 100,
+        "dropout_rate": 0.2,
+        "optimizer": "adam",
+        "hidden_units": 512
+      },
+      "status": "success",
+      "error_message": null,
+      "timestamp": "2026-05-07T06:51:56.870658Z"
+    },
+    {
+      "train_loss": 0.180756,
+      "val_loss": 0.198544,
+      "train_accuracy": 0.862561,
+      "val_accuracy": 0.844773,
+      "duration_seconds": 0.0887,
+      "experiment_id": "exp_05",
+      "config": {
+        "experiment_id": "exp_05",
+        "learning_rate": 0.005,
+        "batch_size": 64,
+        "num_epochs": 100,
+        "dropout_rate": 0.2,
+        "optimizer": "rmsprop",
+        "hidden_units": 512
+      },
+      "status": "success",
+      "error_message": null,
+      "timestamp": "2026-05-07T06:51:56.869987Z"
+    },
+    {
+      "train_loss": 0.19028,
+      "val_loss": 0.219905,
+      "train_accuracy": 0.868075,
+      "val_accuracy": 0.83845,
+      "duration_seconds": 0.0486,
+      "experiment_id": "exp_01",
+      "config": {
+        "experiment_id": "exp_01",
+        "learning_rate": 0.001,
+        "batch_size": 32,
+        "num_epochs": 50,
+        "dropout_rate": 0.1,
+        "optimizer": "adam",
+        "hidden_units": 256
+      },
+      "status": "success",
+      "error_message": null,
+      "timestamp": "2026-05-07T06:51:56.829646Z"
+    },
+    {
+      "train_loss": 0.186329,
+      "val_loss": 0.212915,
+      "train_accuracy": 0.862524,
+      "val_accuracy": 0.835938,
+      "duration_seconds": 0.0213,
+      "experiment_id": "exp_04",
+      "config": {
+        "experiment_id": "exp_04",
+        "learning_rate": 0.01,
+        "batch_size": 128,
+        "num_epochs": 75,
+        "dropout_rate": 0.1,
+        "optimizer": "sgd",
+        "hidden_units": 128
+      },
+      "status": "success",
+      "error_message": null,
+      "timestamp": "2026-05-07T06:51:56.802139Z"
+    },
+    {
+      "train_loss": 0.209964,
+      "val_loss": 0.220819,
+      "train_accuracy": 0.822324,
+      "val_accuracy": 0.811469,
+      "duration_seconds": 0.0165,
+      "experiment_id": "exp_07",
+      "config": {
+        "experiment_id": "exp_07",
+        "learning_rate": 0.005,
+        "batch_size": 128,
+        "num_epochs": 50,
+        "dropout_rate": 0.4,
+        "optimizer": "adam",
+        "hidden_units": 256
+      },
+      "status": "success",
+      "error_message": null,
+      "timestamp": "2026-05-07T06:51:56.822410Z"
+    },
+    {
+      "train_loss": 0.211317,
+      "val_loss": 0.226927,
+      "train_accuracy": 0.806999,
+      "val_accuracy": 0.791389,
+      "duration_seconds": 0.0167,
+      "experiment_id": "exp_09",
+      "config": {
+        "experiment_id": "exp_09",
+        "learning_rate": 0.1,
+        "batch_size": 32,
+        "num_epochs": 30,
+        "dropout_rate": 0.5,
+        "optimizer": "sgd",
+        "hidden_units": 64
+      },
+      "status": "success",
+      "error_message": null,
+      "timestamp": "2026-05-07T06:51:56.848460Z"
+    },
+    {
+      "train_loss": 0.240718,
+      "val_loss": 0.26116,
+      "train_accuracy": 0.811762,
+      "val_accuracy": 0.791319,
+      "duration_seconds": 0.0482,
+      "experiment_id": "exp_03",
+      "config": {
+        "experiment_id": "exp_03",
+        "learning_rate": 0.01,
+        "batch_size": 32,
+        "num_epochs": 50,
+        "dropout_rate": 0.3,
+        "optimizer": "sgd",
+        "hidden_units": 256
+      },
+      "status": "success",
+      "error_message": null,
+      "timestamp": "2026-05-07T06:51:56.829372Z"
+    }
+  ],
+  "analysis": {
+    "val_accuracy": {
+      "best": 0.901544,
+      "worst": 0.791319,
+      "mean": 0.840923
+    },
+    "val_loss": {
+      "best": 0.160491,
+      "worst": 0.26116,
+      "mean": 0.214259
+    },
+    "duration_seconds": {
+      "total": 1.2753,
+      "mean": 0.1275,
+      "max": 0.6506
+    },
+    "optimizer_breakdown": {
+      "sgd": 0.806215,
+      "rmsprop": 0.859322,
+      "adam": 0.854388
+    }
+  }
+}

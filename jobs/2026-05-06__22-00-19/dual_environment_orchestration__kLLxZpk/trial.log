@@ -1,0 +1,158 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo dual_environment_orchestration__kLLxZpk > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Dual Environment Orchestration with Flyte 2.0
+
+## Background
+
+Flyte 2.0 introduces `TaskEnvironment`, which lets you define multiple execution environments — each with distinct compute resources — within a single Python file. You can then decorate `async def` task functions with `@env.task` to pin each function to its environment. This is ideal for ML pipelines where data preprocessing is CPU-light but model training demands more resources.
+
+In this task, you will create a two-environment ML pipeline that chains data cleaning, model training, and evaluation using Flyte 2.0's `TaskEnvironment` and `Resources` APIs.
+
+## Requirements
+
+- Create a Flyte 2.0 pipeline script at `/home/user/flyte_project/dual_env_pipeline.py`.
+- Define **two** `TaskEnvironment` objects with different `Resources`:
+  - `cpu_env` — 2 CPUs, 4 Gi memory
+  - `gpu_env` — 8 CPUs, 16 Gi memory
+- Implement the following tasks and wire them into an end-to-end pipeline.
+- When run as `__main__`, execute the pipeline and write the final result to `/home/user/flyte_project/pipeline_output.json`.
+
+## Implementation Guide
+
+### Step 1 — Install Flyte 2.0
+
+```bash
+pip install flyte
+```
+
+### Step 2 — Create `/home/user/flyte_project/dual_env_pipeline.py`
+
+```python
+import asyncio
+import json
+import flyte
+
+# 1. Define environments
+cpu_env = flyte.TaskEnvironment("cpu-env", resources=flyte.Resources(cpu=2, memory="4Gi"))
+gpu_env = flyte.TaskEnvironment("gpu-env", resources=flyte.Resources(cpu=8, memory="16Gi"))
+
+# 2. Data cleaning task — runs on cpu_env
+@cpu_env.task
+async def clean_data(raw: list) -> list:
+    """Filter out None values and convert strings to lowercase."""
+    return [item.lower() for item in raw if item is not None]
+
+# 3. Model training task — runs on gpu_env
+@gpu_env.task
+async def train_model(data: list) -> dict:
+    """Simulate model training; return model metadata."""
+    return {
+        "model": "linear",
+        "data_points": len(data),
+        "weights": [len(data) * 0.1, len(data) * 0.01],
+    }
+
+# 4. Evaluation task — runs on cpu_env
+@cpu_env.task
+async def evaluate_model(model: dict) -> dict:
+    """Evaluate a trained model and return accuracy metrics."""
+    return {
+        "accuracy": min(0.99, model["data_points"] * 0.05),
+        "model_name": model["model"],
+    }
+
+# 5. Orchestrator pipeline — runs on cpu_env
+@cpu_env.task
+async def ml_pipeline(raw_data: list) -> dict:
+    """Chain clean → train → evaluate."""
+    cleaned = await clean_data(raw_data)
+    model = await train_model(cleaned)
+    result = await evaluate_model(model)
+    return result
+
+if __name__ == "__main__":
+    result = asyncio.run(ml_pipeline(["Alice", None, "BOB", "charlie", None]))
+    with open("/home/user/flyte_project/pipeline_output.json", "w") as f:
+        json.dump(result, f)
+    print(result)
+```
+
+### Step 3 — Run the pipeline
+
+```bash
+python3 /home/user/flyte_project/dual_env_pipeline.py
+```
+
+The script writes the final evaluation result to `/home/user/flyte_project/pipeline_output.json`.
+
+## Constraints
+
+- Project path: `/home/user/flyte_project`
+- Log file: `/home/user/flyte_project/pipeline_output.json`
+- Use `pip install flyte` (Flyte 2.0 package name).
+- Do NOT use the old `flytekit` API — use `flyte` (the new package).
+- Tasks must be `async def` decorated with `@env.task`.
+- The `ml_pipeline` task must call `clean_data`, `train_model`, and `evaluate_model` in sequence via `await`.
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

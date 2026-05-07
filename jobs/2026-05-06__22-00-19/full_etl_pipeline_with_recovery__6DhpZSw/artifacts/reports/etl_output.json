@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "status": "processed",
+    "data": "db_record_1",
+    "source": "database",
+    "transformed_data": "DB_RECORD_1"
+  },
+  {
+    "id": 2,
+    "status": "processed",
+    "data": "db_record_2",
+    "source": "database",
+    "transformed_data": "DB_RECORD_2"
+  },
+  {
+    "id": 3,
+    "status": "processed",
+    "data": "api_record_1",
+    "source": "api",
+    "transformed_data": "API_RECORD_1"
+  },
+  {
+    "id": 4,
+    "status": "processed",
+    "data": "api_record_2",
+    "source": "api",
+    "transformed_data": "API_RECORD_2"
+  }
+]

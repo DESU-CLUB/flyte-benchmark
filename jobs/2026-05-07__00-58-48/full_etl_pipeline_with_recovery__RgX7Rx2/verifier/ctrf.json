@@ -1,0 +1,95 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 3,
+            "failed": 4,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778140810.3787746,
+            "stop": 1778140810.4290524
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_etl_pipeline_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00042527890764176846,
+                "start": 1778140810.3844569,
+                "stop": 1778140810.3911238,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_etl_pipeline_file_exists():\n        \"\"\"etl_pipeline.py must exist in the project directory.\"\"\"\n>       assert os.path.isfile(ETL_PIPELINE_FILE), (\n            f\"Expected '{ETL_PIPELINE_FILE}' to exist, but it was not found.\"\n        )\nE       AssertionError: Expected '/home/user/flyte_project/etl_pipeline.py' to exist, but it was not found.\nE       assert False\nE        +  where False = <function isfile at 0xe8b993ed0220>('/home/user/flyte_project/etl_pipeline.py')\nE        +    where <function isfile at 0xe8b993ed0220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:23: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_main_file_exists",
+                "status": "passed",
+                "duration": 0.00032282399479299784,
+                "start": 1778140810.3912401,
+                "stop": 1778140810.3916917,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_main_runs_successfully",
+                "status": "passed",
+                "duration": 0.024100917857140303,
+                "start": 1778140810.391778,
+                "stop": 1778140810.4178843,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_file_exists",
+                "status": "passed",
+                "duration": 0.0003470320953056216,
+                "start": 1778140810.4180217,
+                "stop": 1778140810.4184766,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_warehouse_status_loaded",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0003708649892359972,
+                "start": 1778140810.4185798,
+                "stop": 1778140810.4218893,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_warehouse_status_loaded():\n        \"\"\"The output must contain warehouse_status == 'loaded'.\"\"\"\n        data = _load_output()\n        assert \"warehouse_status\" in data, (\n>           f\"'warehouse_status' key missing from output. Got keys: {list(data.keys())}\"\n                                                                          ^^^^^^^^^\n        )\nE       AttributeError: 'list' object has no attribute 'keys'\n\n/tests/test_final_state.py:77: AttributeError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_sources_contain_database_and_api",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00033719895873218775,
+                "start": 1778140810.4219759,
+                "stop": 1778140810.424979,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_sources_contain_database_and_api():\n        \"\"\"The output sources list must include 'database' and 'api'.\"\"\"\n        data = _load_output()\n        assert \"sources\" in data, (\n>           f\"'sources' key missing from output. Got keys: {list(data.keys())}\"\n                                                                 ^^^^^^^^^\n        )\nE       AttributeError: 'list' object has no attribute 'keys'\n\n/tests/test_final_state.py:88: AttributeError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_total_records_is_twelve",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0003659080248326063,
+                "start": 1778140810.4250746,
+                "stop": 1778140810.4289045,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_total_records_is_twelve():\n        \"\"\"total_records must equal 12 (7 from database + 5 from api).\"\"\"\n        data = _load_output()\n        assert \"total_records\" in data, (\n>           f\"'total_records' key missing from output. Got keys: {list(data.keys())}\"\n                                                                       ^^^^^^^^^\n        )\nE       AttributeError: 'list' object has no attribute 'keys'\n\n/tests/test_final_state.py:103: AttributeError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

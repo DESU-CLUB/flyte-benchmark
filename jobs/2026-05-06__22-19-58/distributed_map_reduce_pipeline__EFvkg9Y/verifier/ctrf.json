@@ -1,0 +1,107 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 3,
+            "failed": 5,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778131701.1898644,
+            "stop": 1778131701.2853
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_mapreduce_file_exists",
+                "status": "passed",
+                "duration": 0.00041627895552664995,
+                "start": 1778131701.1961205,
+                "stop": 1778131701.1967225,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_mapreduce_runs_successfully",
+                "status": "passed",
+                "duration": 0.07009666506201029,
+                "start": 1778131701.1967978,
+                "stop": 1778131701.26752,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_file_exists",
+                "status": "passed",
+                "duration": 0.0009175980230793357,
+                "start": 1778131701.267654,
+                "stop": 1778131701.2687116,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_total_words_is_eleven",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00040652905590832233,
+                "start": 1778131701.2687855,
+                "stop": 1778131701.2768805,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_total_words_is_eleven():\n        \"\"\"total_words must equal 11 for the sample input text.\"\"\"\n        data = _load_output()\n>       assert \"total_words\" in data, (\n            f\"'total_words' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'total_words' key missing from output. Got keys: ['0', '2', 'asyncio', 'counts', 'distributed', 'enables', 'example', 'flyte', 'frequencies', 'map', 'reduce', 'this', 'using', 'word', 'workloads']\nE       assert 'total_words' in {'0': 1, '2': 1, 'asyncio': 1, 'counts': 1, ...}\n\ntests/test_final_state.py:68: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_unique_words_is_nine",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0007565609412267804,
+                "start": 1778131701.276974,
+                "stop": 1778131701.2788131,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_unique_words_is_nine():\n        \"\"\"unique_words must equal 9 for the sample input text.\"\"\"\n        data = _load_output()\n>       assert \"unique_words\" in data, (\n            f\"'unique_words' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'unique_words' key missing from output. Got keys: ['0', '2', 'asyncio', 'counts', 'distributed', 'enables', 'example', 'flyte', 'frequencies', 'map', 'reduce', 'this', 'using', 'word', 'workloads']\nE       assert 'unique_words' in {'0': 1, '2': 1, 'asyncio': 1, 'counts': 1, ...}\n\ntests/test_final_state.py:80: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frequency_the_is_three",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0005038188537582755,
+                "start": 1778131701.2788928,
+                "stop": 1778131701.2809346,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_frequency_the_is_three():\n        \"\"\"frequencies['the'] must equal 3.\"\"\"\n        data = _load_output()\n        assert \"frequencies\" in data, (\n            f\"'frequencies' key missing from output. Got keys: {list(data.keys())}\"\n        )\n        freq = data[\"frequencies\"]\n>       assert \"the\" in freq, (\n               ^^^^^^^^^^^^^\n            f\"Expected 'the' in frequencies, got keys: {list(freq.keys())}\"\n        )\nE       TypeError: argument of type 'int' is not iterable\n\ntests/test_final_state.py:96: TypeError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_frequency_fox_is_two",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.001147715956903994,
+                "start": 1778131701.2810154,
+                "stop": 1778131701.2834792,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_frequency_fox_is_two():\n        \"\"\"frequencies['fox'] must equal 2.\"\"\"\n        data = _load_output()\n        assert \"frequencies\" in data, (\n            f\"'frequencies' key missing from output. Got keys: {list(data.keys())}\"\n        )\n        freq = data[\"frequencies\"]\n>       assert \"fox\" in freq, (\n               ^^^^^^^^^^^^^\n            f\"Expected 'fox' in frequencies, got keys: {list(freq.keys())}\"\n        )\nE       TypeError: argument of type 'int' is not iterable\n\ntests/test_final_state.py:112: TypeError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_frequency_quick_is_one",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0004341540625318885,
+                "start": 1778131701.2835622,
+                "stop": 1778131701.285148,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_frequency_quick_is_one():\n        \"\"\"frequencies['quick'] must equal 1.\"\"\"\n        data = _load_output()\n        assert \"frequencies\" in data, (\n            f\"'frequencies' key missing from output. Got keys: {list(data.keys())}\"\n        )\n        freq = data[\"frequencies\"]\n>       assert \"quick\" in freq, (\n               ^^^^^^^^^^^^^^^\n            f\"Expected 'quick' in frequencies, got keys: {list(freq.keys())}\"\n        )\nE       TypeError: argument of type 'int' is not iterable\n\ntests/test_final_state.py:128: TypeError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

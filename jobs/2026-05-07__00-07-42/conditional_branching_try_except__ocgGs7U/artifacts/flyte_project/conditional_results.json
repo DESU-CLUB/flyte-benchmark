@@ -1,0 +1,1 @@
+[{"class": "negative", "result": 5.0, "operation": "abs"}, {"class": "zero", "result": 0.0, "operation": "identity"}, {"class": "small_positive", "result": 6.0, "operation": "double"}, {"class": "large_positive", "result": 5.0, "operation": "sqrt"}]

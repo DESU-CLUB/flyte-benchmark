@@ -1,0 +1,146 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo task_with_secrets__bMXkSQv > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 Task with Secrets
+
+## Background
+
+Flyte 2.0 provides a `Secret` primitive that lets you declare secret dependencies at the task level using `@env.task(secret_requests=[...])`. In a local execution context, secrets are resolved from environment variables following the convention `<GROUP>__<KEY>` (upper-cased, hyphens replaced by underscores), or a plain fallback variable name. This task walks you through building a pipeline that reads an API key from the environment, uses it to simulate authenticated HTTP calls, and writes results to disk.
+
+## Requirements
+
+- Create `/home/user/flyte_project/secret_task.py` that:
+  1. Creates a `TaskEnvironment` named `"secure-env"`.
+  2. Declares a module-level `Secret`: `API_SECRET = flyte.Secret(key="api_key", group="my-secrets")`.
+  3. Defines an async task `authenticated_call(endpoint: str) -> dict` decorated with `@env.task(secret_requests=[API_SECRET])` that:
+     - Reads the API key from env var `MY_SECRETS__API_KEY` (Flyte local convention) or `API_KEY` as a fallback.
+     - Returns `{"endpoint": endpoint, "authenticated": api_key is not None and len(api_key) > 0, "key_length": len(api_key) if api_key else 0}`.
+  4. Defines an async task `run_secure_pipeline(endpoints: list) -> list` that calls `authenticated_call` for each endpoint using `asyncio.gather`.
+  5. In `__main__`, sets `os.environ["API_KEY"] = "test-api-key-12345"`, calls `asyncio.run(run_secure_pipeline(["/api/v1/data", "/api/v1/models"]))`, and writes the result to `/home/user/flyte_project/secure_output.json`.
+
+## Implementation Guide
+
+### Step 1 — Install Flyte 2.0
+
+```bash
+pip install flyte
+```
+
+### Step 2 — Create `/home/user/flyte_project/secret_task.py`
+
+```python
+import asyncio
+import json
+import os
+import flyte
+
+# 1. Create the task environment
+env = flyte.TaskEnvironment("secure-env")
+
+# 2. Declare the Secret
+API_SECRET = flyte.Secret(key="api_key", group="my-secrets")
+
+# 3. Authenticated call task
+@env.task(secret_requests=[API_SECRET])
+async def authenticated_call(endpoint: str) -> dict:
+    # Flyte local convention: GROUP__KEY (uppercased, hyphens replaced by underscores)
+    api_key = os.environ.get("MY_SECRETS__API_KEY") or os.environ.get("API_KEY")
+    return {
+        "endpoint": endpoint,
+        "authenticated": api_key is not None and len(api_key) > 0,
+        "key_length": len(api_key) if api_key else 0,
+    }
+
+# 4. Pipeline task
+@env.task
+async def run_secure_pipeline(endpoints: list) -> list:
+    results = await asyncio.gather(*[authenticated_call(ep) for ep in endpoints])
+    return list(results)
+
+if __name__ == "__main__":
+    os.environ["API_KEY"] = "test-api-key-12345"
+    result = asyncio.run(run_secure_pipeline(["/api/v1/data", "/api/v1/models"]))
+    with open("/home/user/flyte_project/secure_output.json", "w") as f:
+        json.dump(result, f)
+    print(result)
+```
+
+### Step 3 — Run the script
+
+```bash
+API_KEY="test-api-key-12345" python3 /home/user/flyte_project/secret_task.py
+```
+
+The script writes results to `/home/user/flyte_project/secure_output.json`.
+
+## Constraints
+
+- Project path: `/home/user/flyte_project`
+- Log file: `/home/user/flyte_project/secure_output.json`
+- Use `pip install flyte` (Flyte 2.0 package name).
+- Do NOT use the old `flytekit` API — use `flyte` (the new package).
+- Tasks must be `async def` decorated with `@env.task`.
+- For local execution, the API key is provided via the `API_KEY` environment variable (or `MY_SECRETS__API_KEY`).
+- The `run_secure_pipeline` task must call `authenticated_call` for each endpoint concurrently using `asyncio.gather`.
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

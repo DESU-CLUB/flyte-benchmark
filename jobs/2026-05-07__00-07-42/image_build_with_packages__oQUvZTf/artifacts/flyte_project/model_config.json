@@ -1,0 +1,6 @@
+{
+  "model_type": "logistic_regression",
+  "n_features": 5,
+  "n_samples": 100,
+  "model_env": "production"
+}

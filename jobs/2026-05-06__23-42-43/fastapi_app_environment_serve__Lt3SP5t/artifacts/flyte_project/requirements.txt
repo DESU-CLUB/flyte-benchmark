@@ -1,0 +1,11 @@
+# Flyte 2.0 ML Prediction API — runtime dependencies
+#
+# Core framework
+flyte>=2.2.0
+
+# HTTP server
+fastapi>=0.100.0
+uvicorn[standard]>=0.23.0
+
+# Data validation (FastAPI depends on pydantic v2)
+pydantic>=2.0.0

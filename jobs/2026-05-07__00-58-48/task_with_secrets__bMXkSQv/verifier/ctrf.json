@@ -1,0 +1,110 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 6,
+            "failed": 3,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778141143.0126061,
+            "stop": 1778141143.16076
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_secret_task_script_exists",
+                "status": "passed",
+                "duration": 0.000413079047575593,
+                "start": 1778141143.0202644,
+                "stop": 1778141143.0209079,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_runs_successfully",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0859503160463646,
+                "start": 1778141143.0210052,
+                "stop": 1778141143.1175234,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_runs_successfully():\n        \"\"\"Priority 1: Run the agent's script with API_KEY set and assert returncode == 0.\"\"\"\n        env = {\n            \"API_KEY\": TEST_API_KEY,\n            \"PATH\": os.environ.get(\"PATH\", \"\"),\n        }\n        result = subprocess.run(\n            [\"python3\", SCRIPT_PATH],\n            capture_output=True,\n            text=True,\n            cwd=PROJECT_DIR,\n            env=env,\n        )\n>       assert result.returncode == 0, (\n            f\"python3 secret_task.py failed with returncode {result.returncode}.\\n\"\n            f\"stdout: {result.stdout}\\nstderr: {result.stderr}\"\n        )\nE       AssertionError: python3 secret_task.py failed with returncode 1.\nE         stdout: Filtered traceback (most recent call last):\nE         TypeError: TaskEnvironment.task() got an unexpected keyword argument 'secret_requests'\nE         \nE         \nE         stderr:   File \"/home/user/flyte_project/secret_task.py\", line 13, in <module>\nE             @env.task(secret_requests=[API_SECRET])\nE              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['python3', '/home/user/flyte_project/secret_task.py'], returncode=1, stdout=\"Filtered traceback...py\", line 13, in <module>\\n    @env.task(secret_requests=[API_SECRET])\\n     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n').returncode\n\ntests/test_final_state.py:37: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_output_file_exists",
+                "status": "passed",
+                "duration": 0.0005937020760029554,
+                "start": 1778141143.117661,
+                "stop": 1778141143.1184158,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_is_list_of_two_items",
+                "status": "passed",
+                "duration": 0.0005840359954163432,
+                "start": 1778141143.1186135,
+                "stop": 1778141143.1193545,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_both_items_authenticated",
+                "status": "passed",
+                "duration": 0.0004640769911929965,
+                "start": 1778141143.1194289,
+                "stop": 1778141143.1200259,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_both_items_key_length_18",
+                "status": "passed",
+                "duration": 0.00025316409301012754,
+                "start": 1778141143.1201038,
+                "stop": 1778141143.1204603,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_contains_both_endpoints",
+                "status": "passed",
+                "duration": 0.00024953787215054035,
+                "start": 1778141143.1205225,
+                "stop": 1778141143.1208649,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_api_secret_key_attribute",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.029678883962333202,
+                "start": 1778141143.1209223,
+                "stop": 1778141143.1562276,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_api_secret_key_attribute():\n        \"\"\"Priority 1 (module import): Assert API_SECRET.key == 'api_key'.\"\"\"\n>       mod = _load_module()\n              ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:119: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_final_state.py:113: in _load_module\n    spec.loader.exec_module(mod)\n<frozen importlib._bootstrap_external>:995: in exec_module\n    ???\n<frozen importlib._bootstrap>:488: in _call_with_frames_removed\n    ???\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    import asyncio\n    import json\n    import os\n    import flyte\n    \n    # 1. Create the task environment\n    env = flyte.TaskEnvironment(\"secure-env\")\n    \n    # 2. Declare the Secret\n    API_SECRET = flyte.Secret(key=\"api_key\", group=\"my-secrets\")\n    \n    # 3. Authenticated call task\n>   @env.task(secret_requests=[API_SECRET])\n     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   TypeError: TaskEnvironment.task() got an unexpected keyword argument 'secret_requests'\n\nhome/user/flyte_project/secret_task.py:13: TypeError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_api_secret_group_attribute",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.000628034002147615,
+                "start": 1778141143.1563988,
+                "stop": 1778141143.1605122,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_api_secret_group_attribute():\n        \"\"\"Priority 1 (module import): Assert API_SECRET.group == 'my-secrets'.\"\"\"\n>       mod = _load_module()\n              ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:130: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_final_state.py:113: in _load_module\n    spec.loader.exec_module(mod)\n<frozen importlib._bootstrap_external>:995: in exec_module\n    ???\n<frozen importlib._bootstrap>:488: in _call_with_frames_removed\n    ???\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    import asyncio\n    import json\n    import os\n    import flyte\n    \n    # 1. Create the task environment\n    env = flyte.TaskEnvironment(\"secure-env\")\n    \n    # 2. Declare the Secret\n    API_SECRET = flyte.Secret(key=\"api_key\", group=\"my-secrets\")\n    \n    # 3. Authenticated call task\n>   @env.task(secret_requests=[API_SECRET])\n     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   TypeError: TaskEnvironment.task() got an unexpected keyword argument 'secret_requests'\n\nhome/user/flyte_project/secret_task.py:13: TypeError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

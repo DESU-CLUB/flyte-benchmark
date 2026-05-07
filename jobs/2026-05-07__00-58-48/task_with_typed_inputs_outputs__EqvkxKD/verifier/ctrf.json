@@ -1,0 +1,83 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778141239.787099,
+            "stop": 1778141239.8774574
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_pipeline_py_exists",
+                "status": "passed",
+                "duration": 0.00048049422912299633,
+                "start": 1778141239.7945218,
+                "stop": 1778141239.795207,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_pipeline_runs_successfully",
+                "status": "passed",
+                "duration": 0.07871390494983643,
+                "start": 1778141239.7953146,
+                "stop": 1778141239.874293,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_report_json_exists",
+                "status": "passed",
+                "duration": 0.00029737199656665325,
+                "start": 1778141239.8744075,
+                "stop": 1778141239.8748264,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_report_json_is_valid_and_accuracy_in_range",
+                "status": "passed",
+                "duration": 0.000599829014390707,
+                "start": 1778141239.8749003,
+                "stop": 1778141239.8756878,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_report_json_accuracy_is_correct",
+                "status": "passed",
+                "duration": 0.0004261209396645427,
+                "start": 1778141239.8758287,
+                "stop": 1778141239.87637,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_report_json_loss_is_correct",
+                "status": "passed",
+                "duration": 0.000289623043499887,
+                "start": 1778141239.8764837,
+                "stop": 1778141239.876907,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_report_json_epoch_is_correct",
+                "status": "passed",
+                "duration": 0.0002284980146214366,
+                "start": 1778141239.8769767,
+                "stop": 1778141239.877303,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

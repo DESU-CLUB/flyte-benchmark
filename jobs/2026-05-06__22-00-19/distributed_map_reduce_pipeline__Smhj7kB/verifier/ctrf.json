@@ -1,0 +1,107 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 3,
+            "failed": 5,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778130666.9320464,
+            "stop": 1778130667.2990522
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_mapreduce_file_exists",
+                "status": "passed",
+                "duration": 0.0003629080019891262,
+                "start": 1778130666.94261,
+                "stop": 1778130666.9431496,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_mapreduce_runs_successfully",
+                "status": "passed",
+                "duration": 0.33044840896036476,
+                "start": 1778130666.9432282,
+                "stop": 1778130667.274702,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_file_exists",
+                "status": "passed",
+                "duration": 0.0002722849603742361,
+                "start": 1778130667.2748387,
+                "stop": 1778130667.2752538,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_total_words_is_eleven",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.000560860033147037,
+                "start": 1778130667.2753546,
+                "stop": 1778130667.2878394,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_total_words_is_eleven():\n        \"\"\"total_words must equal 11 for the sample input text.\"\"\"\n        data = _load_output()\n>       assert \"total_words\" in data, (\n            f\"'total_words' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'total_words' key missing from output. Got keys: ['flyte', 'is', 'a', 'cloud-native', 'workflow', 'orchestrator', 'built', 'on', 'kubernetes', 'to', 'handle', 'distributed', 'computing', 'this', 'task', 'implements', 'word', 'counter', 'using', '2.0', 'systems', 'can', 'be', 'complex', 'but', 'makes', 'them', 'easier', 'map-reduce', 'classic', 'pattern', 'for', 'processing', 'we', 'use', 'asyncio.gather', 'parallel', 'execution', 'of', 'map', 'tasks', 'the', 'results', 'are', 'then', 'reduced', 'into', 'single', 'frequency', 'count', 'provides', 'modern', 'sdk', 'compound', 'ai', 'and', 'workflows']\nE       assert 'total_words' in {'2.0': 2, 'a': 5, 'ai': 1, 'and': 1, ...}\n\ntests/test_final_state.py:68: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_unique_words_is_nine",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.000598444021306932,
+                "start": 1778130667.2879758,
+                "stop": 1778130667.2899756,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_unique_words_is_nine():\n        \"\"\"unique_words must equal 9 for the sample input text.\"\"\"\n        data = _load_output()\n>       assert \"unique_words\" in data, (\n            f\"'unique_words' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'unique_words' key missing from output. Got keys: ['flyte', 'is', 'a', 'cloud-native', 'workflow', 'orchestrator', 'built', 'on', 'kubernetes', 'to', 'handle', 'distributed', 'computing', 'this', 'task', 'implements', 'word', 'counter', 'using', '2.0', 'systems', 'can', 'be', 'complex', 'but', 'makes', 'them', 'easier', 'map-reduce', 'classic', 'pattern', 'for', 'processing', 'we', 'use', 'asyncio.gather', 'parallel', 'execution', 'of', 'map', 'tasks', 'the', 'results', 'are', 'then', 'reduced', 'into', 'single', 'frequency', 'count', 'provides', 'modern', 'sdk', 'compound', 'ai', 'and', 'workflows']\nE       assert 'unique_words' in {'2.0': 2, 'a': 5, 'ai': 1, 'and': 1, ...}\n\ntests/test_final_state.py:80: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frequency_the_is_three",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0004901951178908348,
+                "start": 1778130667.2900984,
+                "stop": 1778130667.2938712,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_frequency_the_is_three():\n        \"\"\"frequencies['the'] must equal 3.\"\"\"\n        data = _load_output()\n>       assert \"frequencies\" in data, (\n            f\"'frequencies' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'frequencies' key missing from output. Got keys: ['flyte', 'is', 'a', 'cloud-native', 'workflow', 'orchestrator', 'built', 'on', 'kubernetes', 'to', 'handle', 'distributed', 'computing', 'this', 'task', 'implements', 'word', 'counter', 'using', '2.0', 'systems', 'can', 'be', 'complex', 'but', 'makes', 'them', 'easier', 'map-reduce', 'classic', 'pattern', 'for', 'processing', 'we', 'use', 'asyncio.gather', 'parallel', 'execution', 'of', 'map', 'tasks', 'the', 'results', 'are', 'then', 'reduced', 'into', 'single', 'frequency', 'count', 'provides', 'modern', 'sdk', 'compound', 'ai', 'and', 'workflows']\nE       assert 'frequencies' in {'2.0': 2, 'a': 5, 'ai': 1, 'and': 1, ...}\n\ntests/test_final_state.py:92: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frequency_fox_is_two",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.000499861896969378,
+                "start": 1778130667.2939823,
+                "stop": 1778130667.2958453,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_frequency_fox_is_two():\n        \"\"\"frequencies['fox'] must equal 2.\"\"\"\n        data = _load_output()\n>       assert \"frequencies\" in data, (\n            f\"'frequencies' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'frequencies' key missing from output. Got keys: ['flyte', 'is', 'a', 'cloud-native', 'workflow', 'orchestrator', 'built', 'on', 'kubernetes', 'to', 'handle', 'distributed', 'computing', 'this', 'task', 'implements', 'word', 'counter', 'using', '2.0', 'systems', 'can', 'be', 'complex', 'but', 'makes', 'them', 'easier', 'map-reduce', 'classic', 'pattern', 'for', 'processing', 'we', 'use', 'asyncio.gather', 'parallel', 'execution', 'of', 'map', 'tasks', 'the', 'results', 'are', 'then', 'reduced', 'into', 'single', 'frequency', 'count', 'provides', 'modern', 'sdk', 'compound', 'ai', 'and', 'workflows']\nE       assert 'frequencies' in {'2.0': 2, 'a': 5, 'ai': 1, 'and': 1, ...}\n\ntests/test_final_state.py:108: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frequency_quick_is_one",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0004884880036115646,
+                "start": 1778130667.295964,
+                "stop": 1778130667.2987633,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_frequency_quick_is_one():\n        \"\"\"frequencies['quick'] must equal 1.\"\"\"\n        data = _load_output()\n>       assert \"frequencies\" in data, (\n            f\"'frequencies' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'frequencies' key missing from output. Got keys: ['flyte', 'is', 'a', 'cloud-native', 'workflow', 'orchestrator', 'built', 'on', 'kubernetes', 'to', 'handle', 'distributed', 'computing', 'this', 'task', 'implements', 'word', 'counter', 'using', '2.0', 'systems', 'can', 'be', 'complex', 'but', 'makes', 'them', 'easier', 'map-reduce', 'classic', 'pattern', 'for', 'processing', 'we', 'use', 'asyncio.gather', 'parallel', 'execution', 'of', 'map', 'tasks', 'the', 'results', 'are', 'then', 'reduced', 'into', 'single', 'frequency', 'count', 'provides', 'modern', 'sdk', 'compound', 'ai', 'and', 'workflows']\nE       assert 'frequencies' in {'2.0': 2, 'a': 5, 'ai': 1, 'and': 1, ...}\n\ntests/test_final_state.py:124: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

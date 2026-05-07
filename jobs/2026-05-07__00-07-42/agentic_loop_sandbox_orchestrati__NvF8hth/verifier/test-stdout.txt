@@ -1,0 +1,134 @@
+Collecting pluggy
+  Downloading pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+Collecting pytest==8.4.1
+  Downloading pytest-8.4.1-py3-none-any.whl.metadata (7.7 kB)
+Collecting pytest-json-ctrf==0.3.5
+  Downloading pytest_json_ctrf-0.3.5-py3-none-any.whl.metadata (3.3 kB)
+Collecting pochi-verifier
+  Downloading pochi_verifier-0.2.0-py3-none-any.whl.metadata (3.0 kB)
+Collecting iniconfig>=1 (from pytest==8.4.1)
+  Downloading iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting packaging>=20 (from pytest==8.4.1)
+  Downloading packaging-26.2-py3-none-any.whl.metadata (3.5 kB)
+Collecting pygments>=2.7.2 (from pytest==8.4.1)
+  Using cached pygments-2.20.0-py3-none-any.whl.metadata (2.5 kB)
+Downloading pytest-8.4.1-py3-none-any.whl (365 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 365.5/365.5 kB 9.8 MB/s eta 0:00:00
+Downloading pytest_json_ctrf-0.3.5-py3-none-any.whl (6.8 kB)
+Downloading pluggy-1.6.0-py3-none-any.whl (20 kB)
+Downloading pochi_verifier-0.2.0-py3-none-any.whl (5.9 kB)
+Downloading iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+Downloading packaging-26.2-py3-none-any.whl (100 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.2/100.2 kB 20.0 MB/s eta 0:00:00
+Using cached pygments-2.20.0-py3-none-any.whl (1.2 MB)
+Installing collected packages: pygments, pochi-verifier, pluggy, packaging, iniconfig, pytest, pytest-json-ctrf
+Successfully installed iniconfig-2.3.0 packaging-26.2 pluggy-1.6.0 pochi-verifier-0.2.0 pygments-2.20.0 pytest-8.4.1 pytest-json-ctrf-0.3.5
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.1, pluggy-1.6.0
+rootdir: /tests
+plugins: json-ctrf-0.3.5, anyio-4.13.0
+collected 8 items
+
+tests/test_final_state.py .F.FFFFF                                       [100%]
+
+=================================== FAILURES ===================================
+________________________ test_script_runs_without_error ________________________
+
+    def test_script_runs_without_error():
+        """Priority 1: Execute the agent's script and assert it exits cleanly."""
+        result = subprocess.run(
+            ["python3", SCRIPT_PATH],
+            capture_output=True,
+            text=True,
+            cwd=PROJECT_DIR,
+        )
+>       assert result.returncode == 0, (
+            f"python3 agent_loop.py exited with code {result.returncode}.\n"
+            f"stdout: {result.stdout.strip()}\n"
+            f"stderr: {result.stderr.strip()}"
+        )
+E       AssertionError: python3 agent_loop.py exited with code 1.
+E         stdout: 
+E         stderr: Traceback (most recent call last):
+E           File "/home/user/flyte_project/agent_loop.py", line 13, in <module>
+E             import flytekit
+E         ModuleNotFoundError: No module named 'flytekit'
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['python3', '/home/user/flyte_project/agent_loop.py'], returncode=1, stdout='', stderr='Tracebac...roject/agent_loop.py", line 13, in <module>\n    import flytekit\nModuleNotFoundError: No module named \'flytekit\'\n').returncode
+
+tests/test_final_state.py:26: AssertionError
+__________________________ test_output_is_valid_json ___________________________
+
+    def test_output_is_valid_json():
+        """Priority 1 (runtime output): agent_output.json must be parseable JSON containing a dict."""
+        try:
+            data = _load_output()
+        except json.JSONDecodeError as exc:
+            pytest.fail(
+                f"agent_output.json is not valid JSON: {exc}\n"
+                f"Raw content: {open(OUTPUT_PATH).read()!r}"
+            )
+>       assert isinstance(data, dict), (
+            f"Expected agent_output.json to contain a JSON object, got: {type(data)}"
+        )
+E       AssertionError: Expected agent_output.json to contain a JSON object, got: <class 'list'>
+E       assert False
+E        +  where False = isinstance([{'final_result': 8.0, 'instruction': 'add 5 and 3', 'success': True, 'tool_calls': [{'error': None, 'parameters': {'a... 'tool_calls': [{'error': None, 'parameters': {'a': 100.0, 'b': 5.0}, 'result': 20.0, 'tool_name': 'divide_numbers'}]}], dict)
+
+tests/test_final_state.py:56: AssertionError
+_______________________ test_steps_completed_equals_two ________________________
+
+    def test_steps_completed_equals_two():
+        """Priority 1 (runtime output): steps_completed must be 2 (two instructions were processed)."""
+        data = _load_output()
+        assert "steps_completed" in data, (
+>           f"'steps_completed' key missing from agent_output.json. Got keys: {list(data.keys())}"
+                                                                                    ^^^^^^^^^
+        )
+E       AttributeError: 'list' object has no attribute 'keys'
+
+tests/test_final_state.py:65: AttributeError
+_________________________ test_results_is_list_of_two __________________________
+
+    def test_results_is_list_of_two():
+        """Priority 1 (runtime output): results must be a list with exactly 2 items."""
+        data = _load_output()
+        assert "results" in data, (
+>           f"'results' key missing from agent_output.json. Got keys: {list(data.keys())}"
+                                                                            ^^^^^^^^^
+        )
+E       AttributeError: 'list' object has no attribute 'keys'
+
+tests/test_final_state.py:77: AttributeError
+__________________________ test_first_result_is_add_8 __________________________
+
+    def test_first_result_is_add_8():
+        """Priority 1 (runtime output): first result must be 8.0 (add 5.0 + 3.0)."""
+        data = _load_output()
+>       results = data["results"]
+                  ^^^^^^^^^^^^^^^
+E       TypeError: list indices must be integers or slices, not str
+
+tests/test_final_state.py:92: TypeError
+______________________ test_second_result_is_multiply_28 _______________________
+
+    def test_second_result_is_multiply_28():
+        """Priority 1 (runtime output): second result must be 28.0 (multiply 4.0 * 7.0)."""
+        data = _load_output()
+>       results = data["results"]
+                  ^^^^^^^^^^^^^^^
+E       TypeError: list indices must be integers or slices, not str
+
+tests/test_final_state.py:110: TypeError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_agent_loop_script_exists
+PASSED tests/test_final_state.py::test_agent_output_json_exists
+FAILED tests/test_final_state.py::test_script_runs_without_error - AssertionE...
+FAILED tests/test_final_state.py::test_output_is_valid_json - AssertionError:...
+FAILED tests/test_final_state.py::test_steps_completed_equals_two - Attribute...
+FAILED tests/test_final_state.py::test_results_is_list_of_two - AttributeErro...
+FAILED tests/test_final_state.py::test_first_result_is_add_8 - TypeError: lis...
+FAILED tests/test_final_state.py::test_second_result_is_multiply_28 - TypeErr...
+========================= 6 failed, 2 passed in 0.04s ==========================

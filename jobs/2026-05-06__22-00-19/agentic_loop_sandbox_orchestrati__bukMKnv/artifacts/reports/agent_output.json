@@ -1,0 +1,44 @@
+[
+    {
+        "instruction": "Add 5 and 10",
+        "tool": "add",
+        "result": 15.0,
+        "error": null
+    },
+    {
+        "instruction": "Multiply 3 by 4",
+        "tool": "multiply",
+        "result": 12.0,
+        "error": null
+    },
+    {
+        "instruction": "Divide 20 by 5",
+        "tool": "divide",
+        "result": 4.0,
+        "error": null
+    },
+    {
+        "instruction": "What is the sum of 100 and 200?",
+        "tool": "add",
+        "result": 300.0,
+        "error": null
+    },
+    {
+        "instruction": "Divide 10 by 0",
+        "tool": "divide",
+        "result": null,
+        "error": "Cannot divide by zero"
+    },
+    {
+        "instruction": "Multiply 7 and 6",
+        "tool": "multiply",
+        "result": 42.0,
+        "error": null
+    },
+    {
+        "instruction": "Just a random sentence with no math.",
+        "tool": null,
+        "result": null,
+        "error": "No tool found for instruction: Just a random sentence with no math."
+    }
+]

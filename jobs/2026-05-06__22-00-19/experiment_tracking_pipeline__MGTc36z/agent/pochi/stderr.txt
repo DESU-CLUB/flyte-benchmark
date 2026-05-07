@@ -1,0 +1,38 @@
+[37m2026-05-07 05:09:12.414[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:1[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	pochi v0.6.8
+[37m2026-05-07 05:09:12.608[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:519633[39m[0m[0m[1m[37m	loadAgents[39m[22m[0m[0m	Loaded 6 custom agents (6 valid, 0 invalid)
+[37m2026-05-07 05:09:12.611[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:519634[39m[0m[0m[1m[37m	loadSkills[39m[22m[0m[0m	Loaded 2 skills (2 valid, 0 invalid)
+[37m2026-05-07 05:09:12.660[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:444677[39m[0m[0m[1m[37m	PochiVendor[39m[22m[0m[0m	JWT is expiring or missing, fetching a new one
+[37m2026-05-07 05:09:13.787[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:416517[39m[0m[0m[1m[37m	MCPHub[39m[22m[0m[0m	MCP servers configuration changed via signal:
+[37m2026-05-07 05:09:13.788[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:416629[39m[0m[0m[1m[37m	MCPHub[39m[22m[0m[0m	Build MCPHub Status
+[37m2026-05-07 05:09:13.849[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Starting task runner...
+[37m2026-05-07 05:09:13.982[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:507614[39m[0m[0m[1m[37m	generateTaskTitle[39m[22m[0m[0m	Generating task title, old: null, new: # Preserving your work
+[37m2026-05-07 05:09:25.276[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:507614[39m[0m[0m[1m[37m	generateTaskTitle[39m[22m[0m[0m	Generating task title, old: # Preserving your work, new: Build a Flyte 2.0 experiment tracking pipeline
+[37m2026-05-07 05:09:33.826[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:463047[39m[0m[0m[1m[37m	listFiles[39m[22m[0m[0m	handling listFile with dirPath /home/user/ and recursive [90mundefined[39m
+[37m2026-05-07 05:09:41.749[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:104855[39m[0m[0m[1m[37m	MjpegToMp4[39m[22m[0m[0m	Failed to get available codecs. Cannot find ffmpeg
+[37m2026-05-07 05:09:41.750[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:104855[39m[0m[0m[1m[37m	MjpegToMp4[39m[22m[0m[0m	Failed to get available formats. Cannot find ffmpeg
+[37m2026-05-07 05:09:41.922[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:507614[39m[0m[0m[1m[37m	generateTaskTitle[39m[22m[0m[0m	Generating task title, old: null, new: Find information about Flyte 2.0 (or latest flytekit) specifically regarding:
+[37m2026-05-07 05:10:00.314[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m$bunfs/root/pochi:507614[39m[0m[0m[1m[37m	generateTaskTitle[39m[22m[0m[0m	Generating task title, old: Find information about Flyte 2.0 (or latest flytekit) specifically regarding:, new: Research Flyte task environments and parallel execution with asyncio
+664 |     var file = this.spawnfile = options.file, spawnargs;
+665 |     if (options.args === @undefined)
+666 |       spawnargs = this.spawnargs = [];
+667 |     else
+668 |       validateArray(options.args, "options.args"), spawnargs = this.spawnargs = options.args;
+669 |       if (this.#handle = Bun.spawn({
+                               ^
+error: Executable not found in $PATH: "agent-browser"
+      path: "agent-browser",
+     errno: -2,
+   syscall: "spawn agent-browser",
+ spawnargs: [ "close" ],
+      code: "ENOENT"
+
+      at spawn (node:child_process:669:35)
+      at spawn (node:child_process:14:39)
+      at unregisterBrowserSession (/$bunfs/root/pochi:458375:26)
+      at unregisterBrowserSession (/$bunfs/root/pochi:458372:36)
+      at run (/$bunfs/root/pochi:519070:75)
+      at async step (/$bunfs/root/pochi:519136:39)
+      at async run (/$bunfs/root/pochi:519052:43)
+[37m2026-05-07 05:11:31.687[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Process exiting with code 1
+
+Bun v1.3.4 (Linux arm64)

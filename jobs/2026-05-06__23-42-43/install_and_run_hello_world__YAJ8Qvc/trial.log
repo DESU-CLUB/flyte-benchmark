@@ -1,0 +1,107 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo install_and_run_hello_world__YAJ8Qvc > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model anthropic/claude-4-6-sonnet --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 Hello World
+
+## Overview
+
+You have Flyte 2.0 installed in this environment (`pip install flyte`). Your task is to create a simple Flyte task that greets a user by name and run it locally.
+
+## Requirements
+
+### 1. Create the project file
+
+Create a Python script at `/home/user/flyte_project/hello.py` that does the following:
+
+- Imports the `flyte` package.
+- Creates a `TaskEnvironment` named `"local-env"` (assign it to a variable called `env`).
+- Defines a task function `greet(name: str) -> str` decorated with `@env.task` that returns `f"Hello, {name}!"`.
+- In a `if __name__ == "__main__":` block, calls `greet` with the argument `"World"` using `asyncio.run()` and prints the result.
+
+### 2. Run the script and capture output
+
+Execute the script and save its output:
+
+```bash
+python /home/user/flyte_project/hello.py > /home/user/flyte_project/output.log
+```
+
+## Key Details
+
+- **Project path**: `/home/user/flyte_project/hello.py`
+- **Log file path**: `/home/user/flyte_project/output.log`
+- The `flyte` package is already installed — do **not** reinstall it.
+- Flyte 2.0 tasks decorated with `@env.task` are async functions; use `asyncio.run()` to call them.
+- There is **no** `@workflow` decorator in Flyte 2.0 — workflows are just tasks that call other tasks.
+
+## Expected Behaviour
+
+When the script is run, it should print:
+
+```
+Hello, World!
+```
+
+This output must be captured in `/home/user/flyte_project/output.log`.
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

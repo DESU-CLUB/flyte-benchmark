@@ -1,0 +1,101 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 9,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778138156.7391675,
+            "stop": 1778138156.830216
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_secret_task_script_exists",
+                "status": "passed",
+                "duration": 0.0003204959211871028,
+                "start": 1778138156.7459757,
+                "stop": 1778138156.7464855,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_runs_successfully",
+                "status": "passed",
+                "duration": 0.05753841402474791,
+                "start": 1778138156.7465615,
+                "stop": 1778138156.804326,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_file_exists",
+                "status": "passed",
+                "duration": 0.00029141304548829794,
+                "start": 1778138156.8044393,
+                "stop": 1778138156.8048935,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_is_list_of_two_items",
+                "status": "passed",
+                "duration": 0.00029578700195997953,
+                "start": 1778138156.8049572,
+                "stop": 1778138156.8053644,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_both_items_authenticated",
+                "status": "passed",
+                "duration": 0.0002773288870230317,
+                "start": 1778138156.805426,
+                "stop": 1778138156.8058212,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_both_items_key_length_18",
+                "status": "passed",
+                "duration": 0.00027382990811020136,
+                "start": 1778138156.8058789,
+                "stop": 1778138156.8062544,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_contains_both_endpoints",
+                "status": "passed",
+                "duration": 0.000255538965575397,
+                "start": 1778138156.806308,
+                "stop": 1778138156.806661,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_api_secret_key_attribute",
+                "status": "passed",
+                "duration": 0.02266360295470804,
+                "start": 1778138156.8067203,
+                "stop": 1778138156.8295548,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_api_secret_group_attribute",
+                "status": "passed",
+                "duration": 0.0003450369695201516,
+                "start": 1778138156.8296492,
+                "stop": 1778138156.83009,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

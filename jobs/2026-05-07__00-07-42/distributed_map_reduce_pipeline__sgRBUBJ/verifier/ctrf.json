@@ -1,0 +1,107 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 3,
+            "failed": 5,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778138708.5197725,
+            "stop": 1778138708.9565704
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_mapreduce_file_exists",
+                "status": "passed",
+                "duration": 0.00027710001450031996,
+                "start": 1778138708.5253398,
+                "stop": 1778138708.5257373,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_mapreduce_runs_successfully",
+                "status": "passed",
+                "duration": 0.41847723606042564,
+                "start": 1778138708.525804,
+                "stop": 1778138708.9445422,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_file_exists",
+                "status": "passed",
+                "duration": 0.0003625638782978058,
+                "start": 1778138708.9446523,
+                "stop": 1778138708.9451525,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_total_words_is_eleven",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0004346520872786641,
+                "start": 1778138708.9452283,
+                "stop": 1778138708.9510124,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_total_words_is_eleven():\n        \"\"\"total_words must equal 11 for the sample input text.\"\"\"\n        data = _load_output()\n>       assert \"total_words\" in data, (\n            f\"'total_words' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'total_words' key missing from output. Got keys: ['total_unique_words', 'total_word_count', 'word_frequencies']\nE       assert 'total_words' in {'total_unique_words': 121, 'total_word_count': 190, 'word_frequencies': {'a': 11, 'across': 1, 'aggregated': 1, 'algorithm': 1, ...}}\n\ntests/test_final_state.py:68: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_unique_words_is_nine",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0004152760375291109,
+                "start": 1778138708.951079,
+                "stop": 1778138708.952467,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_unique_words_is_nine():\n        \"\"\"unique_words must equal 9 for the sample input text.\"\"\"\n        data = _load_output()\n>       assert \"unique_words\" in data, (\n            f\"'unique_words' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'unique_words' key missing from output. Got keys: ['total_unique_words', 'total_word_count', 'word_frequencies']\nE       assert 'unique_words' in {'total_unique_words': 121, 'total_word_count': 190, 'word_frequencies': {'a': 11, 'across': 1, 'aggregated': 1, 'algorithm': 1, ...}}\n\ntests/test_final_state.py:80: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frequency_the_is_three",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0003818570403382182,
+                "start": 1778138708.9525335,
+                "stop": 1778138708.954062,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_frequency_the_is_three():\n        \"\"\"frequencies['the'] must equal 3.\"\"\"\n        data = _load_output()\n>       assert \"frequencies\" in data, (\n            f\"'frequencies' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'frequencies' key missing from output. Got keys: ['total_unique_words', 'total_word_count', 'word_frequencies']\nE       assert 'frequencies' in {'total_unique_words': 121, 'total_word_count': 190, 'word_frequencies': {'a': 11, 'across': 1, 'aggregated': 1, 'algorithm': 1, ...}}\n\ntests/test_final_state.py:92: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frequency_fox_is_two",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00029647594783455133,
+                "start": 1778138708.9541237,
+                "stop": 1778138708.9552596,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_frequency_fox_is_two():\n        \"\"\"frequencies['fox'] must equal 2.\"\"\"\n        data = _load_output()\n>       assert \"frequencies\" in data, (\n            f\"'frequencies' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'frequencies' key missing from output. Got keys: ['total_unique_words', 'total_word_count', 'word_frequencies']\nE       assert 'frequencies' in {'total_unique_words': 121, 'total_word_count': 190, 'word_frequencies': {'a': 11, 'across': 1, 'aggregated': 1, 'algorithm': 1, ...}}\n\ntests/test_final_state.py:108: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frequency_quick_is_one",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00028847611974924803,
+                "start": 1778138708.9553204,
+                "stop": 1778138708.956449,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_frequency_quick_is_one():\n        \"\"\"frequencies['quick'] must equal 1.\"\"\"\n        data = _load_output()\n>       assert \"frequencies\" in data, (\n            f\"'frequencies' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'frequencies' key missing from output. Got keys: ['total_unique_words', 'total_word_count', 'word_frequencies']\nE       assert 'frequencies' in {'total_unique_words': 121, 'total_word_count': 190, 'word_frequencies': {'a': 11, 'across': 1, 'aggregated': 1, 'algorithm': 1, ...}}\n\ntests/test_final_state.py:124: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

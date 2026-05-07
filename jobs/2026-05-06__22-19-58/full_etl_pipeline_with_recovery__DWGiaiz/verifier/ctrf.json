@@ -1,0 +1,101 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 7,
+            "passed": 1,
+            "failed": 6,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778131318.0336576,
+            "stop": 1778131318.058882
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_etl_pipeline_file_exists",
+                "status": "passed",
+                "duration": 0.0003416570834815502,
+                "start": 1778131318.0389643,
+                "stop": 1778131318.0394647,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_main_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00034628179855644703,
+                "start": 1778131318.0395358,
+                "stop": 1778131318.0452535,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_main_file_exists():\n        \"\"\"main.py must exist in the project directory.\"\"\"\n>       assert os.path.isfile(MAIN_FILE), (\n            f\"Expected '{MAIN_FILE}' to exist, but it was not found.\"\n        )\nE       AssertionError: Expected '/home/user/flyte_project/main.py' to exist, but it was not found.\nE       assert False\nE        +  where False = <function isfile at 0xe0aa17650220>('/home/user/flyte_project/main.py')\nE        +    where <function isfile at 0xe0aa17650220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:30: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_main_runs_successfully",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.005986733944155276,
+                "start": 1778131318.0453253,
+                "stop": 1778131318.0525067,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_main_runs_successfully():\n        \"\"\"Running main.py with python3 must exit with returncode 0.\"\"\"\n        result = subprocess.run(\n            [\"python3\", MAIN_FILE],\n            capture_output=True,\n            text=True,\n            timeout=120,\n        )\n>       assert result.returncode == 0, (\n            f\"main.py exited with code {result.returncode}.\\n\"\n            f\"stdout:\\n{result.stdout}\\n\"\n            f\"stderr:\\n{result.stderr}\"\n        )\nE       AssertionError: main.py exited with code 2.\nE         stdout:\nE         \nE         stderr:\nE         python3: can't open file '/home/user/flyte_project/main.py': [Errno 2] No such file or directory\nE         \nE       assert 2 == 0\nE        +  where 2 = CompletedProcess(args=['python3', '/home/user/flyte_project/main.py'], returncode=2, stdout='', stderr=\"python3: can't open file '/home/user/flyte_project/main.py': [Errno 2] No such file or directory\\n\").returncode\n\n/tests/test_final_state.py:47: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_output_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00033099006395787,
+                "start": 1778131318.0525885,
+                "stop": 1778131318.0538466,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_output_file_exists():\n        \"\"\"etl_output.json must be created after running the pipeline.\"\"\"\n>       assert os.path.isfile(OUTPUT_FILE), (\n            f\"Expected '{OUTPUT_FILE}' to exist, but it was not found.\"\n        )\nE       AssertionError: Expected '/home/user/flyte_project/etl_output.json' to exist, but it was not found.\nE       assert False\nE        +  where False = <function isfile at 0xe0aa17650220>('/home/user/flyte_project/etl_output.json')\nE        +    where <function isfile at 0xe0aa17650220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:68: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_warehouse_status_loaded",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0002623259788379073,
+                "start": 1778131318.053914,
+                "stop": 1778131318.0556765,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_warehouse_status_loaded():\n        \"\"\"The output must contain warehouse_status == 'loaded'.\"\"\"\n>       data = _load_output()\n               ^^^^^^^^^^^^^^\n\n/tests/test_final_state.py:75: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _load_output() -> dict:\n>       assert os.path.isfile(OUTPUT_FILE), (\n            f\"Expected output file '{OUTPUT_FILE}' to exist after running main.py.\"\n        )\nE       AssertionError: Expected output file '/home/user/flyte_project/etl_output.json' to exist after running main.py.\nE       assert False\nE        +  where False = <function isfile at 0xe0aa17650220>('/home/user/flyte_project/etl_output.json')\nE        +    where <function isfile at 0xe0aa17650220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:59: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_sources_contain_database_and_api",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00026849203277379274,
+                "start": 1778131318.0557613,
+                "stop": 1778131318.0572753,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_sources_contain_database_and_api():\n        \"\"\"The output sources list must include 'database' and 'api'.\"\"\"\n>       data = _load_output()\n               ^^^^^^^^^^^^^^\n\n/tests/test_final_state.py:86: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _load_output() -> dict:\n>       assert os.path.isfile(OUTPUT_FILE), (\n            f\"Expected output file '{OUTPUT_FILE}' to exist after running main.py.\"\n        )\nE       AssertionError: Expected output file '/home/user/flyte_project/etl_output.json' to exist after running main.py.\nE       assert False\nE        +  where False = <function isfile at 0xe0aa17650220>('/home/user/flyte_project/etl_output.json')\nE        +    where <function isfile at 0xe0aa17650220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:59: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_total_records_is_twelve",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00024936802219599485,
+                "start": 1778131318.0573342,
+                "stop": 1778131318.0587485,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_total_records_is_twelve():\n        \"\"\"total_records must equal 12 (7 from database + 5 from api).\"\"\"\n>       data = _load_output()\n               ^^^^^^^^^^^^^^\n\n/tests/test_final_state.py:101: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _load_output() -> dict:\n>       assert os.path.isfile(OUTPUT_FILE), (\n            f\"Expected output file '{OUTPUT_FILE}' to exist after running main.py.\"\n        )\nE       AssertionError: Expected output file '/home/user/flyte_project/etl_output.json' to exist after running main.py.\nE       assert False\nE        +  where False = <function isfile at 0xe0aa17650220>('/home/user/flyte_project/etl_output.json')\nE        +    where <function isfile at 0xe0aa17650220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:59: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

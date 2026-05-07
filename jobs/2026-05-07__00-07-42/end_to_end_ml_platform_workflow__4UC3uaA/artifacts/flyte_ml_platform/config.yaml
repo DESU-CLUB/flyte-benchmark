@@ -1,0 +1,77 @@
+# Flyte 2.0 ML Platform Configuration
+
+# Project settings
+project:
+  name: flyte-ml-platform
+  version: "1.0.0"
+  domain: development
+
+# Data ingestion settings
+data_ingestion:
+  n_samples: 1000
+  n_features: 20
+  n_informative: 15
+  random_state: 42
+
+# Data validation settings
+data_validation:
+  min_samples: 100
+  max_missing_ratio: 0.1
+  check_for_duplicates: true
+  check_for_outliers: false
+
+# Model training settings
+model_training:
+  random_state: 42
+  models:
+    - name: random_forest
+      type: random_forest
+      params:
+        n_estimators: 100
+        max_depth: null
+        min_samples_split: 2
+        n_jobs: -1
+
+    - name: gradient_boosting
+      type: gradient_boosting
+      params:
+        n_estimators: 100
+        learning_rate: 0.1
+        max_depth: 3
+
+    - name: logistic_regression
+      type: logistic_regression
+      params:
+        max_iter: 1000
+        solver: lbfgs
+        multi_class: auto
+
+# Model evaluation settings
+model_evaluation:
+  metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1_score
+
+# Model selection settings
+model_selection:
+  default_metric: f1_score
+  available_metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1_score
+
+# Logging settings
+logging:
+  log_file: platform_output.json
+  log_level: INFO
+  log_to_console: true
+
+# Output settings
+output:
+  project_dir: /home/user/flyte_project
+  artifacts_dir: /logs/artifacts
+  save_models: true
+  save_predictions: false

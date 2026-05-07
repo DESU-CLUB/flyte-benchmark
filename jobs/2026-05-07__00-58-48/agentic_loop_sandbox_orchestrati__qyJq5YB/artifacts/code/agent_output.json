@@ -1,0 +1,18 @@
+[
+    {
+        "instruction": "Add 5 and 3",
+        "result": 8.0
+    },
+    {
+        "instruction": "Multiply 4 by 2.5",
+        "result": 10.0
+    },
+    {
+        "instruction": "Divide 10 by 2",
+        "result": 5.0
+    },
+    {
+        "instruction": "What is 100 plus 200?",
+        "result": 300.0
+    }
+]

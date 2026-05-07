@@ -1,0 +1,50 @@
+- Initializing MCP connections...
+You
+# Preserving your work Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable. *** # Flyte 2.0 — Task with Typed Inputs and Outputs ## Overview You have Flyte 2.0 installed in this environment (`pip install flyte`). Your task is to create a Python script that defines a multi-step ML metrics pipeline using Flyte 2.0's `TaskEnvironment` API, typed inputs/outputs with dataclasses, and runs it locally. ## Requirements ### 1. Create the project file Create a Python script at `/home/user/flyte_project/pipeline.py` that does the following: * Imports `flyte`, `dataclasses`, `json`, and `asyncio`. * Creates a `TaskEnvironment` named `"typed-env"` (assign it to a variable called `env`). * Defines a `@dataclass` named `ModelMetrics` with fields: * `accuracy: float` * `loss: float` * `epoch: int` * Defines a task `compute_metrics(predictions: list, labels: list) -> ModelMetrics` decorated with `@env.task` that: * Computes accuracy as the number of correct predictions divided by the total number of predictions (i.e., `sum(p == l for p, l in zip(predictions, labels)) / len(predictions)`). * Computes a fake loss as `1.0 - accuracy`. * Sets `epoch = 1`. * Returns a `ModelMetrics` instance. * Defines a task `format_report(metrics: ModelMetrics) -> str` decorated with `@env.task` that: * Returns a JSON string with fields `accuracy`, `loss`, and `epoch` from the metrics object. * Defines a task `run_pipeline(predictions: list, labels: list) -> str` decorated with `@env.task` that: * Calls `await compute_metrics(predictions, labels)` to get metrics. * Calls `await format_report(metrics)` to get the report string. * Returns the report string. * In a `if __name__ == "__main__":` block: * Calls `asyncio.run(run_pipeline([1, 1, 0, 1], [1, 0, 0, 1]))` and stores the result. * Writes the result string to `/home/user/flyte_project/report.json`. ### 2. Run the script Execute the script: ```bash python3 /home/user/flyte_project/pipeline.py ``` ## Key Details * **Project path**: `/home/user/flyte_project` * **Log file**: `/home/user/flyte_project/report.json` * The `flyte` package is already installed — do **not** reinstall it. * Flyte 2.0 tasks decorated with `@env.task` are `async def` functions; use `await` when calling them from another task and `asyncio.run()` at the top level. * There is **no** `@workflow` decorator in Flyte 2.0 — tasks are standalone async functions that can call each other with `await`. * Use Python's `dataclasses.dataclass` decorator (from the `dataclasses` module) to define `ModelMetrics`. ## Expected Behaviour When the script is run with `predictions=[1, 1, 0, 1]` and `labels=[1, 0, 0, 1]`: * 3 out of 4 predictions match → `accuracy = 0.75` * `loss = 1.0 - 0.75 = 0.25` * `epoch = 1` The file `/home/user/flyte_project/report.json` should contain a valid JSON object such as: ```json {"accuracy": 0.75, "loss": 0.25, "epoch": 1} ```   
+
+Pochi
+💭 Thinking for 55 characters   
+💫 Executing pip show flyte 2>/dev/null | head -5 ✔ 
+💫 Executing python3 -c "import flyte; print(dir(flyte))" ✔ 
+💫 Executing python3 -c "from flyte import TaskEnvironment; help(TaskEnvironment)" 2>&1 | head -60 ✔ 
+💫 Executing python3 -c "
+import flyte
+env = flyte.TaskEnvironment(name='test-env')
+
+@env.task
+async def hello(x: int) -> int:
+    return x + 1
+
+import asyncio
+result = asyncio.run(hello(5))
+print(result)
+" 2>&1 ✔ 
+The API works as expected. Now I'll create the project directory and script.   
+💫 Executing mkdir -p /home/user/flyte_project ✔ 
+✏️  Writing /home/user/flyte_project/pipeline.py ✔ 
+💫 Executing python3 /home/user/flyte_project/pipeline.py && echo "Exit code: $?" ✔ 
+💫 Executing cat /home/user/flyte_project/report.json ✔ 
+The output matches exactly. Now I'll copy the artifacts to `/logs/artifacts/`.   
+💫 Executing mkdir -p /logs/artifacts/code && cp /home/user/flyte_project/pipeline.py /logs/artifacts/code/ && cp /home/user/flyte_project/report.json /logs/artifacts/ ✔ 
+🎉 Task Completed
+The pipeline script was created and executed successfully.
+
+**Files created:**
+- `/home/user/flyte_project/pipeline.py` — the Flyte 2.0 multi-step ML metrics pipeline
+- `/home/user/flyte_project/report.json` — the output report
+
+**`report.json` contents:**
+```json
+{"accuracy": 0.75, "loss": 0.25, "epoch": 1}
+```
+
+**How it works:**
+1. `env = flyte.TaskEnvironment(name="typed-env")` — creates the task environment.
+2. `ModelMetrics` — a `@dataclass` with `accuracy: float`, `loss: float`, `epoch: int`.
+3. `compute_metrics` — `@env.task` async function that computes accuracy (3/4 = 0.75), loss (0.25), and sets epoch=1, returning a `ModelMetrics` instance.
+4. `format_report` — `@env.task` async function that serialises the `ModelMetrics` to a JSON string.
+5. `run_pipeline` — `@env.task` orchestrator that `await`s both tasks in sequence.
+6. `__main__` block runs `asyncio.run(run_pipeline(...))` and writes the result to `report.json`.
+
+Artifacts saved to `/logs/artifacts/` (code under `/logs/artifacts/code/`, report at `/logs/artifacts/report.json`).   
+  

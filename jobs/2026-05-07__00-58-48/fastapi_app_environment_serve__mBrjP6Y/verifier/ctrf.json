@@ -1,0 +1,141 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 12,
+            "passed": 1,
+            "failed": 11,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778141211.763084,
+            "stop": 1778141211.807854
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_app_py_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0005941200070083141,
+                "start": 1778141211.7744253,
+                "stop": 1778141211.7823837,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_app_py_exists():\n        \"\"\"app.py must exist in the project directory.\"\"\"\n>       assert os.path.isfile(APP_PY), f\"Expected app.py at {APP_PY}, but it was not found.\"\nE       AssertionError: Expected app.py at /home/user/flyte_project/app.py, but it was not found.\nE       assert False\nE        +  where False = <function isfile at 0xffa883990220>('/home/user/flyte_project/app.py')\nE        +    where <function isfile at 0xffa883990220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:96: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_serve_py_exists",
+                "status": "passed",
+                "duration": 0.00042695493903011084,
+                "start": 1778141211.782496,
+                "stop": 1778141211.783085,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_health_returns_200",
+                "status": "failed",
+                "duration": 0.00033207994420081377,
+                "start": 1778141211.7831912,
+                "stop": 1778141211.7856417,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def running_server():\n        \"\"\"Start serve.py and wait for port 8000 to be ready, then yield; shut down after.\"\"\"\n>       assert os.path.isfile(APP_PY), f\"app.py not found at {APP_PY}\"\nE       AssertionError: app.py not found at /home/user/flyte_project/app.py\nE       assert False\nE        +  where False = <function isfile at 0xffa883990220>('/home/user/flyte_project/app.py')\nE        +    where <function isfile at 0xffa883990220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:63: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_health_response_status_healthy",
+                "status": "failed",
+                "duration": 0.00022770499344915152,
+                "start": 1778141211.7857342,
+                "stop": 1778141211.7875626,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def running_server():\n        \"\"\"Start serve.py and wait for port 8000 to be ready, then yield; shut down after.\"\"\"\n>       assert os.path.isfile(APP_PY), f\"app.py not found at {APP_PY}\"\nE       AssertionError: app.py not found at /home/user/flyte_project/app.py\nE       assert False\nE        +  where False = <function isfile at 0xffa883990220>('/home/user/flyte_project/app.py')\nE        +    where <function isfile at 0xffa883990220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:63: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_health_response_service_name",
+                "status": "failed",
+                "duration": 0.00022853899281471968,
+                "start": 1778141211.7876332,
+                "stop": 1778141211.7894044,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def running_server():\n        \"\"\"Start serve.py and wait for port 8000 to be ready, then yield; shut down after.\"\"\"\n>       assert os.path.isfile(APP_PY), f\"app.py not found at {APP_PY}\"\nE       AssertionError: app.py not found at /home/user/flyte_project/app.py\nE       assert False\nE        +  where False = <function isfile at 0xffa883990220>('/home/user/flyte_project/app.py')\nE        +    where <function isfile at 0xffa883990220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:63: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_predict_five_features_returns_200",
+                "status": "failed",
+                "duration": 0.000213623046875,
+                "start": 1778141211.7894711,
+                "stop": 1778141211.7911656,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def running_server():\n        \"\"\"Start serve.py and wait for port 8000 to be ready, then yield; shut down after.\"\"\"\n>       assert os.path.isfile(APP_PY), f\"app.py not found at {APP_PY}\"\nE       AssertionError: app.py not found at /home/user/flyte_project/app.py\nE       assert False\nE        +  where False = <function isfile at 0xffa883990220>('/home/user/flyte_project/app.py')\nE        +    where <function isfile at 0xffa883990220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:63: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_predict_five_features_prediction",
+                "status": "failed",
+                "duration": 0.0002717049792408943,
+                "start": 1778141211.791231,
+                "stop": 1778141211.7932138,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def running_server():\n        \"\"\"Start serve.py and wait for port 8000 to be ready, then yield; shut down after.\"\"\"\n>       assert os.path.isfile(APP_PY), f\"app.py not found at {APP_PY}\"\nE       AssertionError: app.py not found at /home/user/flyte_project/app.py\nE       assert False\nE        +  where False = <function isfile at 0xffa883990220>('/home/user/flyte_project/app.py')\nE        +    where <function isfile at 0xffa883990220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:63: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_predict_five_features_n_features",
+                "status": "failed",
+                "duration": 0.00025645503774285316,
+                "start": 1778141211.7933197,
+                "stop": 1778141211.7952726,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def running_server():\n        \"\"\"Start serve.py and wait for port 8000 to be ready, then yield; shut down after.\"\"\"\n>       assert os.path.isfile(APP_PY), f\"app.py not found at {APP_PY}\"\nE       AssertionError: app.py not found at /home/user/flyte_project/app.py\nE       assert False\nE        +  where False = <function isfile at 0xffa883990220>('/home/user/flyte_project/app.py')\nE        +    where <function isfile at 0xffa883990220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:63: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_predict_five_features_status",
+                "status": "failed",
+                "duration": 0.0017311910632997751,
+                "start": 1778141211.7953537,
+                "stop": 1778141211.7987225,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def running_server():\n        \"\"\"Start serve.py and wait for port 8000 to be ready, then yield; shut down after.\"\"\"\n>       assert os.path.isfile(APP_PY), f\"app.py not found at {APP_PY}\"\nE       AssertionError: app.py not found at /home/user/flyte_project/app.py\nE       assert False\nE        +  where False = <function isfile at 0xffa883990220>('/home/user/flyte_project/app.py')\nE        +    where <function isfile at 0xffa883990220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:63: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_predict_two_features_returns_200",
+                "status": "failed",
+                "duration": 0.0002904969733208418,
+                "start": 1778141211.7988524,
+                "stop": 1778141211.8028822,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def running_server():\n        \"\"\"Start serve.py and wait for port 8000 to be ready, then yield; shut down after.\"\"\"\n>       assert os.path.isfile(APP_PY), f\"app.py not found at {APP_PY}\"\nE       AssertionError: app.py not found at /home/user/flyte_project/app.py\nE       assert False\nE        +  where False = <function isfile at 0xffa883990220>('/home/user/flyte_project/app.py')\nE        +    where <function isfile at 0xffa883990220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:63: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_predict_two_features_prediction",
+                "status": "failed",
+                "duration": 0.00019687297753989697,
+                "start": 1778141211.802971,
+                "stop": 1778141211.8047662,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def running_server():\n        \"\"\"Start serve.py and wait for port 8000 to be ready, then yield; shut down after.\"\"\"\n>       assert os.path.isfile(APP_PY), f\"app.py not found at {APP_PY}\"\nE       AssertionError: app.py not found at /home/user/flyte_project/app.py\nE       assert False\nE        +  where False = <function isfile at 0xffa883990220>('/home/user/flyte_project/app.py')\nE        +    where <function isfile at 0xffa883990220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:63: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_predict_two_features_n_features",
+                "status": "failed",
+                "duration": 0.0003314961213618517,
+                "start": 1778141211.8048332,
+                "stop": 1778141211.807392,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def running_server():\n        \"\"\"Start serve.py and wait for port 8000 to be ready, then yield; shut down after.\"\"\"\n>       assert os.path.isfile(APP_PY), f\"app.py not found at {APP_PY}\"\nE       AssertionError: app.py not found at /home/user/flyte_project/app.py\nE       assert False\nE        +  where False = <function isfile at 0xffa883990220>('/home/user/flyte_project/app.py')\nE        +    where <function isfile at 0xffa883990220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:63: AssertionError"
+            }
+        ]
+    }
+}

@@ -1,0 +1,119 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 11,
+            "passed": 11,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778141187.0707839,
+            "stop": 1778141187.3110216
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_self_healing_script_exists",
+                "status": "passed",
+                "duration": 0.00042849592864513397,
+                "start": 1778141187.0780919,
+                "stop": 1778141187.0786948,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_runs_successfully",
+                "status": "passed",
+                "duration": 0.08395042805932462,
+                "start": 1778141187.0787957,
+                "stop": 1778141187.1629686,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_experiment_result_json_exists",
+                "status": "passed",
+                "duration": 0.0684025539085269,
+                "start": 1778141187.163089,
+                "stop": 1778141187.2317662,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_has_large_data_result_key",
+                "status": "passed",
+                "duration": 0.07268284005112946,
+                "start": 1778141187.231916,
+                "stop": 1778141187.3048315,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_has_small_data_result_key",
+                "status": "passed",
+                "duration": 0.00030262209475040436,
+                "start": 1778141187.3049603,
+                "stop": 1778141187.3053923,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_large_data_recovered_is_true",
+                "status": "passed",
+                "duration": 0.0002597059356048703,
+                "start": 1778141187.3054783,
+                "stop": 1778141187.3058634,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_large_data_model_is_simple_lr",
+                "status": "passed",
+                "duration": 0.0002844140399247408,
+                "start": 1778141187.3059316,
+                "stop": 1778141187.3063474,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_large_data_env_is_fallback",
+                "status": "passed",
+                "duration": 0.000579201034270227,
+                "start": 1778141187.3064377,
+                "stop": 1778141187.3071773,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_small_data_recovered_is_false",
+                "status": "passed",
+                "duration": 0.00033449509646743536,
+                "start": 1778141187.3072717,
+                "stop": 1778141187.307719,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_small_data_model_is_complex_nn",
+                "status": "passed",
+                "duration": 0.0006032439414411783,
+                "start": 1778141187.3077824,
+                "stop": 1778141187.30859,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_small_data_env_is_primary",
+                "status": "passed",
+                "duration": 0.00032245588954538107,
+                "start": 1778141187.3086677,
+                "stop": 1778141187.3091345,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

@@ -1,0 +1,153 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.8 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo task_calling_task__9HTbML2 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model openai/gpt-5.2-codex --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Flyte 2.0 — Task Calling Task (Chained Composition)
+
+## Background
+
+In Flyte 2.0, workflows are expressed as tasks that call other tasks — there is no `@workflow` decorator. Any `async def` decorated with `@env.task` can `await` another task directly, composing them into a durable, tracked pipeline. This pattern lets you build multi-step processing pipelines using plain Python async/await.
+
+## Requirements
+
+Create the file `/home/user/flyte_project/chained_tasks.py` that demonstrates sequential task composition:
+
+### 1. Setup
+
+- Import `asyncio`, `json`, and `flyte`.
+- Create a `TaskEnvironment` named `"chain-env"` (assign it to a variable named `env`).
+
+### 2. Task: `normalize_text`
+
+Define an async task that lowercases and strips surrounding whitespace from its input:
+
+```python
+@env.task
+async def normalize_text(text: str) -> str:
+    return text.lower().strip()
+```
+
+### 3. Task: `tokenize`
+
+Define an async task that splits the normalized text by spaces and returns the list of tokens:
+
+```python
+@env.task
+async def tokenize(text: str) -> list:
+    return text.split(" ")
+```
+
+### 4. Task: `count_tokens`
+
+Define an async task that counts total and unique tokens:
+
+```python
+@env.task
+async def count_tokens(tokens: list) -> dict:
+    return {"token_count": len(tokens), "unique_count": len(set(tokens))}
+```
+
+### 5. Task: `text_analysis_pipeline`
+
+Define an async task that chains the three tasks above in sequence — each `await`ing the result of the previous step — and returns the final count dict:
+
+```python
+@env.task
+async def text_analysis_pipeline(raw_text: str) -> dict:
+    normalized = await normalize_text(raw_text)
+    tokens = await tokenize(normalized)
+    counts = await count_tokens(tokens)
+    return counts
+```
+
+### 6. `__main__` block
+
+In the `if __name__ == "__main__":` block:
+
+- Call `asyncio.run(text_analysis_pipeline("Hello World Hello Flyte World"))`
+- Write the returned dict as JSON to `/home/user/flyte_project/analysis.json`
+
+```python
+if __name__ == "__main__":
+    result = asyncio.run(text_analysis_pipeline("Hello World Hello Flyte World"))
+    with open("/home/user/flyte_project/analysis.json", "w") as f:
+        json.dump(result, f)
+```
+
+## Implementation Guide
+
+1. Do **not** use `@workflow` — it does not exist in Flyte 2.0.
+2. Tasks call tasks with a plain `await`: `result = await other_task(arg)`.
+3. All task functions must be `async def` and decorated with `@env.task`.
+4. Running the script with `python3 /home/user/flyte_project/chained_tasks.py` must:
+   - Execute without errors
+   - Produce `/home/user/flyte_project/analysis.json`
+
+## Constraints
+
+- **Project path**: `/home/user/flyte_project`
+- **Script**: `/home/user/flyte_project/chained_tasks.py`
+- **Log file**: `/home/user/flyte_project/analysis.json`
+- The `flyte` package is already installed — do **not** reinstall it.
+- Use only the standard library plus `flyte`.
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

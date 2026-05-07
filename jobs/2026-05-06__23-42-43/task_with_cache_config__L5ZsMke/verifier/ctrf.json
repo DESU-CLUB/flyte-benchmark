@@ -1,0 +1,113 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 10,
+            "passed": 9,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778136267.4359138,
+            "stop": 1778136267.5625832
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_cached_pipeline_script_exists",
+                "status": "passed",
+                "duration": 0.0003683558898046613,
+                "start": 1778136267.445566,
+                "stop": 1778136267.4461143,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_runs_without_error",
+                "status": "passed",
+                "duration": 0.07503009703941643,
+                "start": 1778136267.446213,
+                "stop": 1778136267.5215075,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_cache_result_json_exists",
+                "status": "passed",
+                "duration": 0.0002919349353760481,
+                "start": 1778136267.5216448,
+                "stop": 1778136267.5220687,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_result_is_valid_json_object",
+                "status": "passed",
+                "duration": 0.00027897709514945745,
+                "start": 1778136267.5221398,
+                "stop": 1778136267.5225205,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_first_result_fibonacci_correct",
+                "status": "passed",
+                "duration": 0.00025201612152159214,
+                "start": 1778136267.5226007,
+                "stop": 1778136267.522943,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_second_result_fibonacci_correct",
+                "status": "passed",
+                "duration": 0.000218514003790915,
+                "start": 1778136267.5230045,
+                "stop": 1778136267.523329,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_first_result_n_is_ten",
+                "status": "passed",
+                "duration": 0.0002746019745245576,
+                "start": 1778136267.523389,
+                "stop": 1778136267.5237553,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_second_result_n_is_ten",
+                "status": "passed",
+                "duration": 0.0003271041205152869,
+                "start": 1778136267.5238528,
+                "stop": 1778136267.5242918,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_expensive_computation_has_cache_attribute",
+                "status": "passed",
+                "duration": 0.027827673126012087,
+                "start": 1778136267.5243814,
+                "stop": 1778136267.5524724,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_cache_version_is_v1",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0005547431064769626,
+                "start": 1778136267.5525918,
+                "stop": 1778136267.562376,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_cache_version_is_v1():\n        \"\"\"Priority 1 (module inspection): cache version must be 'v1'.\"\"\"\n        module = _load_module()\n        task_fn = getattr(module, \"expensive_computation\", None)\n        assert task_fn is not None, (\n            \"Expected 'expensive_computation' to be defined in cached_pipeline.py.\"\n        )\n        assert hasattr(task_fn, \"cache\"), (\n            \"Expected expensive_computation to have a 'cache' attribute.\"\n        )\n>       actual_version = task_fn.cache.version\n                         ^^^^^^^^^^^^^^^^^^^^^\nE       AttributeError: 'Cache' object has no attribute 'version'\n\ntests/test_final_state.py:151: AttributeError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

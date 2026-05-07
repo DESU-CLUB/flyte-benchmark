@@ -1,0 +1,125 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 9,
+            "passed": 1,
+            "failed": 8,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778131398.3437726,
+            "stop": 1778131398.4928126
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_secret_task_script_exists",
+                "status": "passed",
+                "duration": 0.0004146540304645896,
+                "start": 1778131398.3504972,
+                "stop": 1778131398.3511326,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_script_runs_successfully",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0768290088744834,
+                "start": 1778131398.3512561,
+                "stop": 1778131398.4363067,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_script_runs_successfully():\n        \"\"\"Priority 1: Run the agent's script with API_KEY set and assert returncode == 0.\"\"\"\n        env = {\n            \"API_KEY\": TEST_API_KEY,\n            \"PATH\": os.environ.get(\"PATH\", \"\"),\n        }\n        result = subprocess.run(\n            [\"python3\", SCRIPT_PATH],\n            capture_output=True,\n            text=True,\n            cwd=PROJECT_DIR,\n            env=env,\n        )\n>       assert result.returncode == 0, (\n            f\"python3 secret_task.py failed with returncode {result.returncode}.\\n\"\n            f\"stdout: {result.stdout}\\nstderr: {result.stderr}\"\n        )\nE       AssertionError: python3 secret_task.py failed with returncode 1.\nE         stdout: Filtered traceback (most recent call last):\nE         TypeError: TaskEnvironment.task() got an unexpected keyword argument 'secret_requests'\nE         \nE         \nE         stderr:   File \"/home/user/flyte_project/secret_task.py\", line 13, in <module>\nE             @env.task(secret_requests=[API_SECRET])\nE              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['python3', '/home/user/flyte_project/secret_task.py'], returncode=1, stdout=\"Filtered traceback...py\", line 13, in <module>\\n    @env.task(secret_requests=[API_SECRET])\\n     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n').returncode\n\ntests/test_final_state.py:37: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_output_file_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0005101090064272285,
+                "start": 1778131398.4364097,
+                "stop": 1778131398.4383438,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_output_file_exists():\n        \"\"\"Priority 1 (runtime artifact): Verify secure_output.json exists after script execution.\"\"\"\n>       assert os.path.isfile(OUTPUT_FILE), (\n            f\"Output file not found at {OUTPUT_FILE}. \"\n            \"The script must write results to /home/user/flyte_project/secure_output.json.\"\n        )\nE       AssertionError: Output file not found at /home/user/flyte_project/secure_output.json. The script must write results to /home/user/flyte_project/secure_output.json.\nE       assert False\nE        +  where False = <function isfile at 0xf01ed8840220>('/home/user/flyte_project/secure_output.json')\nE        +    where <function isfile at 0xf01ed8840220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:45: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_output_is_list_of_two_items",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0005408998113125563,
+                "start": 1778131398.4384205,
+                "stop": 1778131398.4412904,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_output_is_list_of_two_items():\n        \"\"\"Priority 1 (runtime artifact): Assert output is a JSON list with exactly 2 items.\"\"\"\n>       data = _load_output()\n               ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:62: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _load_output():\n        \"\"\"Helper: parse and return the JSON output file.\"\"\"\n>       with open(OUTPUT_FILE) as f:\n             ^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/secure_output.json'\n\ntests/test_final_state.py:53: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_both_items_authenticated",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0005039440002292395,
+                "start": 1778131398.441398,
+                "stop": 1778131398.44418,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_both_items_authenticated():\n        \"\"\"Priority 1 (runtime artifact): Assert both result items have authenticated == True.\"\"\"\n>       data = _load_output()\n               ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:73: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _load_output():\n        \"\"\"Helper: parse and return the JSON output file.\"\"\"\n>       with open(OUTPUT_FILE) as f:\n             ^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/secure_output.json'\n\ntests/test_final_state.py:53: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_both_items_key_length_18",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0004032379947602749,
+                "start": 1778131398.444352,
+                "stop": 1778131398.4463527,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_both_items_key_length_18():\n        \"\"\"Priority 1 (runtime artifact): Assert both items have key_length == 18 (len('test-api-key-12345')).\"\"\"\n>       data = _load_output()\n               ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:86: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _load_output():\n        \"\"\"Helper: parse and return the JSON output file.\"\"\"\n>       with open(OUTPUT_FILE) as f:\n             ^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/secure_output.json'\n\ntests/test_final_state.py:53: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_output_contains_both_endpoints",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00034486502408981323,
+                "start": 1778131398.4465978,
+                "stop": 1778131398.4485846,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_output_contains_both_endpoints():\n        \"\"\"Priority 1 (runtime artifact): Assert items contain endpoints '/api/v1/data' and '/api/v1/models'.\"\"\"\n>       data = _load_output()\n               ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:99: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    def _load_output():\n        \"\"\"Helper: parse and return the JSON output file.\"\"\"\n>       with open(OUTPUT_FILE) as f:\n             ^^^^^^^^^^^^^^^^^\nE       FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/secure_output.json'\n\ntests/test_final_state.py:53: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_api_secret_key_attribute",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.03658093512058258,
+                "start": 1778131398.448675,
+                "stop": 1778131398.4892824,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_api_secret_key_attribute():\n        \"\"\"Priority 1 (module import): Assert API_SECRET.key == 'api_key'.\"\"\"\n>       mod = _load_module()\n              ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:119: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_final_state.py:113: in _load_module\n    spec.loader.exec_module(mod)\n<frozen importlib._bootstrap_external>:995: in exec_module\n    ???\n<frozen importlib._bootstrap>:488: in _call_with_frames_removed\n    ???\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    import asyncio\n    import json\n    import os\n    \n    import flyte\n    \n    \n    env = flyte.TaskEnvironment(\"secure-env\")\n    \n    API_SECRET = flyte.Secret(key=\"api_key\", group=\"my-secrets\")\n    \n    \n>   @env.task(secret_requests=[API_SECRET])\n     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   TypeError: TaskEnvironment.task() got an unexpected keyword argument 'secret_requests'\n\nhome/user/flyte_project/secret_task.py:13: TypeError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_api_secret_group_attribute",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0005660250317305326,
+                "start": 1778131398.4893887,
+                "stop": 1778131398.4926121,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_api_secret_group_attribute():\n        \"\"\"Priority 1 (module import): Assert API_SECRET.group == 'my-secrets'.\"\"\"\n>       mod = _load_module()\n              ^^^^^^^^^^^^^^\n\ntests/test_final_state.py:130: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_final_state.py:113: in _load_module\n    spec.loader.exec_module(mod)\n<frozen importlib._bootstrap_external>:995: in exec_module\n    ???\n<frozen importlib._bootstrap>:488: in _call_with_frames_removed\n    ???\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    import asyncio\n    import json\n    import os\n    \n    import flyte\n    \n    \n    env = flyte.TaskEnvironment(\"secure-env\")\n    \n    API_SECRET = flyte.Secret(key=\"api_key\", group=\"my-secrets\")\n    \n    \n>   @env.task(secret_requests=[API_SECRET])\n     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE   TypeError: TaskEnvironment.task() got an unexpected keyword argument 'secret_requests'\n\nhome/user/flyte_project/secret_task.py:13: TypeError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

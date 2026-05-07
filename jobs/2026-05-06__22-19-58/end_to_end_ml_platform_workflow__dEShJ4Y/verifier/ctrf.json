@@ -1,0 +1,176 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 14,
+            "passed": 0,
+            "failed": 14,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778131519.925554,
+            "stop": 1778131520.0160077
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_config_py_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0004762351745739579,
+                "start": 1778131519.9346015,
+                "stop": 1778131519.9409685,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_config_py_exists():\n        path = os.path.join(PROJECT_DIR, \"config.py\")\n>       assert os.path.isfile(path), f\"config.py not found at {path}\"\nE       AssertionError: config.py not found at /home/user/flyte_project/config.py\nE       assert False\nE        +  where False = <function isfile at 0xe98783690220>('/home/user/flyte_project/config.py')\nE        +    where <function isfile at 0xe98783690220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:32: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_data_tasks_py_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00045198609586805105,
+                "start": 1778131519.9410524,
+                "stop": 1778131519.943092,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_data_tasks_py_exists():\n        path = os.path.join(PROJECT_DIR, \"data_tasks.py\")\n>       assert os.path.isfile(path), f\"data_tasks.py not found at {path}\"\nE       AssertionError: data_tasks.py not found at /home/user/flyte_project/data_tasks.py\nE       assert False\nE        +  where False = <function isfile at 0xe98783690220>('/home/user/flyte_project/data_tasks.py')\nE        +    where <function isfile at 0xe98783690220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:37: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_model_tasks_py_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0011629241053014994,
+                "start": 1778131519.9431732,
+                "stop": 1778131519.9455335,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_model_tasks_py_exists():\n        path = os.path.join(PROJECT_DIR, \"model_tasks.py\")\n>       assert os.path.isfile(path), f\"model_tasks.py not found at {path}\"\nE       AssertionError: model_tasks.py not found at /home/user/flyte_project/model_tasks.py\nE       assert False\nE        +  where False = <function isfile at 0xe98783690220>('/home/user/flyte_project/model_tasks.py')\nE        +    where <function isfile at 0xe98783690220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:42: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_orchestrator_py_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0003989050164818764,
+                "start": 1778131519.9456065,
+                "stop": 1778131519.9471684,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_orchestrator_py_exists():\n        path = os.path.join(PROJECT_DIR, \"orchestrator.py\")\n>       assert os.path.isfile(path), f\"orchestrator.py not found at {path}\"\nE       AssertionError: orchestrator.py not found at /home/user/flyte_project/orchestrator.py\nE       assert False\nE        +  where False = <function isfile at 0xe98783690220>('/home/user/flyte_project/orchestrator.py')\nE        +    where <function isfile at 0xe98783690220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:47: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_main_py_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00044244597665965557,
+                "start": 1778131519.9472325,
+                "stop": 1778131519.9488451,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_main_py_exists():\n        path = os.path.join(PROJECT_DIR, \"main.py\")\n>       assert os.path.isfile(path), f\"main.py not found at {path}\"\nE       AssertionError: main.py not found at /home/user/flyte_project/main.py\nE       assert False\nE        +  where False = <function isfile at 0xe98783690220>('/home/user/flyte_project/main.py')\nE        +    where <function isfile at 0xe98783690220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\n/tests/test_final_state.py:52: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_output_file_exists",
+                "status": "failed",
+                "duration": 0.006798253976739943,
+                "start": 1778131519.9489152,
+                "stop": 1778131519.9571216,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def pipeline_output():\n        \"\"\"Run main.py once for the whole module and return the parsed JSON output.\"\"\"\n        result = subprocess.run(\n            [\"python3\", os.path.join(PROJECT_DIR, \"main.py\")],\n            capture_output=True,\n            text=True,\n            cwd=PROJECT_DIR,\n        )\n>       assert result.returncode == 0, (\n            f\"python3 main.py exited with code {result.returncode}.\\n\"\n            f\"stdout: {result.stdout}\\nstderr: {result.stderr}\"\n        )\nE       AssertionError: python3 main.py exited with code 2.\nE         stdout: \nE         stderr: python3: can't open file '/home/user/flyte_project/main.py': [Errno 2] No such file or directory\nE         \nE       assert 2 == 0\nE        +  where 2 = CompletedProcess(args=['python3', '/home/user/flyte_project/main.py'], returncode=2, stdout='', stderr=\"python3: can't open file '/home/user/flyte_project/main.py': [Errno 2] No such file or directory\\n\").returncode\n\n/tests/test_final_state.py:68: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_pipeline_complete",
+                "status": "failed",
+                "duration": 0.00024828396271914244,
+                "start": 1778131519.9571965,
+                "stop": 1778131519.9591196,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def pipeline_output():\n        \"\"\"Run main.py once for the whole module and return the parsed JSON output.\"\"\"\n        result = subprocess.run(\n            [\"python3\", os.path.join(PROJECT_DIR, \"main.py\")],\n            capture_output=True,\n            text=True,\n            cwd=PROJECT_DIR,\n        )\n>       assert result.returncode == 0, (\n            f\"python3 main.py exited with code {result.returncode}.\\n\"\n            f\"stdout: {result.stdout}\\nstderr: {result.stderr}\"\n        )\nE       AssertionError: python3 main.py exited with code 2.\nE         stdout: \nE         stderr: python3: can't open file '/home/user/flyte_project/main.py': [Errno 2] No such file or directory\nE         \nE       assert 2 == 0\nE        +  where 2 = CompletedProcess(args=['python3', '/home/user/flyte_project/main.py'], returncode=2, stdout='', stderr=\"python3: can't open file '/home/user/flyte_project/main.py': [Errno 2] No such file or directory\\n\").returncode\n\n/tests/test_final_state.py:68: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_sources_ingested",
+                "status": "failed",
+                "duration": 0.0008062259294092655,
+                "start": 1778131519.9591992,
+                "stop": 1778131519.9612477,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def pipeline_output():\n        \"\"\"Run main.py once for the whole module and return the parsed JSON output.\"\"\"\n        result = subprocess.run(\n            [\"python3\", os.path.join(PROJECT_DIR, \"main.py\")],\n            capture_output=True,\n            text=True,\n            cwd=PROJECT_DIR,\n        )\n>       assert result.returncode == 0, (\n            f\"python3 main.py exited with code {result.returncode}.\\n\"\n            f\"stdout: {result.stdout}\\nstderr: {result.stderr}\"\n        )\nE       AssertionError: python3 main.py exited with code 2.\nE         stdout: \nE         stderr: python3: can't open file '/home/user/flyte_project/main.py': [Errno 2] No such file or directory\nE         \nE       assert 2 == 0\nE        +  where 2 = CompletedProcess(args=['python3', '/home/user/flyte_project/main.py'], returncode=2, stdout='', stderr=\"python3: can't open file '/home/user/flyte_project/main.py': [Errno 2] No such file or directory\\n\").returncode\n\n/tests/test_final_state.py:68: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_models_trained",
+                "status": "failed",
+                "duration": 0.00021270103752613068,
+                "start": 1778131519.961321,
+                "stop": 1778131519.9627833,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def pipeline_output():\n        \"\"\"Run main.py once for the whole module and return the parsed JSON output.\"\"\"\n        result = subprocess.run(\n            [\"python3\", os.path.join(PROJECT_DIR, \"main.py\")],\n            capture_output=True,\n            text=True,\n            cwd=PROJECT_DIR,\n        )\n>       assert result.returncode == 0, (\n            f\"python3 main.py exited with code {result.returncode}.\\n\"\n            f\"stdout: {result.stdout}\\nstderr: {result.stderr}\"\n        )\nE       AssertionError: python3 main.py exited with code 2.\nE         stdout: \nE         stderr: python3: can't open file '/home/user/flyte_project/main.py': [Errno 2] No such file or directory\nE         \nE       assert 2 == 0\nE        +  where 2 = CompletedProcess(args=['python3', '/home/user/flyte_project/main.py'], returncode=2, stdout='', stderr=\"python3: can't open file '/home/user/flyte_project/main.py': [Errno 2] No such file or directory\\n\").returncode\n\n/tests/test_final_state.py:68: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_total_samples",
+                "status": "failed",
+                "duration": 0.00024411699268966913,
+                "start": 1778131519.9628465,
+                "stop": 1778131519.9644175,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def pipeline_output():\n        \"\"\"Run main.py once for the whole module and return the parsed JSON output.\"\"\"\n        result = subprocess.run(\n            [\"python3\", os.path.join(PROJECT_DIR, \"main.py\")],\n            capture_output=True,\n            text=True,\n            cwd=PROJECT_DIR,\n        )\n>       assert result.returncode == 0, (\n            f\"python3 main.py exited with code {result.returncode}.\\n\"\n            f\"stdout: {result.stdout}\\nstderr: {result.stderr}\"\n        )\nE       AssertionError: python3 main.py exited with code 2.\nE         stdout: \nE         stderr: python3: can't open file '/home/user/flyte_project/main.py': [Errno 2] No such file or directory\nE         \nE       assert 2 == 0\nE        +  where 2 = CompletedProcess(args=['python3', '/home/user/flyte_project/main.py'], returncode=2, stdout='', stderr=\"python3: can't open file '/home/user/flyte_project/main.py': [Errno 2] No such file or directory\\n\").returncode\n\n/tests/test_final_state.py:68: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_best_model_present",
+                "status": "failed",
+                "duration": 0.00019662000704556704,
+                "start": 1778131519.9645016,
+                "stop": 1778131519.96593,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "@pytest.fixture(scope=\"module\")\n    def pipeline_output():\n        \"\"\"Run main.py once for the whole module and return the parsed JSON output.\"\"\"\n        result = subprocess.run(\n            [\"python3\", os.path.join(PROJECT_DIR, \"main.py\")],\n            capture_output=True,\n            text=True,\n            cwd=PROJECT_DIR,\n        )\n>       assert result.returncode == 0, (\n            f\"python3 main.py exited with code {result.returncode}.\\n\"\n            f\"stdout: {result.stdout}\\nstderr: {result.stderr}\"\n        )\nE       AssertionError: python3 main.py exited with code 2.\nE         stdout: \nE         stderr: python3: can't open file '/home/user/flyte_project/main.py': [Errno 2] No such file or directory\nE         \nE       assert 2 == 0\nE        +  where 2 = CompletedProcess(args=['python3', '/home/user/flyte_project/main.py'], returncode=2, stdout='', stderr=\"python3: can't open file '/home/user/flyte_project/main.py': [Errno 2] No such file or directory\\n\").returncode\n\n/tests/test_final_state.py:68: AssertionError"
+            },
+            {
+                "name": "test_final_state.py::test_config_data_env_cpu",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0003954879939556122,
+                "start": 1778131519.966,
+                "stop": 1778131519.9704294,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_config_data_env_cpu():\n        \"\"\"data_env.resources.cpu must equal 2.\"\"\"\n>       config = _load_module(\"config\", os.path.join(PROJECT_DIR, \"config.py\"))\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n/tests/test_final_state.py:125: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n/tests/test_final_state.py:22: in _load_module\n    spec.loader.exec_module(mod)\n<frozen importlib._bootstrap_external>:991: in exec_module\n    ???\n<frozen importlib._bootstrap_external>:1128: in get_code\n    ???\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <_frozen_importlib_external.SourceFileLoader object at 0xe987820a0890>\npath = '/home/user/flyte_project/config.py'\n\n>   ???\nE   FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/config.py'\n\n<frozen importlib._bootstrap_external>:1186: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_config_model_env_cpu",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.00036386388819664717,
+                "start": 1778131519.970515,
+                "stop": 1778131519.9735656,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_config_model_env_cpu():\n        \"\"\"model_env.resources.cpu must equal 8.\"\"\"\n>       config = _load_module(\"config\", os.path.join(PROJECT_DIR, \"config.py\"))\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n/tests/test_final_state.py:135: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n/tests/test_final_state.py:22: in _load_module\n    spec.loader.exec_module(mod)\n<frozen importlib._bootstrap_external>:991: in exec_module\n    ???\n<frozen importlib._bootstrap_external>:1128: in get_code\n    ???\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <_frozen_importlib_external.SourceFileLoader object at 0xe987820a0ef0>\npath = '/home/user/flyte_project/config.py'\n\n>   ???\nE   FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/config.py'\n\n<frozen importlib._bootstrap_external>:1186: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            },
+            {
+                "name": "test_final_state.py::test_ingest_data_cache_is_flyte_cache",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.038080439902842045,
+                "start": 1778131519.973648,
+                "stop": 1778131520.0158532,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_ingest_data_cache_is_flyte_cache():\n        \"\"\"ingest_data.cache must be an instance of flyte.Cache.\"\"\"\n        import flyte  # already installed in the image\n    \n        # Ensure PROJECT_DIR is on sys.path so relative imports inside the module work\n        if PROJECT_DIR not in sys.path:\n            sys.path.insert(0, PROJECT_DIR)\n    \n>       data_tasks = _load_module(\n            \"data_tasks\", os.path.join(PROJECT_DIR, \"data_tasks.py\")\n        )\n\n/tests/test_final_state.py:155: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n/tests/test_final_state.py:22: in _load_module\n    spec.loader.exec_module(mod)\n<frozen importlib._bootstrap_external>:991: in exec_module\n    ???\n<frozen importlib._bootstrap_external>:1128: in get_code\n    ???\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <_frozen_importlib_external.SourceFileLoader object at 0xe9878291e9f0>\npath = '/home/user/flyte_project/data_tasks.py'\n\n>   ???\nE   FileNotFoundError: [Errno 2] No such file or directory: '/home/user/flyte_project/data_tasks.py'\n\n<frozen importlib._bootstrap_external>:1186: FileNotFoundError",
+                "message": "The test failed in the call phase"
+            }
+        ]
+    }
+}

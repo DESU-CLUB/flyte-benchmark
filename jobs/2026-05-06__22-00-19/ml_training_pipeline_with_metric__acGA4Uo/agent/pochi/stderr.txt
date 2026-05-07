@@ -1,0 +1,570 @@
+[37m2026-05-07 05:11:52.946[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:1[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	pochi v0.6.8
+[37m2026-05-07 05:11:53.345[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:519633[39m[0m[0m[1m[37m	loadAgents[39m[22m[0m[0m	Loaded 6 custom agents (6 valid, 0 invalid)
+[37m2026-05-07 05:11:53.347[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:519634[39m[0m[0m[1m[37m	loadSkills[39m[22m[0m[0m	Loaded 2 skills (2 valid, 0 invalid)
+[37m2026-05-07 05:11:53.372[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:444677[39m[0m[0m[1m[37m	PochiVendor[39m[22m[0m[0m	JWT is expiring or missing, fetching a new one
+[37m2026-05-07 05:11:54.553[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:416517[39m[0m[0m[1m[37m	MCPHub[39m[22m[0m[0m	MCP servers configuration changed via signal:
+[37m2026-05-07 05:11:54.553[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:416629[39m[0m[0m[1m[37m	MCPHub[39m[22m[0m[0m	Build MCPHub Status
+[37m2026-05-07 05:11:54.689[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Starting task runner...
+[37m2026-05-07 05:11:54.746[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:507614[39m[0m[0m[1m[37m	generateTaskTitle[39m[22m[0m[0m	Generating task title, old: null, new: # Preserving your work
+[37m2026-05-07 05:12:19.599[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:507614[39m[0m[0m[1m[37m	generateTaskTitle[39m[22m[0m[0m	Generating task title, old: # Preserving your work, new: Implement a Flyte 2.0 ML training pipeline
+[37m2026-05-07 05:12:29.235[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/local/lib/python3.12/dist-packages/flyte/_cache/cache.py" resolvedPath="/usr/local/lib/python3.12/dist-packages/flyte/_cache/cache.py" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-07 05:12:29.235[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-07 05:12:29.237[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518725[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/local/lib/python3.12/dist-packages/flyte/_cache/cache.py" mtime=1777943755000 contentLen=6233
+[37m2026-05-07 05:12:32.489[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/local/lib/python3.12/dist-packages/flyte/__init__.py" resolvedPath="/usr/local/lib/python3.12/dist-packages/flyte/__init__.py" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-07 05:12:32.490[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-07 05:12:32.492[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518725[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/local/lib/python3.12/dist-packages/flyte/__init__.py" mtime=1777943755000 contentLen=2550
+[37m2026-05-07 05:12:34.624[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:463047[39m[0m[0m[1m[37m	listFiles[39m[22m[0m[0m	handling listFile with dirPath /usr/local/lib/python3.12/dist-packages/flyte/_cache/ and recursive [90mundefined[39m
+[37m2026-05-07 05:12:43.934[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:507614[39m[0m[0m[1m[37m	generateTaskTitle[39m[22m[0m[0m	Generating task title, old: null, new: Search for usages of `flyte.Cache` or `Cache(` in the `/usr/local/lib/python3.12/dist-packages/flyte/` directory to see how it is supposed to be initialized, especially regarding `ttl` and `version` parameters.
+[37m2026-05-07 05:12:53.347[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:462742[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	searchFiles /usr/local/lib/python3.12/dist-packages/flyte/ (flyte\.)?Cache\( [90mundefined[39m
+[37m2026-05-07 05:12:53.347[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:462742[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	command "/usr/bin/rg" --json --case-sensitive --binary --sortr modified '(flyte\.)?Cache\(' '/usr/local/lib/python3.12/dist-packages/flyte'
+[37m2026-05-07 05:12:55.775[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:507614[39m[0m[0m[1m[37m	generateTaskTitle[39m[22m[0m[0m	Generating task title, old: Search for usages of `flyte.Cache` or `Cache(` in the `/usr/local/lib/python3.12/dist-packages/flyte/` directory to see how it is supposed to be initialized, especially regarding `ttl` and `version` parameters., new: Investigate flyte Cache initialization parameters including ttl and version
+[37m2026-05-07 05:12:56.639[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/local/lib/python3.12/dist-packages/flyte/_cache/cache.py" resolvedPath="/usr/local/lib/python3.12/dist-packages/flyte/_cache/cache.py" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-07 05:12:56.639[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-07 05:12:56.640[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518725[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/local/lib/python3.12/dist-packages/flyte/_cache/cache.py" mtime=1777943755000 contentLen=6233
+[37m2026-05-07 05:12:59.981[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:462742[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	searchFiles /usr/local/lib/python3.12/dist-packages/flyte/ ttl [90mundefined[39m
+[37m2026-05-07 05:12:59.982[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:462742[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	command "/usr/bin/rg" --json --case-sensitive --binary --sortr modified 'ttl' '/usr/local/lib/python3.12/dist-packages/flyte'
+[37m2026-05-07 05:12:59.992[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/_utils/__pycache__/async_cache.cpython-312.pyc"},"lines":{"bytes":"ICAgIE7aB21heHNpemXaA3R0bGMDCg=="},"line_number":135,"absolute_offset":1057,"submatches":[{"match":{"text":"ttl"},"start":16,"end":19}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m/$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518669[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:12:59.992[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/_utils/__pycache__/async_cache.cpython-312.pyc"},"lines":{"bytes":"2gZfY2FjaGXaCF9tYXhzaXpl2gRfdHRs2gZfbG9ja3PaB2FzeW5jaW/aBExvY2vaDF9hY2Nlc3NfbG9jaykD2gRzZWxmcg4K"},"line_number":259,"absolute_offset":1456,"submatches":[{"match":{"text":"ttl"},"start":21,"end":24}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m/$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518669[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:12:59.992[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/_client/auth/_authenticators/__pycache__/pkce.cpython-312.pyc"},"lines":{"bytes":"2gtjYWNoZV90dGxfc3J9Cg=="},"line_number":3724,"absolute_offset":16618,"submatches":[{"match":{"text":"ttl"},"start":8,"end":11}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m/$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518669[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:12:59.992[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/__pycache__/_reusable_environment.cpython-312.pyc"},"lines":{"bytes":"2ghpZGxlX3R0bOkBCg=="},"line_number":183,"absolute_offset":2447,"submatches":[{"match":{"text":"ttl"},"start":7,"end":10}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m/$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518669[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:12:59.993[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/__pycache__/_reusable_environment.cpython-312.pyc"},"lines":{"bytes":"2gtjb25jdXJyZW5jedoNc2NhbGVkb3duX3R0bGMBCg=="},"line_number":186,"absolute_offset":2462,"submatches":[{"match":{"text":"ttl"},"start":25,"end":28}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m/$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518669[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:12:59.993[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/__pycache__/_reusable_environment.cpython-312.pyc"},"lines":{"bytes":"qQHaB3NlY29uZHN6MGlkbGVfdHRsIG11c3QgYmUgYW4gaW50IChzZWNvbmRzKSBvciBhIHRpbWVkZWx0YXIMCg=="},"line_number":947,"absolute_offset":3571,"submatches":[{"match":{"text":"ttl"},"start":18,"end":21}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m/$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518669[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:12:59.993[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/__pycache__/_reusable_environment.cpython-312.pyc"},"lines":{"bytes":"2hFnZXRfc2NhbGVkb3duX3R0bHodUmV1c2VQb2xpY3kuZ2V0X3NjYWxlZG93bl90dGxiCg=="},"line_number":1309,"absolute_offset":5344,"submatches":[{"match":{"text":"ttl"},"start":16,"end":19},{"match":{"text":"ttl"},"start":47,"end":50}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m/$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518669[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:12:59.993[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/_internal/runtime/__pycache__/reuse.cpython-312.pyc"},"lines":{"bytes":"aXNpbnN0YW5jZdoIcmVwbGljYXPaBXR1cGxl2ghpZGxlX3R0bNoNdG90YWxfc2Vjb25kc9oRZ2V0X3NjYWxlZG93bl90dGzaEGNvbXB1dGVkX3ZlcnNpb27aEHNlY3VyaXR5X2NvbnRleHTaCG1ldGFkYXRh2g1pbnRlcnJ1cHRpYmxl2hFwb2RfdGVtcGxhdGVfbmFtZdoHaGFzaGxpYtoGc2hhMjU22gZ1cGRhdGXaBmVuY29kZdoJaGV4ZGlnZXN0KQ1yCQo="},"line_number":1195,"absolute_offset":2479,"submatches":[{"match":{"text":"ttl"},"start":34,"end":37},{"match":{"text":"ttl"},"start":68,"end":71}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m/$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518669[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:12:59.994[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/_internal/runtime/__pycache__/reuse.cpython-312.pyc"},"lines":{"bytes":"2gVhY3RvcikH2g9jb250YWluZXJfaW1hZ2XaDmJhY2tsb2dfbGVuZ3Ro2gtwYXJhbGxlbGlzbdoRbWluX3JlcGxpY2FfY291bnTaDXJlcGxpY2FfY291bnTaC3R0bF9zZWNvbmRz2hVzY2FsZWRvd25fdHRsX3NlY29uZHMpBHIUCg=="},"line_number":1808,"absolute_offset":4968,"submatches":[{"match":{"text":"ttl"},"start":91,"end":94},{"match":{"text":"ttl"},"start":114,"end":117}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m/$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518669[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:12:59.995[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/_internal/runtime/__pycache__/reuse.cpython-312.pyc"},"lines":{"bytes":"2glpbWFnZV91cmnaDXNjYWxlZG93bl90dGxzCAo="},"line_number":1857,"absolute_offset":5323,"submatches":[{"match":{"text":"ttl"},"start":23,"end":26}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m/$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518669[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:519744[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:13:04.226[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/local/lib/python3.12/dist-packages/flyte/__init__.py" resolvedPath="/usr/local/lib/python3.12/dist-packages/flyte/__init__.py" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-07 05:13:04.227[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-07 05:13:04.227[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518725[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/local/lib/python3.12/dist-packages/flyte/__init__.py" mtime=1777943755000 contentLen=2550
+[37m2026-05-07 05:13:07.406[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/local/lib/python3.12/dist-packages/flyte/_task_environment.py" resolvedPath="/usr/local/lib/python3.12/dist-packages/flyte/_task_environment.py" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-07 05:13:07.407[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-07 05:13:07.413[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518725[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/local/lib/python3.12/dist-packages/flyte/_task_environment.py" mtime=1777943755000 contentLen=24082
+[37m2026-05-07 05:13:10.662[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:463047[39m[0m[0m[1m[37m	listFiles[39m[22m[0m[0m	handling listFile with dirPath /usr/local/lib/python3.12/dist-packages/flyte/models/ and recursive [90mundefined[39m
+[37m2026-05-07 05:13:10.670[39m[0m[0m	[33m[1mWARN[22m[39m[0m[0m	[37m/$bunfs/root/pochi:462925[39m[0m[0m[1m[37m	ignoreWalk[39m[22m[0m[0m	Error reading directory /usr/local/lib/python3.12/dist-packages/flyte/models/: ENOENT: no such file or directory, scandir '/usr/local/lib/python3.12/dist-packages/flyte/models/'
+[37m2026-05-07 05:13:18.519[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/local/lib/python3.12/dist-packages/flyte/models.py" resolvedPath="/usr/local/lib/python3.12/dist-packages/flyte/models.py" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-07 05:13:18.519[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-07 05:13:18.520[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518725[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/local/lib/python3.12/dist-packages/flyte/models.py" mtime=1777943755000 contentLen=26999
+[37m2026-05-07 05:13:21.962[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:462742[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	searchFiles /usr/local/lib/python3.12/dist-packages/flyte/ Cache\(.*ttl= [90mundefined[39m
+[37m2026-05-07 05:13:21.963[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:462742[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	command "/usr/bin/rg" --json --case-sensitive --binary --sortr modified 'Cache\(.*ttl=' '/usr/local/lib/python3.12/dist-packages/flyte'
+[37m2026-05-07 05:13:24.541[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:462742[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	searchFiles /usr/local/lib/python3.12/dist-packages/flyte/ Cache\(.*version= [90mundefined[39m
+[37m2026-05-07 05:13:24.542[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:462742[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	command "/usr/bin/rg" --json --case-sensitive --binary --sortr modified 'Cache\(.*version=' '/usr/local/lib/python3.12/dist-packages/flyte'
+[37m2026-05-07 05:13:27.248[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/local/lib/python3.12/dist-packages/flyte/remote/_task.py" resolvedPath="/usr/local/lib/python3.12/dist-packages/flyte/remote/_task.py" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-07 05:13:27.249[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-07 05:13:27.251[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518725[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/local/lib/python3.12/dist-packages/flyte/remote/_task.py" mtime=1777943755000 contentLen=21656
+[37m2026-05-07 05:13:31.611[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:462742[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	searchFiles /usr/local/lib/python3.12/dist-packages/flyte/ cache_version [90mundefined[39m
+[37m2026-05-07 05:13:31.611[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:462742[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	command "/usr/bin/rg" --json --case-sensitive --binary --sortr modified 'cache_version' '/usr/local/lib/python3.12/dist-packages/flyte'
+[37m2026-05-07 05:13:31.622[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/_internal/runtime/__pycache__/convert.cpython-312.pyc"},"lines":{"bytes":"2g1jYWNoZV92ZXJzaW9u2hJpZ25vcmVkX2lucHV0X3ZhcnNyGwo="},"line_number":8928,"absolute_offset":24196,"submatches":[{"match":{"text":"cache_version"},"start":2,"end":15}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m/$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:13:31.622[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/_internal/runtime/__pycache__/task_serde.cpython-312.pyc"},"lines":{"bytes":"dGFza19jYWNoZdoNY2FjaGVfZW5hYmxlZNoNY2FjaGVfdmVyc2lvbtoSdmVyc2lvbl9wYXJhbWV0ZXJzcnsK"},"line_number":3906,"absolute_offset":9553,"submatches":[{"match":{"text":"cache_version"},"start":27,"end":40}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m/$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:13:31.622[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/_internal/controllers/__pycache__/_local_controller.cpython-312.pyc"},"lines":{"bytes":"2hJ2ZXJzaW9uX3BhcmFtZXRlcnPaDWNhY2hlX3ZlcnNpb27aCWNhY2hlX2tledoDb3V0cocK"},"line_number":5020,"absolute_offset":11973,"submatches":[{"match":{"text":"cache_version"},"start":22,"end":35}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m/$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:13:35.528[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/local/lib/python3.12/dist-packages/flyte/_task.py" resolvedPath="/usr/local/lib/python3.12/dist-packages/flyte/_task.py" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-07 05:13:35.529[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-07 05:13:35.529[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518725[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/local/lib/python3.12/dist-packages/flyte/_task.py" mtime=1777943755000 contentLen=25059
+[37m2026-05-07 05:13:38.065[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/local/lib/python3.12/dist-packages/flyte/_cache/__init__.py" resolvedPath="/usr/local/lib/python3.12/dist-packages/flyte/_cache/__init__.py" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-07 05:13:38.066[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-07 05:13:38.068[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518725[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/local/lib/python3.12/dist-packages/flyte/_cache/__init__.py" mtime=1777943755000 contentLen=305
+[37m2026-05-07 05:13:42.293[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:462742[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	searchFiles /usr/local/lib/python3.12/dist-packages/flyte/ class .*Cache(?!Policy) [90mundefined[39m
+[37m2026-05-07 05:13:42.293[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:462742[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	command "/usr/bin/rg" --json --case-sensitive --binary --sortr modified 'class .*Cache(?!Policy)' '/usr/local/lib/python3.12/dist-packages/flyte'
+[37m2026-05-07 05:13:45.401[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:462742[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	searchFiles /usr/local/lib/python3.12/dist-packages/flyte/ class Cache [90mundefined[39m
+[37m2026-05-07 05:13:45.401[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:462742[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	command "/usr/bin/rg" --json --case-sensitive --binary --sortr modified 'class Cache' '/usr/local/lib/python3.12/dist-packages/flyte'
+[37m2026-05-07 05:13:47.984[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/local/lib/python3.12/dist-packages/flyte/_cache/defaults.py" resolvedPath="/usr/local/lib/python3.12/dist-packages/flyte/_cache/defaults.py" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-07 05:13:47.984[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-07 05:13:47.985[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518725[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/local/lib/python3.12/dist-packages/flyte/_cache/defaults.py" mtime=1777943755000 contentLen=217
+[37m2026-05-07 05:13:50.339[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/local/lib/python3.12/dist-packages/flyte/_cache/policy_function_body.py" resolvedPath="/usr/local/lib/python3.12/dist-packages/flyte/_cache/policy_function_body.py" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-07 05:13:50.340[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-07 05:13:50.340[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518725[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/local/lib/python3.12/dist-packages/flyte/_cache/policy_function_body.py" mtime=1777943755000 contentLen=1751
+[37m2026-05-07 05:13:53.011[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:462742[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	searchFiles /usr/local/lib/python3.12/dist-packages/flyte/ ttl.*cache|cache.*ttl [90mundefined[39m
+[37m2026-05-07 05:13:53.011[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:462742[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	command "/usr/bin/rg" --json --case-sensitive --binary --sortr modified 'ttl.*cache|cache.*ttl' '/usr/local/lib/python3.12/dist-packages/flyte'
+[37m2026-05-07 05:13:53.034[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518769[39m[0m[0m[1m[37m	RipgrepUtils[39m[22m[0m[0m	Failed to parse rg JSON output line: {"type":"match","data":{"path":{"text":"/usr/local/lib/python3.12/dist-packages/flyte/remote/_client/auth/_authenticators/__pycache__/pkce.cpython-312.pyc"},"lines":{"bytes":"2gtjYWNoZV90dGxfc3J9Cg=="},"line_number":3724,"absolute_offset":16618,"submatches":[{"match":{"text":"cache_ttl"},"start":2,"end":11}]}}
+
+[97m[101m[1m TypeError [22m[49m[39m[0m[0m undefined is not an object (evaluating 'matchData.lines.text.replace'), 462770, 42, 462770, 42, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	searchFilesWithRipgrep[0m[0m
+	[37m/$bunfs/root/pochi:462770[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m/$bunfs/root/pochi:518769[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async executeToolCall2[0m[0m
+	[37m/$bunfs/root/pochi:518887[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async processToolCalls[0m[0m
+	[37m/$bunfs/root/pochi:519249[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async process[0m[0m
+	[37m/$bunfs/root/pochi:519190[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async step[0m[0m
+	[37m/$bunfs/root/pochi:519136[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async run[0m[0m
+	[37m/$bunfs/root/pochi:519052[39m[0m[0m
+  • [33m[39m[0m[0m	[0m[0m
+	[37m[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-07 05:13:55.955[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:463047[39m[0m[0m[1m[37m	listFiles[39m[22m[0m[0m	handling listFile with dirPath /usr/local/lib/python3.12/dist-packages/flyte/ and recursive [33mtrue[39m
+[37m2026-05-07 05:13:58.616[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/local/lib/python3.12/dist-packages/flyte/_internal/runtime/task_serde.py" resolvedPath="/usr/local/lib/python3.12/dist-packages/flyte/_internal/runtime/task_serde.py" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-07 05:13:58.616[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-07 05:13:58.617[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518725[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/local/lib/python3.12/dist-packages/flyte/_internal/runtime/task_serde.py" mtime=1777943755000 contentLen=16739
+[37m2026-05-07 05:14:09.908[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/local/lib/python3.12/dist-packages/flyte/_run.py" resolvedPath="/usr/local/lib/python3.12/dist-packages/flyte/_run.py" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-07 05:14:09.909[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-07 05:14:09.910[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518725[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/local/lib/python3.12/dist-packages/flyte/_run.py" mtime=1777943755000 contentLen=42718
+[37m2026-05-07 05:14:17.437[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/local/lib/python3.12/dist-packages/flyte/_persistence/_task_cache.py" resolvedPath="/usr/local/lib/python3.12/dist-packages/flyte/_persistence/_task_cache.py" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-07 05:14:17.437[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-07 05:14:17.442[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518725[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/local/lib/python3.12/dist-packages/flyte/_persistence/_task_cache.py" mtime=1777943755000 contentLen=3161
+[37m2026-05-07 05:14:39.860[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/local/lib/python3.12/dist-packages/flyte/_task_environment.py" resolvedPath="/usr/local/lib/python3.12/dist-packages/flyte/_task_environment.py" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-07 05:14:39.861[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-07 05:14:39.866[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518725[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/local/lib/python3.12/dist-packages/flyte/_task_environment.py" mtime=1777943755000 contentLen=24082
+[37m2026-05-07 05:14:44.728[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:463047[39m[0m[0m[1m[37m	listFiles[39m[22m[0m[0m	handling listFile with dirPath /usr/local/lib/python3.12/dist-packages/flyte/models/ and recursive [90mundefined[39m
+[37m2026-05-07 05:14:44.732[39m[0m[0m	[33m[1mWARN[22m[39m[0m[0m	[37m/$bunfs/root/pochi:462925[39m[0m[0m[1m[37m	ignoreWalk[39m[22m[0m[0m	Error reading directory /usr/local/lib/python3.12/dist-packages/flyte/models/: ENOENT: no such file or directory, scandir '/usr/local/lib/python3.12/dist-packages/flyte/models/'
+[37m2026-05-07 05:14:52.614[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/local/lib/python3.12/dist-packages/flyte/models.py" resolvedPath="/usr/local/lib/python3.12/dist-packages/flyte/models.py" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-07 05:14:52.614[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-07 05:14:52.618[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518725[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/local/lib/python3.12/dist-packages/flyte/models.py" mtime=1777943755000 contentLen=26999
+[37m2026-05-07 05:14:56.129[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/local/lib/python3.12/dist-packages/flyte/_cache/local_cache.py" resolvedPath="/usr/local/lib/python3.12/dist-packages/flyte/_cache/local_cache.py" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-07 05:14:56.129[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-07 05:14:56.133[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518725[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/local/lib/python3.12/dist-packages/flyte/_cache/local_cache.py" mtime=1777943755000 contentLen=72
+[37m2026-05-07 05:14:58.697[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/local/lib/python3.12/dist-packages/flyte/_persistence/_task_cache.py" resolvedPath="/usr/local/lib/python3.12/dist-packages/flyte/_persistence/_task_cache.py" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-07 05:14:58.697[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-07 05:14:58.706[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518725[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/local/lib/python3.12/dist-packages/flyte/_persistence/_task_cache.py" mtime=1777943755000 contentLen=3161
+[37m2026-05-07 05:17:25.194[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: path="/usr/local/lib/python3.12/dist-packages/flyte/_cache/defaults.py" resolvedPath="/usr/local/lib/python3.12/dist-packages/flyte/_cache/defaults.py" isVirtual=false cacheExists=true shouldCache=true startLine=undefined endLine=undefined
+[37m2026-05-07 05:17:25.195[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:474589[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: existingState=undefined
+[37m2026-05-07 05:17:25.204[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m/$bunfs/root/pochi:518725[39m[0m[0m[1m[37m	FileStateCache[39m[22m[0m[0m	withReadFileCache: populating cache for "/usr/local/lib/python3.12/dist-packages/flyte/_cache/defaults.py" mtime=1777943755000 contentLen=217
+[37m2026-05-07 05:17:35.419[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Task runner finished successfully.
+[37m2026-05-07 05:17:35.420[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Shutting down...
+[37m2026-05-07 05:17:35.432[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37mnative:7[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Shutdown completed. Process will exit.
+[37m2026-05-07 05:17:35.432[39m[0m[0m	[32m[1mDEBUG[22m[39m[0m[0m	[37m[39m[0m[0m[1m[37m	Pochi[39m[22m[0m[0m	Process exiting with code 0

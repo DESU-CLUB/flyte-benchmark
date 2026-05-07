@@ -1,0 +1,14 @@
+[
+  {
+    "instruction": "add 3 and 5",
+    "result": 8.0
+  },
+  {
+    "instruction": "multiply 4 by 6",
+    "result": 24.0
+  },
+  {
+    "instruction": "divide 20 by 4",
+    "result": 5.0
+  }
+]

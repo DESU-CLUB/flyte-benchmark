@@ -1,0 +1,56 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778131555.7374978,
+            "stop": 1778131555.771846
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_hello_py_exists",
+                "status": "passed",
+                "duration": 0.00032070011366158724,
+                "start": 1778131555.7423387,
+                "stop": 1778131555.74281,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_greet_function_returns_correct_value",
+                "status": "passed",
+                "duration": 0.027265849988907576,
+                "start": 1778131555.7428865,
+                "stop": 1778131555.770407,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_log_exists",
+                "status": "passed",
+                "duration": 0.0003680300433188677,
+                "start": 1778131555.770559,
+                "stop": 1778131555.7710803,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_log_contains_hello",
+                "status": "passed",
+                "duration": 0.0003124489448964596,
+                "start": 1778131555.771249,
+                "stop": 1778131555.7716877,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

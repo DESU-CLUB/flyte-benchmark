@@ -1,0 +1,107 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 8,
+            "passed": 3,
+            "failed": 5,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778136768.8620737,
+            "stop": 1778136769.1688313
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_mapreduce_file_exists",
+                "status": "passed",
+                "duration": 0.0004247579490765929,
+                "start": 1778136768.8721278,
+                "stop": 1778136768.8727684,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_mapreduce_runs_successfully",
+                "status": "passed",
+                "duration": 0.2550250741187483,
+                "start": 1778136768.872851,
+                "stop": 1778136769.1291294,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_file_exists",
+                "status": "passed",
+                "duration": 0.0011081460397690535,
+                "start": 1778136769.129294,
+                "stop": 1778136769.1307578,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_total_words_is_eleven",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0007928909035399556,
+                "start": 1778136769.1308534,
+                "stop": 1778136769.1501431,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_total_words_is_eleven():\n        \"\"\"total_words must equal 11 for the sample input text.\"\"\"\n        data = _load_output()\n>       assert \"total_words\" in data, (\n            f\"'total_words' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'total_words' key missing from output. Got keys: ['to', 'the', 'sleep', 'and', 'is', 'of', 'that', 'a', 'be', 'by', 'die', 'end', 'in', 'or', 'there', 'tis', 'we', 'against', 'arms', 'arrows', 'ay', 'calamity', 'coil', 'come', 'consummation', 'death', 'devoutly', 'dream', 'dreams', 'flesh', 'for', 'fortune', 'give', 'have', 'heartache', 'heir', 'life', 'long', 'makes', 'may', 'mind', 'more', 'mortal', 'must', 'natural', 'no', 'nobler', 'not', 'off', 'opposing', 'outrageous', 'pause', 'perchance', 'question', 'respect', 'rub', 'say', 'sea', 'shocks', 'shuffled', 'slings', 'so', 'suffer', 'take', 'them', 'this', 'thousand', 'troubles', 'us', 'what', 'when', 'whether', 'wished']\nE       assert 'total_words' in {'a': 30, 'against': 10, 'and': 40, 'arms': 10, ...}\n\ntests/test_final_state.py:68: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_unique_words_is_nine",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0007225959561765194,
+                "start": 1778136769.1502898,
+                "stop": 1778136769.15424,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_unique_words_is_nine():\n        \"\"\"unique_words must equal 9 for the sample input text.\"\"\"\n        data = _load_output()\n>       assert \"unique_words\" in data, (\n            f\"'unique_words' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'unique_words' key missing from output. Got keys: ['to', 'the', 'sleep', 'and', 'is', 'of', 'that', 'a', 'be', 'by', 'die', 'end', 'in', 'or', 'there', 'tis', 'we', 'against', 'arms', 'arrows', 'ay', 'calamity', 'coil', 'come', 'consummation', 'death', 'devoutly', 'dream', 'dreams', 'flesh', 'for', 'fortune', 'give', 'have', 'heartache', 'heir', 'life', 'long', 'makes', 'may', 'mind', 'more', 'mortal', 'must', 'natural', 'no', 'nobler', 'not', 'off', 'opposing', 'outrageous', 'pause', 'perchance', 'question', 'respect', 'rub', 'say', 'sea', 'shocks', 'shuffled', 'slings', 'so', 'suffer', 'take', 'them', 'this', 'thousand', 'troubles', 'us', 'what', 'when', 'whether', 'wished']\nE       assert 'unique_words' in {'a': 30, 'against': 10, 'and': 40, 'arms': 10, ...}\n\ntests/test_final_state.py:80: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frequency_the_is_three",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0007524710381403565,
+                "start": 1778136769.1543555,
+                "stop": 1778136769.1593075,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_frequency_the_is_three():\n        \"\"\"frequencies['the'] must equal 3.\"\"\"\n        data = _load_output()\n>       assert \"frequencies\" in data, (\n            f\"'frequencies' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'frequencies' key missing from output. Got keys: ['to', 'the', 'sleep', 'and', 'is', 'of', 'that', 'a', 'be', 'by', 'die', 'end', 'in', 'or', 'there', 'tis', 'we', 'against', 'arms', 'arrows', 'ay', 'calamity', 'coil', 'come', 'consummation', 'death', 'devoutly', 'dream', 'dreams', 'flesh', 'for', 'fortune', 'give', 'have', 'heartache', 'heir', 'life', 'long', 'makes', 'may', 'mind', 'more', 'mortal', 'must', 'natural', 'no', 'nobler', 'not', 'off', 'opposing', 'outrageous', 'pause', 'perchance', 'question', 'respect', 'rub', 'say', 'sea', 'shocks', 'shuffled', 'slings', 'so', 'suffer', 'take', 'them', 'this', 'thousand', 'troubles', 'us', 'what', 'when', 'whether', 'wished']\nE       assert 'frequencies' in {'a': 30, 'against': 10, 'and': 40, 'arms': 10, ...}\n\ntests/test_final_state.py:92: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frequency_fox_is_two",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0015077359275892377,
+                "start": 1778136769.1595068,
+                "stop": 1778136769.1640291,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_frequency_fox_is_two():\n        \"\"\"frequencies['fox'] must equal 2.\"\"\"\n        data = _load_output()\n>       assert \"frequencies\" in data, (\n            f\"'frequencies' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'frequencies' key missing from output. Got keys: ['to', 'the', 'sleep', 'and', 'is', 'of', 'that', 'a', 'be', 'by', 'die', 'end', 'in', 'or', 'there', 'tis', 'we', 'against', 'arms', 'arrows', 'ay', 'calamity', 'coil', 'come', 'consummation', 'death', 'devoutly', 'dream', 'dreams', 'flesh', 'for', 'fortune', 'give', 'have', 'heartache', 'heir', 'life', 'long', 'makes', 'may', 'mind', 'more', 'mortal', 'must', 'natural', 'no', 'nobler', 'not', 'off', 'opposing', 'outrageous', 'pause', 'perchance', 'question', 'respect', 'rub', 'say', 'sea', 'shocks', 'shuffled', 'slings', 'so', 'suffer', 'take', 'them', 'this', 'thousand', 'troubles', 'us', 'what', 'when', 'whether', 'wished']\nE       assert 'frequencies' in {'a': 30, 'against': 10, 'and': 40, 'arms': 10, ...}\n\ntests/test_final_state.py:108: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_frequency_quick_is_one",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 0.0009059750009328127,
+                "start": 1778136769.1641166,
+                "stop": 1778136769.1678762,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_frequency_quick_is_one():\n        \"\"\"frequencies['quick'] must equal 1.\"\"\"\n        data = _load_output()\n>       assert \"frequencies\" in data, (\n            f\"'frequencies' key missing from output. Got keys: {list(data.keys())}\"\n        )\nE       AssertionError: 'frequencies' key missing from output. Got keys: ['to', 'the', 'sleep', 'and', 'is', 'of', 'that', 'a', 'be', 'by', 'die', 'end', 'in', 'or', 'there', 'tis', 'we', 'against', 'arms', 'arrows', 'ay', 'calamity', 'coil', 'come', 'consummation', 'death', 'devoutly', 'dream', 'dreams', 'flesh', 'for', 'fortune', 'give', 'have', 'heartache', 'heir', 'life', 'long', 'makes', 'may', 'mind', 'more', 'mortal', 'must', 'natural', 'no', 'nobler', 'not', 'off', 'opposing', 'outrageous', 'pause', 'perchance', 'question', 'respect', 'rub', 'say', 'sea', 'shocks', 'shuffled', 'slings', 'so', 'suffer', 'take', 'them', 'this', 'thousand', 'troubles', 'us', 'what', 'when', 'whether', 'wished']\nE       assert 'frequencies' in {'a': 30, 'against': 10, 'and': 40, 'arms': 10, ...}\n\ntests/test_final_state.py:124: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}
